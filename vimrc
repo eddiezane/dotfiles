@@ -4,8 +4,7 @@ filetype off                   " required!
  set rtp+=~/.vim/bundle/vundle/
  call vundle#rc()
 
- " let Vundle manage Vundle
- " required! 
+ " Let Vundle manage Vundle. Required! 
  Bundle 'gmarik/vundle'
 
  " My Bundles here:
@@ -20,6 +19,9 @@ filetype off                   " required!
  Bundle 'tpope/vim-fugitive'
  Bundle 'tpope/vim-endwise'
  Bundle 'ervandew/supertab'
+ Bundle 'tpope/vim-markdown'
+ Bundle 'slim-template/vim-slim'
+ Bundle 'ZoomWin'
  filetype plugin indent on
 
  " Colors
