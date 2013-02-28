@@ -66,9 +66,14 @@ hi IndentGuidesEven ctermbg=233 guibg=#333333
 hi IndentGuidesOdd ctermbg=black guibg=#2b2b2b
 
 " 80-column line
-set colorcolumn=81
-hi ColorColumn ctermbg=234
-hi ColorColumn guibg=grey15
+if v:version >= 703
+  set colorcolumn=81
+  hi ColorColumn ctermbg=234
+  hi ColorColumn guibg=grey15
+else
+  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+  match OverLength /\%81v.\+/
+endif
 
 " Crutch
 set mouse=a
