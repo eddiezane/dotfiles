@@ -18,8 +18,9 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-endwise'
-Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-haml'
+Bundle 'ervandew/supertab'
 Bundle 'slim-template/vim-slim'
 Bundle 'ZoomWin'
 filetype plugin indent on
@@ -36,8 +37,10 @@ set scrolloff=5
 " Automatically reload files
 set autoread
 
-" Don't wrap text
-set nowrap
+" Wrap text
+set wrap
+set textwidth=80
+set linebreak
 
 " Soft tabs
 set expandtab
