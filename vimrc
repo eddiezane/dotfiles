@@ -57,7 +57,9 @@ nmap <leader>U mQgewvU`Q
 nmap <leader>L mQgewvu`Q
 
 " Toggle hlsearch with <leader>hs
+set hlsearch
 nmap <leader>hs :set hlsearch! hlsearch?<CR> 
+nmap <leader>hn :noh<CR>
 
 " Indent-Guides
 au VimEnter * :IndentGuidesEnable
