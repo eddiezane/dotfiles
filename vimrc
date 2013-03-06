@@ -1,4 +1,5 @@
 set nocompatible               " be iMproved
+set encoding=utf-8
 filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
@@ -12,7 +13,9 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'fortes/vim-railscasts'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
@@ -88,6 +91,20 @@ let NERDSpaceDelims=1
 map <Leader>n :NERDTreeToggle<CR>
 map <leader>/ <plug>NERDCommenterToggle<CR>
 imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
+
+" Statusline
+set laststatus=2
+let g:Powerline_symbols = 'fancy'
+" if has("statusline") && !&cp
+  " set laststatus=2  " always show the status bar
+
+  " " Start the status line
+  " set statusline=%f\ %m\ %r
+  " set statusline+=Line:%l/%L[%p%%]
+  " set statusline+=Col:%v
+  " set statusline+=Buf:#%n
+  " set statusline+=[%b][0x%B]
+" endif
 
 " Changes in buffer
 function! s:DiffWithSaved()
