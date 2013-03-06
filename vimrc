@@ -14,6 +14,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kien/ctrlp.vim'
 Bundle 'fortes/vim-railscasts'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-fugitive'
@@ -56,10 +57,11 @@ nmap <leader>l mQviwu`Q
 nmap <leader>U mQgewvU`Q
 nmap <leader>L mQgewvu`Q
 
-" Toggle hlsearch with <leader>hs
+" Highlighting
 set hlsearch
 nmap <leader>hs :set hlsearch! hlsearch?<CR> 
 nmap <leader>hn :noh<CR>
+highlight clear SignColumn
 
 " Indent-Guides
 au VimEnter * :IndentGuidesEnable
@@ -86,4 +88,15 @@ let NERDSpaceDelims=1
 map <Leader>n :NERDTreeToggle<CR>
 map <leader>/ <plug>NERDCommenterToggle<CR>
 imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
+
+" Changes in buffer
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+map <leader>ds :DiffSaved<CR>
 
