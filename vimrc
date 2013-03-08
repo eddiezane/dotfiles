@@ -85,6 +85,9 @@ endif
 " Crutch
 set mouse=a
 
+" Create fold from bracket
+map <leader>zf zfaB
+
 " NERD
 let NERDRemoveExtraSpaces=1
 let NERDSpaceDelims=1

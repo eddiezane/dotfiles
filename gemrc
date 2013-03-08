@@ -1,7 +1,7 @@
 --- 
 :update_sources: true
 :sources: 
-- http://rubygems.org/
+- https://rubygems.org/
 - http://gemcutter.org
 gem: --no-ri --no-rdoc
 :verbose: true
