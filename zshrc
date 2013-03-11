@@ -30,7 +30,7 @@ function mkcd
 if [[ `uname` == "Darwin" ]]; then
   export BROWSER=open
   export EDITOR=vim
-  export PATH=$HOME/.rvm/bin:/Applications/android-sdk-macosx/platform-tools:\
+  export PATH=/usr/local/bin:$HOME/.rvm/bin:/Applications/android-sdk-macosx/platform-tools:\
 \ /Applications/android-sdk-macosx/tools:/usr/local/share/npm/bin:\
 \ /usr/local/heroku/bin:$PATH
 else
