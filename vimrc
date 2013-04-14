@@ -28,10 +28,12 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
+Bundle 'terryma/vim-multiple-cursors'
 Bundle 'ervandew/supertab'
 Bundle 'slim-template/vim-slim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ZoomWin'
+
 filetype plugin indent on
 
 " Colors
