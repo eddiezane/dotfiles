@@ -24,7 +24,7 @@ installVim() {
 
 installZsh() {
   sudo apt-get install zsh
-  sudo chsh eddiezane -s /bin/zsh
+  sudo chsh $USER -s /bin/zsh
   git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
   mkdir ~/.oh-my-zsh/custom/themes
   mkdir ~/.oh-my-zsh/custom/plugins
