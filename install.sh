@@ -5,7 +5,7 @@ installMenu() {
   echo "\t 1. Git"
   echo "\t 2. Vim"
   echo "\t 3. Zsh"
-  echo "\t 4. Openssl"
+  echo "\t 4. Tmux"
   echo "\t 5. RVM"
   echo "\t 9. All"
   echo "\t q. Quit"
@@ -35,11 +35,14 @@ installZsh() {
   ln -s ~/.dotfiles/eddiezane.plugin.zsh ~/.oh-my-zsh/custom/plugins/eddiezane/eddiezane.plugins.zsh
 }
 
-installOpenssl() {
-   sudo apt-get install openssl
- }
+installTmux() {
+  sudo apt-get install tmux
+  rm ~/.tmux.conf
+  ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+}
 
 installRVM() {
+  sudo apt-get install openssl
   curl -#L https://get.rvm.io | bash -s stable --autolibs=3
   ln -s ~/.dotfiles/gemrc ~/.gemrc
 }
@@ -48,7 +51,7 @@ installAll() {
   installGit
   installVim
   installZsh
-  installOpenssl
+  installTmux
   installRVM
 }
 
@@ -65,7 +68,7 @@ do
     1) installGit;;
     2) installVim;;
     3) installZsh;;
-    4) installOpenssl;;
+    4) installTmux;;
     5) installRVM;;
     9) installAll;;
     q) break;;
