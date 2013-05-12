@@ -49,9 +49,12 @@ set scrolloff=5
 set autoread
 
 " Wrap text
-set wrap
-set textwidth=80
-set linebreak
+" set wrap
+" set textwidth=80
+" set linebreak
+
+" Backspace
+set backspace=indent,eol,start
 
 " Soft tabs
 set expandtab
