@@ -27,7 +27,7 @@ function mkcd
 if [[ `uname` == "Darwin" ]]; then
   export BROWSER=open
   export EDITOR=vim
-  export PATH=/usr/local/bin:/usr/local/share/npm/bin:/usr/local/heroku/bin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:$PATH
+  export PATH=/usr/local/bin:/usr/local/share/npm/bin:/usr/local/share/python:/usr/local/heroku/bin:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:$PATH
   if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 else
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
