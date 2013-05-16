@@ -33,6 +33,7 @@ Bundle 'ervandew/supertab'
 Bundle 'slim-template/vim-slim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ZoomWin'
+Bundle 'FredKSchott/CoVim'
 
 filetype plugin indent on
 
