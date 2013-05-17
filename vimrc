@@ -49,10 +49,8 @@ set scrolloff=5
 " Automatically reload files
 set autoread
 
-" Wrap text
-" set wrap
-" set textwidth=80
-" set linebreak
+" Don't wrap text
+set nowrap
 
 " Backspace
 set backspace=indent,eol,start
