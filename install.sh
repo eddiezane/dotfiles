@@ -7,6 +7,7 @@ installMenu() {
   echo "\t 3. Zsh"
   echo "\t 4. Tmux"
   echo "\t 5. RVM"
+  echo "\t 6. Symlink All"
   echo "\t 9. All"
   echo "\t q. Quit"
 }
@@ -47,6 +48,21 @@ installRVM() {
   ln -s ~/.dotfiles/gemrc ~/.gemrc
 }
 
+symlinkAll() {
+  rm ~/.vimrc
+  rm ~/.zshrc
+  rm ~/.tmux.conf
+  rm ~/.oh-my-zsh/custom/theme/eddiezane.zsh-theme
+  rm ~/.oh-my-zsh/custom/plugins/eddiezane/eddiezane.plugins.zsh
+  rm ~/.gemrc
+  ln -s ~/.dotfiles/vimrc ~/.vimrc
+  ln -s ~/.dotfiles/zshrc ~/.zshrc
+  ln -s ~/.dotfiles/eddiezane.zsh-theme ~/.oh-my-zsh/custom/themes/eddiezane.zsh-theme
+  ln -s ~/.dotfiles/eddiezane.plugin.zsh ~/.oh-my-zsh/custom/plugins/eddiezane/eddiezane.plugins.zsh
+  ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+  ln -s ~/.dotfiles/gemrc ~/.gemrc
+}
+
 installAll() {
   installGit
   installVim
@@ -70,6 +86,7 @@ do
     3) installZsh;;
     4) installTmux;;
     5) installRVM;;
+    6) symlinkAll;;
     9) installAll;;
     q) break;;
   esac
