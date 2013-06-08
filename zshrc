@@ -8,7 +8,7 @@ CASE_SENSITIVE="true"
 
 DISABLE_AUTO_TITLE="true"
 
-plugins=(git eddiezane)
+plugins=(git eddiezane brew)
 
 # Justin is smart
 alias :q="exit"
