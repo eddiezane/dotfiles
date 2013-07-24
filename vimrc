@@ -13,7 +13,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'fortes/vim-railscasts'
@@ -33,6 +33,7 @@ Bundle 'ervandew/supertab'
 Bundle 'slim-template/vim-slim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ZoomWin'
+Bundle 'godlygeek/tabular'
 Bundle 'FredKSchott/CoVim'
 
 filetype plugin indent on
@@ -106,7 +107,7 @@ imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 
 " Statusline
 set laststatus=2
-let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
 " if has("statusline") && !&cp
   " set laststatus=2  " always show the status bar
 
