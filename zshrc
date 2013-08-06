@@ -37,3 +37,7 @@ else
   export PATH=$HOME/.rvm/bin:$PATH
 fi
 
+ssh-add -l &>/dev/null
+if [[ $? == 1 ]]; then
+  ssh-add &>/dev/null
+fi
