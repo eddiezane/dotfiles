@@ -31,7 +31,7 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'ervandew/supertab'
 Bundle 'slim-template/vim-slim'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'ZoomWin'
 Bundle 'godlygeek/tabular'
 Bundle 'FredKSchott/CoVim'
@@ -46,6 +46,7 @@ syntax on
 set number
 set numberwidth=1
 set scrolloff=5
+highlight LineNr ctermfg=240
 
 " Automatically reload files
 set autoread

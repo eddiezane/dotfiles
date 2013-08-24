@@ -4,8 +4,6 @@ ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 
 CASE_SENSITIVE="true"
 
-# DISABLE_LS_COLORS="true"
-
 DISABLE_AUTO_TITLE="true"
 
 plugins=(git eddiezane brew)
@@ -17,12 +15,26 @@ alias :n="node"
 
 source $ZSH/oh-my-zsh.sh
 
+unsetopt auto_name_dirs
+
 # make and cd
 function mkcd
 {
     dir="$*";
     mkdir -p "$dir" && cd "$dir";
 }
+
+function name_dat_tmux 
+{
+  if [ "$TMUX" ]; then
+    if [ "$PWD" != "$OLDPWD" ]; then
+      OLDPWD="$PWD";
+      tmux rename-window ${PWD##*/};
+    fi
+  fi
+}
+
+precmd_functions+='name_dat_tmux'
 
 # Check if on Mac
 if [[ `uname` == "Darwin" ]]; then
