@@ -96,6 +96,9 @@ endif
 " Crutch
 set mouse=a
 
+" Clipboard
+set clipboard+=unnamed
+
 " Create fold from bracket
 map <leader>zf zfaB
 
