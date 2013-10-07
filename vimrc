@@ -35,6 +35,8 @@ Bundle 'mattn/emmet-vim'
 Bundle 'ZoomWin'
 Bundle 'godlygeek/tabular'
 Bundle 'FredKSchott/CoVim'
+Bundle 'taglist.vim'
+Bundle 'itspriddle/vim-stripper'
 
 filetype plugin indent on
 
@@ -99,6 +101,8 @@ set mouse=a
 " Clipboard
 set clipboard+=unnamed
 
+set pastetoggle=<leader>p
+
 " Create fold from bracket
 map <leader>zf zfaB
 
@@ -133,4 +137,3 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 map <leader>ds :DiffSaved<CR>
-
