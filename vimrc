@@ -5,7 +5,7 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" Let Vundle manage Vundle. Required! 
+" Let Vundle manage Vundle. Required!
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -39,6 +39,8 @@ Bundle 'taglist.vim'
 Bundle 'itspriddle/vim-stripper'
 
 filetype plugin indent on
+
+let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " Colors
 colorscheme railscasts
@@ -75,8 +77,7 @@ nmap <leader>L mQgewvu`Q
 
 " Highlighting
 set hlsearch
-nmap <leader>hs :set hlsearch! hlsearch?<CR> 
-nmap <leader>hn :noh<CR>
+nmap <leader>hs :set hlsearch! hlsearch?<CR>
 highlight clear SignColumn
 
 " Indent-Guides
