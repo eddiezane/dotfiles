@@ -36,7 +36,9 @@ Bundle 'ZoomWin'
 Bundle 'godlygeek/tabular'
 Bundle 'FredKSchott/CoVim'
 Bundle 'taglist.vim'
-Bundle 'itspriddle/vim-stripper'
+
+" Not sure if
+" Bundle 'itspriddle/vim-stripper'
 
 filetype plugin indent on
 
@@ -51,6 +53,11 @@ set number
 set numberwidth=1
 set scrolloff=5
 highlight LineNr ctermfg=240
+
+" Crosshairs
+hi CursorLine   cterm=NONE ctermbg=235
+hi CursorColumn cterm=NONE ctermbg=235
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 " Automatically reload files
 set autoread
@@ -96,12 +103,13 @@ else
   match OverLength /\%81v.\+/
 endif
 
-" Crutch
+" Mouse
 set mouse=a
 
 " Clipboard
 set clipboard+=unnamed
 
+" Toggle paste mode
 set pastetoggle=<leader>p
 
 " Create fold from bracket
@@ -117,24 +125,3 @@ imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 " Statusline
 set laststatus=2
 let g:airline_powerline_fonts = 1
-" if has("statusline") && !&cp
-  " set laststatus=2  " always show the status bar
-
-  " " Start the status line
-  " set statusline=%f\ %m\ %r
-  " set statusline+=Line:%l/%L[%p%%]
-  " set statusline+=Col:%v
-  " set statusline+=Buf:#%n
-  " set statusline+=[%b][0x%B]
-" endif
-
-" Changes in buffer
-function! s:DiffWithSaved()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffSaved call s:DiffWithSaved()
-map <leader>ds :DiffSaved<CR>
