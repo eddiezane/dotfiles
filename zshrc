@@ -11,7 +11,7 @@ if [[ `uname` == "Darwin" ]]; then
   export EDITOR=vim
   source ~/.dotfiles/API_KEYS
   export GOPATH=~/.go
-  export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$GOPATH:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:$PATH
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:$PATH
 fi
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
