@@ -12,6 +12,8 @@ if [[ `uname` == "Darwin" ]]; then
   source ~/.dotfiles/API_KEYS
   export GOPATH=~/.go
   export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:$PATH
+else
+  export PATH="$HOME/.rbenv/bin:$PATH"
 fi
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
