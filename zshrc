@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane brew)
+plugins=(git eddiezane brew gitignore)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
 
