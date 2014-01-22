@@ -11,7 +11,9 @@ if [[ `uname` == "Darwin" ]]; then
   export EDITOR=vim
   source ~/.dotfiles/API_KEYS
   export GOPATH=~/.go
-  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH:/Applications/android-sdk-macosx/platform-tools:/Applications/android-sdk-macosx/tools:$PATH
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH:$PATH
+  source $(brew --prefix nvm)/nvm.sh
+  source /usr/local/share/zsh/site-functions/nvm_bash_completion
 else
   export PATH="$HOME/.rbenv/bin:$PATH"
 fi

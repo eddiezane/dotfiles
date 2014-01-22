@@ -36,6 +36,8 @@ Bundle 'ZoomWin'
 Bundle 'godlygeek/tabular'
 Bundle 'FredKSchott/CoVim'
 Bundle 'taglist.vim'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'wting/rust.vim'
 
 " Not sure if
 " Bundle 'itspriddle/vim-stripper'
