@@ -5,43 +5,42 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" Let Vundle manage Vundle. Required!
+" Bundles
 Bundle 'gmarik/vundle'
-
-" My Bundles here:
+Bundle 'fortes/vim-railscasts'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'fortes/vim-railscasts'
+Bundle 'ervandew/supertab'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'kchmck/vim-coffee-script'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'mattn/emmet-vim'
+Bundle 'ZoomWin'
+Bundle 'godlygeek/tabular'
+Bundle 'taglist.vim'
+
+" All hail
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'ervandew/supertab'
+
+" Language specific
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
-Bundle 'mattn/emmet-vim'
-Bundle 'ZoomWin'
-Bundle 'godlygeek/tabular'
-Bundle 'FredKSchott/CoVim'
-Bundle 'taglist.vim'
+Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'jnwhiteh/vim-golang'
-Bundle 'wting/rust.vim'
 
-" Not sure if
-" Bundle 'itspriddle/vim-stripper'
-
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
@@ -105,17 +104,14 @@ else
   match OverLength /\%81v.\+/
 endif
 
-" Mouse
+" Mouse crutch
 set mouse=a
 
-" Clipboard
+" Use system clipboard
 set clipboard+=unnamed
 
 " Toggle paste mode
 set pastetoggle=<leader>p
-
-" Create fold from bracket
-map <leader>zf zfaB
 
 " NERD
 let NERDRemoveExtraSpaces=1
@@ -127,3 +123,6 @@ imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 " Statusline
 set laststatus=2
 let g:airline_powerline_fonts = 1
+
+" Go fmt on write
+" autocmd FileType go autocmd BufWritePre <buffer> Fmt

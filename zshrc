@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane brew gitignore)
+plugins=(git eddiezane brew go npm)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
 
@@ -10,8 +10,10 @@ if [[ `uname` == "Darwin" ]]; then
   export BROWSER=open
   export EDITOR=vim
   source ~/.dotfiles/API_KEYS
+  export GOROOT=/usr/local/Cellar/go/1.2/libexec
   export GOPATH=~/.go
-  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH:$PATH
+  export DOCKER_HOST=tcp://
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
   source $(brew --prefix nvm)/nvm.sh
   source /usr/local/share/zsh/site-functions/nvm_bash_completion
 else
