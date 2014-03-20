@@ -10,7 +10,7 @@ if [[ `uname` == "Darwin" ]]; then
   export BROWSER=open
   export EDITOR=vim
   source ~/.dotfiles/API_KEYS
-  export GOROOT=/usr/local/Cellar/go/1.2/libexec
+  export GOROOT=/usr/local/Cellar/go/1.2.1/libexec
   export GOPATH=~/.go
   export DOCKER_HOST=tcp://
   export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
@@ -18,6 +18,7 @@ if [[ `uname` == "Darwin" ]]; then
   source /usr/local/share/zsh/site-functions/nvm_bash_completion
 else
   export PATH="$HOME/.rbenv/bin:$PATH"
+  export PATH=$HOME/.rbenv/bin:/usr/local/go/bin:$PATH
 fi
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -25,6 +26,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 alias :q="exit"
 alias :r="ruby"
 alias :n="node"
+alias :p="python"
 
 function mkcd
 {
