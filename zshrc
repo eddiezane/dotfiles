@@ -68,3 +68,6 @@ ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then
   ssh-add &>/dev/null
 fi
+
+# make sure return code is 0
+true
