@@ -2,45 +2,46 @@ set nocompatible               " be iMproved
 set encoding=utf-8
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 " Bundles
-Bundle 'gmarik/vundle'
-Bundle 'fortes/vim-railscasts'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ervandew/supertab'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'mattn/emmet-vim'
-Bundle 'ZoomWin'
-Bundle 'godlygeek/tabular'
-Bundle 'taglist.vim'
+Plugin 'gmarik/vundle'
+Plugin 'fortes/vim-railscasts'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+" Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'mattn/emmet-vim'
+Plugin 'ZoomWin'
+Plugin 'godlygeek/tabular'
+Plugin 'taglist.vim'
 
 " All hail
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-dispatch'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-dispatch'
 
 " Language specific
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-haml'
-Bundle 'slim-template/vim-slim'
-Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'jnwhiteh/vim-golang'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-haml'
+Plugin 'slim-template/vim-slim'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'fatih/vim-go'
+Plugin 'evanmiller/nginx-vim-syntax'
+Plugin 'marijnh/tern_for_vim'
 
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
@@ -123,6 +124,14 @@ imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 " Statusline
 set laststatus=2
 let g:airline_powerline_fonts = 1
+
+" YouCompleteMe settings"
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_confirm_extra_conf = 0
+set completeopt-=preview
+let g:EclimCompletionMethod = 'omnifunc'
+let g:ycm_auto_trigger = 0
 
 " Go fmt on write
 " autocmd FileType go autocmd BufWritePre <buffer> Fmt
