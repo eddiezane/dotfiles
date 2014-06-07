@@ -11,16 +11,17 @@ if [[ `uname` == "Darwin" ]]; then
     export BROWSER=open
     export EDITOR=vim
     source ~/.dotfiles/API_KEYS
-    export GOROOT=/usr/local/Cellar/go/1.2.1/libexec
+    export GOROOT=/usr/local/Cellar/go/1.2.2/libexec
     export GOPATH=~/.go
     export DOCKER_HOST=tcp://
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
+    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+    export NVM_DIR=~/.nvm
     source $(brew --prefix nvm)/nvm.sh
     source /usr/local/share/zsh/site-functions/nvm_bash_completion
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
   fi
 else
-  export PATH="$HOME/.rbenv/bin:$PATH"
   export PATH=$HOME/.rbenv/bin:/usr/local/go/bin:$PATH
 fi
 
@@ -30,41 +31,40 @@ alias :r="ruby"
 alias :n="node"
 alias :p="python"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
+alias bu="brew update && brew upgrade"
 
-function mkcd
-{
-    dir="$*";
-    mkdir -p "$dir" && cd "$dir";
+function mkcd {
+  dir="$*";
+  mkdir -p "$dir" && cd "$dir";
 }
 
-function name_dat_tmux 
-{
-  if [ "$TMUX" ]; then
-    if [ "$PWD" != "$OLDPWD" ]; then
-      OLDPWD="$PWD";
-      tmux rename-window ${PWD##*/};
-    fi
+function name_dat_tmux {
+if [ "$TMUX" ]; then
+  if [ "$PWD" != "$OLDPWD" ]; then
+    OLDPWD="$PWD";
+    tmux rename-window ${PWD##*/};
   fi
+fi
 }
 
 precmd_functions+='name_dat_tmux'
 
-ssh() {
-    if [[ $# == 0 || -z $TMUX ]]; then
-        command ssh $@
-        return
-    fi
-    local remote=${${(P)#}#*@*}
-    local old_name="$(tmux display-message -p '#W')"
-    local renamed=0
-    if [[ $remote != -* ]]; then
-        renamed=1
-        tmux rename-window $remote
-    fi
+function ssh {
+  if [[ $# == 0 || -z $TMUX ]]; then
     command ssh $@
-    if [[ $renamed == 1 ]]; then
-        tmux rename-window "$old_name"
-    fi
+    return
+  fi
+  local remote=${${(P)#}#*@*}
+  local old_name="$(tmux display-message -p '#W')"
+  local renamed=0
+  if [[ $remote != -* ]]; then
+    renamed=1
+    tmux rename-window $remote
+  fi
+  command ssh $@
+  if [[ $renamed == 1 ]]; then
+    tmux rename-window "$old_name"
+  fi
 }
 
 ssh-add -l &>/dev/null

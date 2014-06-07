@@ -6,7 +6,7 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 " Bundles
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 Plugin 'fortes/vim-railscasts'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
