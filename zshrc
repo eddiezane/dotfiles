@@ -3,6 +3,7 @@ ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 plugins=(git eddiezane brew go npm)
+fpath=(/usr/local/share/zsh-completions $fpath)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
 
@@ -13,18 +14,18 @@ if [[ `uname` == "Darwin" ]]; then
     source ~/.dotfiles/API_KEYS
     export GOROOT=/usr/local/Cellar/go/1.2.2/libexec
     export GOPATH=~/.go
-    export DOCKER_HOST=tcp://
+    export DOCKER_HOST=tcp://localhost:2375
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export NVM_DIR=~/.nvm
     source $(brew --prefix nvm)/nvm.sh
     source /usr/local/share/zsh/site-functions/nvm_bash_completion
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+    if which jenv > /dev/null; then eval "$(jenv init -)"; fi
   fi
 else
   export PATH=$HOME/.rbenv/bin:/usr/local/go/bin:$PATH
 fi
-
 
 alias :q="exit"
 alias :r="ruby"

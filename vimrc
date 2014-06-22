@@ -77,12 +77,12 @@ set softtabstop=2
 set tabstop=2
 
 " upper/lower word
-nmap <leader>u mQviwU`Q
-nmap <leader>l mQviwu`Q
+nmap <leader>U mQviwU`Q
+nmap <leader>L mQviwu`Q
 
 " upper/lower first char of word
-nmap <leader>U mQgewvU`Q
-nmap <leader>L mQgewvu`Q
+nmap <leader>u mQgewvU`Q
+nmap <leader>l mQgewvu`Q
 
 " Highlighting
 set hlsearch
