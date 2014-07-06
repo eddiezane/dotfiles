@@ -12,7 +12,7 @@ if [[ `uname` == "Darwin" ]]; then
     export BROWSER=open
     export EDITOR=vim
     source ~/.dotfiles/API_KEYS
-    export GOROOT=/usr/local/Cellar/go/1.2.2/libexec
+    export GOROOT=/usr/local/Cellar/go/1.3/libexec
     export GOPATH=~/.go
     export DOCKER_HOST=tcp://localhost:2375
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH

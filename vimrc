@@ -7,7 +7,7 @@ call vundle#rc()
 
 " Bundles
 Plugin 'gmarik/Vundle.vim'
-Plugin 'fortes/vim-railscasts'
+Plugin 'fortes/vim-escuro'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -47,7 +47,7 @@ filetype plugin indent on
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " Colors
-colorscheme railscasts
+colorscheme escuro
 syntax on
 
 " Line numbers
@@ -132,6 +132,8 @@ let g:ycm_confirm_extra_conf = 0
 set completeopt-=preview
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_auto_trigger = 0
+
+cmap w!! w !sudo tee % >/dev/null
 
 " Go fmt on write
 " autocmd FileType go autocmd BufWritePre <buffer> Fmt
