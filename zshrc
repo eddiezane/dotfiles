@@ -11,18 +11,18 @@ if [[ `uname` == "Darwin" ]]; then
   if [ -z "$TMUX" ]; then
     export BROWSER=open
     export EDITOR=vim
-    source ~/.dotfiles/API_KEYS
     export GOROOT=/usr/local/Cellar/go/1.3/libexec
     export GOPATH=~/.go
     export DOCKER_HOST=tcp://localhost:2375
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export NVM_DIR=~/.nvm
-    source $(brew --prefix nvm)/nvm.sh
-    source /usr/local/share/zsh/site-functions/nvm_bash_completion
-    if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-    if which jenv > /dev/null; then eval "$(jenv init -)"; fi
   fi
+  source ~/.dotfiles/API_KEYS
+  source $(brew --prefix nvm)/nvm.sh
+  source /usr/local/share/zsh/site-functions/nvm_bash_completion
+  if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+  if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 else
   export PATH=$HOME/.rbenv/bin:/usr/local/go/bin:$PATH
 fi

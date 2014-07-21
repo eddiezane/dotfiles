@@ -22,6 +22,8 @@ Plugin 'mattn/emmet-vim'
 Plugin 'ZoomWin'
 Plugin 'godlygeek/tabular'
 Plugin 'taglist.vim'
+Plugin 'iandoe/vim-osx-colorpicker'
+Plugin 'ap/vim-css-color'
 
 " All hail
 Plugin 'tpope/vim-rails'
@@ -50,11 +52,14 @@ let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 colorscheme escuro
 syntax on
 
+" OSX color picker
+let g:colorpicker_app = 'iTerm.app'
+
 " Line numbers
 set number
 set numberwidth=1
 set scrolloff=5
-highlight LineNr ctermfg=240
+highlight LineNr ctermfg=245
 
 " Crosshairs
 hi CursorLine   cterm=NONE ctermbg=235
