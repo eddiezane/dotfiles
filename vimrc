@@ -24,6 +24,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'taglist.vim'
 Plugin 'iandoe/vim-osx-colorpicker'
 Plugin 'ap/vim-css-color'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " All hail
 Plugin 'tpope/vim-rails'
@@ -113,11 +114,24 @@ endif
 " Mouse crutch
 set mouse=a
 
-" Use system clipboard
-set clipboard+=unnamed
-
 " Toggle paste mode
 set pastetoggle=<leader>p
+
+" Toggle system clipboard
+nnoremap <leader>C :call ToggleSystemClip()<cr>
+
+function! ToggleSystemClip()
+  if &clipboard == "unnamed"
+    set clipboard-=unnamed
+    echom "SysClip Off"
+  else
+    set clipboard=unnamed
+    echom "SysClip On"
+  endif
+endfunction
+
+" Toggle paste mode on paste?
+" imap <D-V> ^O"+p
 
 " NERD
 let NERDRemoveExtraSpaces=1

@@ -1,0 +1,7 @@
+[user]
+	name = Eddie Zaneski
+	email = eddiezane@gmail.com
+[core]
+	excludesfile = /Users/eddiezane/.gitignore_global
+[push]
+	default = simple

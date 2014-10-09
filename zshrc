@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane brew go npm)
+plugins=(git eddiezane go npm)
 fpath=(/usr/local/share/zsh-completions $fpath)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
@@ -33,6 +33,7 @@ alias :n="node"
 alias :p="python"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias bu="brew update && brew upgrade"
+alias vu="vim +PluginUpdate +qa"
 
 function mkcd {
   dir="$*";
@@ -66,6 +67,10 @@ function ssh {
   if [[ $renamed == 1 ]]; then
     tmux rename-window "$old_name"
   fi
+}
+
+function big {
+    osascript -e "tell application \"Quicksilver\" to show large type \"$1\""
 }
 
 ssh-add -l &>/dev/null
