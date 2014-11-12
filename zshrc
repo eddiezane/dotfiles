@@ -11,7 +11,7 @@ if [[ `uname` == "Darwin" ]]; then
   if [ -z "$TMUX" ]; then
     export BROWSER=open
     export EDITOR=vim
-    export GOROOT=/usr/local/Cellar/go/1.3/libexec
+    export GOROOT=/usr/local/opt/go/libexec
     export GOPATH=~/.go
     export DOCKER_HOST=tcp://localhost:2375
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
