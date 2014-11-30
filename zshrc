@@ -69,8 +69,8 @@ function ssh {
   fi
 }
 
-function big {
-    osascript -e "tell application \"Quicksilver\" to show large type \"$1\""
+function chrome {
+  open -a /Applications/Google\ Chrome.app $@
 }
 
 ssh-add -l &>/dev/null
