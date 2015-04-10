@@ -60,6 +60,16 @@ let g:colorpicker_app = 'iTerm.app'
 set number
 set numberwidth=1
 set scrolloff=5
+
+nnoremap <leader>g :call NumberToggle()<cr>
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
 highlight LineNr ctermfg=245
 
 " Crosshairs
@@ -72,6 +82,15 @@ set autoread
 
 " Don't wrap text
 set nowrap
+
+nnoremap <leader>w :call WrapToggle()<cr>
+function! WrapToggle()
+  if(&wrap == 1)
+    set nowrap
+  else
+    set wrap
+  endif
+endfunc
 
 " Backspace
 set backspace=indent,eol,start
