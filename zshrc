@@ -12,14 +12,14 @@ if [[ `uname` == "Darwin" ]]; then
     export BROWSER=open
     export EDITOR=vim
     export GOROOT=/usr/local/opt/go/libexec
-    export GOPATH=~/.go
-    export DOCKER_HOST=tcp://localhost:2375
+    export GOPATH=/Users/eddiezane/Codez/GOPATH
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export NVM_DIR=~/.nvm
   fi
   source ~/.dotfiles/API_KEYS
   source $(brew --prefix nvm)/nvm.sh
+  source $(brew --prefix php-version)/php-version.sh && php-version 5
   source /usr/local/share/zsh/site-functions/nvm_bash_completion
   if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
   if which jenv > /dev/null; then eval "$(jenv init -)"; fi
@@ -31,6 +31,7 @@ alias :q="exit"
 alias :r="ruby"
 alias :n="node"
 alias :p="python"
+alias pypi-deploy="python setup.py sdist bdist_wininst upload"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias bu="brew update && brew upgrade"
 alias vu="vim +PluginUpdate +qa"
