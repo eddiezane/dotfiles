@@ -6,9 +6,24 @@ plugins=(git eddiezane go npm)
 fpath=(/usr/local/share/zsh-completions $fpath)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
+setopt HIST_IGNORE_SPACE
+
+bindkey -v
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 if [[ `uname` == "Darwin" ]]; then
-  if [ -z "$TMUX" ]; then
+  if [[ -z "$TMUX" ]]; then
     export BROWSER=open
     export EDITOR=vim
     export GOROOT=/usr/local/opt/go/libexec
@@ -16,13 +31,13 @@ if [[ `uname` == "Darwin" ]]; then
     export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export NVM_DIR=~/.nvm
+    source ~/.dotfiles/API_KEYS
   fi
-  source ~/.dotfiles/API_KEYS
-  source $(brew --prefix nvm)/nvm.sh
-  source $(brew --prefix php-version)/php-version.sh && php-version 5
-  source /usr/local/share/zsh/site-functions/nvm_bash_completion
   if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
   if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+  source $(brew --prefix nvm)/nvm.sh
+  source /usr/local/share/zsh/site-functions/nvm_bash_completion
+  source $(brew --prefix php-version)/php-version.sh && php-version 5
 else
   export PATH=$HOME/.rbenv/bin:/usr/local/go/bin:$PATH
 fi
@@ -33,51 +48,16 @@ alias :n="node"
 alias :p="python"
 alias pypi-deploy="python setup.py sdist bdist_wininst upload"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
-alias bu="brew update && brew upgrade"
+alias bu="brew update && brew upgrade --all"
 alias vu="vim +PluginUpdate +qa"
-
-function mkcd {
-  dir="$*";
-  mkdir -p "$dir" && cd "$dir";
-}
-
-function name_dat_tmux {
-if [ "$TMUX" ]; then
-  if [ "$PWD" != "$OLDPWD" ]; then
-    OLDPWD="$PWD";
-    tmux rename-window ${PWD##*/};
-  fi
-fi
-}
-
-precmd_functions+='name_dat_tmux'
-
-function ssh {
-  if [[ $# == 0 || -z $TMUX ]]; then
-    command ssh $@
-    return
-  fi
-  local remote=${${(P)#}#*@*}
-  local old_name="$(tmux display-message -p '#W')"
-  local renamed=0
-  if [[ $remote != -* ]]; then
-    renamed=1
-    tmux rename-window $remote
-  fi
-  command ssh $@
-  if [[ $renamed == 1 ]]; then
-    tmux rename-window "$old_name"
-  fi
-}
-
-function chrome {
-  open -a /Applications/Google\ Chrome.app $@
-}
 
 ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then
   ssh-add &>/dev/null
 fi
+
+# added by travis gem
+[ -f /Users/eddiezane/.travis/travis.sh ] && source /Users/eddiezane/.travis/travis.sh
 
 # make sure return code is 0
 true

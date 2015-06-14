@@ -1,7 +1,3 @@
-DDev() { cd ~/Dropbox/Development/$1; }
-_DDev() { _files -W ~/Dropbox/Development -/; }
-compdef _DDev DDev
-
 SG() { cd ~/Codez/SendGrid/$1; }
 _SG() { _files -W ~/Codez/SendGrid -/; }
 compdef _SG SG
@@ -14,6 +10,44 @@ function rbenv_check() {
   if [[ "$global" != "$current" ]]; then
     echo " $current"
   fi
+}
+
+function mkcd {
+  dir="$*";
+  mkdir -p "$dir" && cd "$dir";
+}
+
+function name_dat_tmux {
+if [ "$TMUX" ]; then
+  if [ "$PWD" != "$OLDPWD" ]; then
+    OLDPWD="$PWD";
+    tmux rename-window ${PWD##*/};
+  fi
+fi
+}
+
+precmd_functions+='name_dat_tmux'
+
+function ssh {
+  if [[ $# == 0 || -z $TMUX ]]; then
+    command ssh $@
+    return
+  fi
+  local remote=${${(P)#}#*@*}
+  local old_name="$(tmux display-message -p '#W')"
+  local renamed=0
+  if [[ $remote != -* ]]; then
+    renamed=1
+    tmux rename-window $remote
+  fi
+  command ssh $@
+  if [[ $renamed == 1 ]]; then
+    tmux rename-window "$old_name"
+  fi
+}
+
+function chrome {
+  open -a /Applications/Google\ Chrome.app $@
 }
 
 function dnsset() {

@@ -3,7 +3,7 @@ set encoding=utf-8
 filetype off                   " required!
 
 set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
+call vundle#begin()
 
 " Bundles
 Plugin 'gmarik/Vundle.vim'
@@ -25,6 +25,7 @@ Plugin 'taglist.vim'
 Plugin 'iandoe/vim-osx-colorpicker'
 Plugin 'ap/vim-css-color'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'editorconfig/editorconfig-vim'
 
 " All hail
 Plugin 'tpope/vim-rails'
@@ -44,7 +45,16 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'fatih/vim-go'
 Plugin 'evanmiller/nginx-vim-syntax'
 Plugin 'marijnh/tern_for_vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'rust-lang/rust.vim'
 
+Plugin 'pangloss/vim-javascript'
+" Plugin 'mxw/vim-jsx'
+
+" Plugin 'osyo-manga/vim-monster'
+" Plugin 'Shougo/vimproc.vim'
+
+call vundle#end()
 filetype plugin indent on
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
@@ -108,6 +118,9 @@ nmap <leader>L mQviwu`Q
 " upper/lower first char of word
 nmap <leader>u mQgewvU`Q
 nmap <leader>l mQgewvu`Q
+
+" New tab
+nmap <leader>t :tabedit<cr>
 
 " Highlighting
 set hlsearch
@@ -173,5 +186,10 @@ let g:ycm_auto_trigger = 0
 
 cmap w!! w !sudo tee % >/dev/null
 
-" Go fmt on write
-" autocmd FileType go autocmd BufWritePre <buffer> Fmt
+" Set async completion.
+" let g:monster#completion#rcodetools#backend = "async_rct_complete"
+
+" Use neocomplete.vim
+" let g:neocomplete#force_omni_input_patterns = {
+" \   'ruby' : '[^. *\t]\.\|\h\w*::',
+" \}
