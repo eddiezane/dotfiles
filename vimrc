@@ -48,11 +48,23 @@ Plugin 'marijnh/tern_for_vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'rust-lang/rust.vim'
 
-Plugin 'pangloss/vim-javascript'
-" Plugin 'mxw/vim-jsx'
+" Plugin 'pangloss/vim-javascript'
+Plugin 'othree/yajs'
+Plugin 'rschmukler/pangloss-vim-indent'
+Plugin 'mxw/vim-jsx'
 
 " Plugin 'osyo-manga/vim-monster'
 " Plugin 'Shougo/vimproc.vim'
+
+Plugin 'SirVer/ultisnips'
+
+" let mapleader=" "
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsEditSplit="vertical"
 
 call vundle#end()
 filetype plugin indent on
