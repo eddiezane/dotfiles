@@ -8,6 +8,7 @@ call vundle#begin()
 " Bundles
 Plugin 'gmarik/Vundle.vim'
 Plugin 'fortes/vim-escuro'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -26,6 +27,7 @@ Plugin 'iandoe/vim-osx-colorpicker'
 Plugin 'ap/vim-css-color'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'jiangmiao/auto-pairs'
 
 " All hail
 Plugin 'tpope/vim-rails'
@@ -34,6 +36,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-sensible'
 
 " Language specific
 Plugin 'vim-ruby/vim-ruby'
@@ -44,12 +47,16 @@ Plugin 'slim-template/vim-slim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'fatih/vim-go'
 Plugin 'evanmiller/nginx-vim-syntax'
-Plugin 'marijnh/tern_for_vim'
+" Plugin 'marijnh/tern_for_vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'rust-lang/rust.vim'
 
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-fireplace'
+
 " Plugin 'pangloss/vim-javascript'
 Plugin 'othree/yajs'
+Plugin 'othree/es.next.syntax.vim'
 Plugin 'rschmukler/pangloss-vim-indent'
 Plugin 'mxw/vim-jsx'
 
@@ -72,8 +79,11 @@ filetype plugin indent on
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " Colors
-colorscheme escuro
 syntax on
+colorscheme escuro
+" colorscheme solarized
+" set background=light
+" let g:solarized_termcolors=256
 
 " OSX color picker
 let g:colorpicker_app = 'iTerm.app'
@@ -133,6 +143,12 @@ nmap <leader>l mQgewvu`Q
 
 " New tab
 nmap <leader>t :tabedit<cr>
+
+" Shortcut to rapidly toggle `set list`
+" nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+" set listchars=tab:▸\ ,eol:¬,space:.
 
 " Highlighting
 set hlsearch

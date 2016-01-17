@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane go npm)
+plugins=(git eddiezane)
 fpath=(/usr/local/share/zsh-completions $fpath)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
@@ -22,25 +22,21 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-if [[ `uname` == "Darwin" ]]; then
-  if [[ -z "$TMUX" ]]; then
-    export BROWSER=open
-    export EDITOR=vim
-    export GOROOT=/usr/local/opt/go/libexec
-    export GOPATH=/Users/eddiezane/Codez/GOPATH
-    export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
-    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-    export NVM_DIR=~/.nvm
-    source ~/.dotfiles/API_KEYS
-  fi
-  if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-  if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-  source $(brew --prefix nvm)/nvm.sh
-  source /usr/local/share/zsh/site-functions/nvm_bash_completion
-  source $(brew --prefix php-version)/php-version.sh && php-version 5
-else
-  export PATH=$HOME/.rbenv/bin:/usr/local/go/bin:$PATH
+if [[ -z "$TMUX" ]]; then
+  export BROWSER=open
+  export EDITOR=vim
+  export GOPATH=/Users/ezaneski/Codez/GOPATH
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
+  # export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+  source ~/.dotfiles/API_KEYS
 fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+source ~/.nvm/nvm.sh
+# source /usr/local/share/zsh-completions/_nvm
+# source $(brew --prefix php-version)/php-version.sh && php-version 5
+
+eval "$(thefuck --alias)"
 
 alias :q="exit"
 alias :r="ruby"
@@ -50,6 +46,7 @@ alias pypi-deploy="python setup.py sdist bdist_wininst upload"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias bu="brew update && brew upgrade --all"
 alias vu="vim +PluginUpdate +qa"
+alias bn="babel-node"
 
 ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then
