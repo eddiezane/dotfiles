@@ -1,6 +1,6 @@
-SG() { cd ~/Codez/SendGrid/$1; }
-_SG() { _files -W ~/Codez/SendGrid -/; }
-compdef _SG SG
+TW() { cd ~/Codez/Twilio/$1; }
+_TW() { _files -W ~/Codez/Twilio -/; }
+compdef _TW TW
 
 __git_files () { _wanted files expl 'local files' _files }
 
