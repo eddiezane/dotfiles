@@ -1,8 +1,8 @@
 - clean: ['~']
 
 - shell:
-  - [source pre/zsh, Pre ZSH]
-  - [source pre/vim, Pre VIM]
+  - [pre/zsh, Pre ZSH]
+  - [pre/vim, Pre VIM]
 
 - link:
     ~/.tmux.conf: tmux.conf
