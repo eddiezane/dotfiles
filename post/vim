@@ -1,1 +1,1 @@
-vim +PluginInstall +qall
+vim +PluginInstall +qall || true
