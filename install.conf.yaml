@@ -14,4 +14,7 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [post/vim, Post VIM]
+  - [source post/vim, Post VIM]
+  -
+    command: post/vim
+    stdout: true

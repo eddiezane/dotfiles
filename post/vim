@@ -1,1 +1,1 @@
-vim +PluginInstall +qall || true
+echo | echo | vim +PluginInstall +qall
