@@ -8,22 +8,23 @@ call vundle#begin()
 " Bundles
 Plugin 'gmarik/Vundle.vim'
 Plugin 'fortes/vim-escuro'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
 " Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'terryma/vim-multiple-cursors'
+" Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mattn/emmet-vim'
-Plugin 'ZoomWin'
+" Plugin 'ZoomWin'
 Plugin 'godlygeek/tabular'
-Plugin 'taglist.vim'
-Plugin 'iandoe/vim-osx-colorpicker'
+" Plugin 'taglist.vim'
+" Plugin 'iandoe/vim-osx-colorpicker'
 Plugin 'ap/vim-css-color'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'editorconfig/editorconfig-vim'
@@ -40,30 +41,36 @@ Plugin 'tpope/vim-sensible'
 
 " Language specific
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-haml'
-Plugin 'slim-template/vim-slim'
-Plugin 'mustache/vim-mustache-handlebars'
+" Plugin 'tpope/vim-haml'
+" Plugin 'slim-template/vim-slim'
+" Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'fatih/vim-go'
 Plugin 'evanmiller/nginx-vim-syntax'
 " Plugin 'marijnh/tern_for_vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'rust-lang/rust.vim'
+" Plugin 'elixir-lang/vim-elixir'
+" Plugin 'rust-lang/rust.vim'
+Plugin 'leafgarland/typescript-vim'
 
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
 
 " Plugin 'pangloss/vim-javascript'
+" Plugin 'mxw/vim-jsx'
+" Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/yajs'
 Plugin 'othree/es.next.syntax.vim'
-Plugin 'rschmukler/pangloss-vim-indent'
-Plugin 'mxw/vim-jsx'
+Plugin 'gavocanov/vim-js-indent'
+
+" Plugin 'rschmukler/pangloss-vim-indent'
 
 " Plugin 'osyo-manga/vim-monster'
 " Plugin 'Shougo/vimproc.vim'
 
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
+
+" Plugin 'easymotion/vim-easymotion'
+" map <Leader> <Plug>(easymotion-prefix)
 
 " let mapleader=" "
 
@@ -213,6 +220,8 @@ let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_auto_trigger = 0
 
 cmap w!! w !sudo tee % >/dev/null
+
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " Set async completion.
 " let g:monster#completion#rcodetools#backend = "async_rct_complete"

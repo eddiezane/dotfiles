@@ -26,7 +26,8 @@ if [[ -z "$TMUX" ]]; then
   export BROWSER=open
   export EDITOR=vim
   export GOPATH=/Users/ezaneski/Codez/GOPATH
-  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$PATH
+  export ANDROID_HOME=/Users/ezaneski/Library/Android/sdk
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/Users/ezaneski/Library/Android/sdk/tools:/Users/ezaneski/Library/Android/sdk/platform-tools:$PATH
   # export HOMEBREW_CASK_OPTS="--appdir=/Applications"
   source ~/.dotfiles/API_KEYS
 fi

@@ -1,6 +1,2 @@
 *.swp
 .DS_Store
-._*
-venv/*
-.ruby-version
-*.dSYM/*
