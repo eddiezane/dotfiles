@@ -2,13 +2,24 @@ set nocompatible               " be iMproved
 set encoding=utf-8
 filetype off                   " required!
 
+" Vundle bootstrap
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/Vundle.vim
+  let iCanHazVundle=0
+endif
+
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " Bundles
 Plugin 'gmarik/Vundle.vim'
 Plugin 'fortes/vim-escuro'
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -16,7 +27,6 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
-" Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 " Plugin 'terryma/vim-multiple-cursors'
@@ -55,13 +65,13 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
 
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'mxw/vim-jsx'
+" JavaScript
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 " Plugin 'jelera/vim-javascript-syntax'
-Plugin 'othree/yajs'
-Plugin 'othree/es.next.syntax.vim'
-Plugin 'gavocanov/vim-js-indent'
-
+" Plugin 'othree/yajs'
+" Plugin 'othree/es.next.syntax.vim'
+" Plugin 'gavocanov/vim-js-indent'
 " Plugin 'rschmukler/pangloss-vim-indent'
 
 " Plugin 'osyo-manga/vim-monster'
@@ -70,18 +80,26 @@ Plugin 'gavocanov/vim-js-indent'
 " Plugin 'SirVer/ultisnips'
 
 " Plugin 'easymotion/vim-easymotion'
-" map <Leader> <Plug>(easymotion-prefix)
+
+call vundle#end()
+
+" Bootstrap plugin install
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :PluginInstall
+endif
+
+filetype plugin indent on
 
 " let mapleader=" "
+" map <Leader> <Plug>(easymotion-prefix)
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
-
-call vundle#end()
-filetype plugin indent on
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
@@ -155,7 +173,8 @@ nmap <leader>t :tabedit<cr>
 " nmap <leader>l :set list!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-" set listchars=tab:▸\ ,eol:¬,space:.
+set listchars=tab:▸\ ,eol:¬,space:.
+nnoremap <leader>l :setlocal list!<cr>
 
 " Highlighting
 set hlsearch
@@ -222,11 +241,3 @@ let g:ycm_auto_trigger = 0
 cmap w!! w !sudo tee % >/dev/null
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-" Set async completion.
-" let g:monster#completion#rcodetools#backend = "async_rct_complete"
-
-" Use neocomplete.vim
-" let g:neocomplete#force_omni_input_patterns = {
-" \   'ruby' : '[^. *\t]\.\|\h\w*::',
-" \}
