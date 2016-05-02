@@ -88,6 +88,7 @@ if iCanHazVundle == 0
   echo "Installing Bundles, please ignore key map error messages"
   echo ""
   :PluginInstall
+  " !~/.vim/bundle/YouCompleteMe/install.py --clang-completer --tern-completer --gocode-completer
 endif
 
 filetype plugin indent on
