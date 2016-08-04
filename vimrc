@@ -39,6 +39,7 @@ Plugin 'ap/vim-css-color'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'mkitt/tabline.vim'
 
 " All hail
 Plugin 'tpope/vim-rails'
@@ -145,8 +146,10 @@ nnoremap <leader>w :call WrapToggle()<cr>
 function! WrapToggle()
   if(&wrap == 1)
     set nowrap
+    set nolinebreak
   else
     set wrap
+    set linebreak
   endif
 endfunc
 
@@ -183,10 +186,10 @@ nmap <leader>hs :set hlsearch! hlsearch?<CR>
 highlight clear SignColumn
 
 " Indent-Guides
-au VimEnter * :IndentGuidesEnable
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesEven ctermbg=233 guibg=#333333
-hi IndentGuidesOdd ctermbg=black guibg=#2b2b2b
+" au VimEnter * :IndentGuidesEnable
+" let g:indent_guides_auto_colors = 0
+" hi IndentGuidesEven ctermbg=233 guibg=#333333
+" hi IndentGuidesOdd ctermbg=black guibg=#2b2b2b
 
 " 80-column line
 if v:version >= 703
@@ -242,3 +245,11 @@ let g:ycm_auto_trigger = 0
 cmap w!! w !sudo tee % >/dev/null
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+let g:user_emmet_settings = {'html':{'quote_char': "'",},}"'"}}
+
+let c='a'
+while c <= 'z'
+  exec "set <M-".tolower(c).">=\e".c
+  exec "imap \e".c." <M-".tolower(c).">"
+  let c = nr2char(1+char2nr(c))
+endw
