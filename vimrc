@@ -61,7 +61,6 @@ Plugin 'evanmiller/nginx-vim-syntax'
 " Plugin 'marijnh/tern_for_vim'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'rust-lang/rust.vim'
-Plugin 'leafgarland/typescript-vim'
 
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
@@ -69,6 +68,8 @@ Plugin 'tpope/vim-fireplace'
 " JavaScript
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'HerringtonDarkholme/yats.vim'
 " Plugin 'jelera/vim-javascript-syntax'
 " Plugin 'othree/yajs'
 " Plugin 'othree/es.next.syntax.vim'
@@ -93,6 +94,10 @@ if iCanHazVundle == 0
 endif
 
 filetype plugin indent on
+
+nnoremap <Leader>sp :setlocal spell spelllang=en_us<CR>
+au BufRead *.txt,*.md setlocal spell
+nnoremap <Leader>nsp :set nospell<CR>
 
 " let mapleader=" "
 " map <Leader> <Plug>(easymotion-prefix)
@@ -237,10 +242,12 @@ let g:airline_powerline_fonts = 1
 " YouCompleteMe settings"
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
 let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_confirm_extra_conf = 0
-set completeopt-=preview
-let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_auto_trigger = 0
+nnoremap <Leader>yd :YcmCompleter GetDoc <CR>
+nnoremap <Leader>yt :YcmCompleter GetType <CR>
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_confirm_extra_conf = 0
+" set completeopt-=preview
 
 cmap w!! w !sudo tee % >/dev/null
 

@@ -649,9 +649,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>208 155 918 512 0 0 1440 877 </string>
+	<string>208 165 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>0 0 2560 1440 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_4968DFBA-0043-4CFF-9621-CB8D09A690D9</key>
@@ -1225,7 +1225,7 @@
 			<key>Normal Font</key>
 			<string>SauceCodePowerline-Regular 15</string>
 			<key>Option Key Sends</key>
-			<integer>2</integer>
+			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
 			<integer>0</integer>
 			<key>Right Option Key Sends</key>
@@ -2877,7 +2877,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>6F4FFAF0-EBB3-4ED2-A318-2D015A652294</string>
 	<key>NoSyncLastTipTime</key>
-	<real>492016860.107279</real>
+	<real>492294179.19840598</real>
 	<key>NoSyncPermissionToShowTip</key>
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
@@ -2936,6 +2936,9 @@
 		<string>0044</string>
 		<string>0045</string>
 		<string>0046</string>
+		<string>0047</string>
+		<string>0048</string>
+		<string>0049</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
@@ -3005,7 +3008,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-04T00:37:16Z</date>
+	<date>2016-08-06T14:48:21Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
