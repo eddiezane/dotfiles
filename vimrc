@@ -247,7 +247,7 @@ nnoremap <Leader>yd :YcmCompleter GetDoc <CR>
 nnoremap <Leader>yt :YcmCompleter GetType <CR>
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_confirm_extra_conf = 0
-" set completeopt-=preview
+set completeopt-=preview
 
 cmap w!! w !sudo tee % >/dev/null
 
