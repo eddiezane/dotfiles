@@ -1,7 +1,10 @@
 [user]
 	name = Eddie Zaneski
 	email = eddiezane@gmail.com
+	signingkey = D5A86448
 [core]
 	excludesfile = /Users/eddiezane/.gitignore_global
 [push]
 	default = simple
+[commit]
+	gpgsign = true
