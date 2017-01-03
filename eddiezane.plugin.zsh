@@ -4,17 +4,22 @@ compdef _TW TW
 
 __git_files () { _wanted files expl 'local files' _files }
 
-function rbenv_check() {
-  global=`rbenv global`
-  current=`rbenv version-name`
-  if [[ "$global" != "$current" ]]; then
-    echo " $current"
-  fi
-}
+# function rbenv_check() {
+  # global=`rbenv global`
+  # current=`rbenv version-name`
+  # if [[ "$global" != "$current" ]]; then
+    # echo " $current"
+  # fi
+# }
 
 function mkcd {
   dir="$*";
   mkdir -p "$dir" && cd "$dir";
+}
+
+function mdo {
+  file="$*";
+  open -a /Applications/MacDown.app "$file"
 }
 
 function name_dat_tmux {

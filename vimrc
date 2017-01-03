@@ -20,6 +20,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'fortes/vim-escuro'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'guns/xterm-color-table.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -191,10 +192,10 @@ nmap <leader>hs :set hlsearch! hlsearch?<CR>
 highlight clear SignColumn
 
 " Indent-Guides
-" au VimEnter * :IndentGuidesEnable
-" let g:indent_guides_auto_colors = 0
-" hi IndentGuidesEven ctermbg=233 guibg=#333333
-" hi IndentGuidesOdd ctermbg=black guibg=#2b2b2b
+au VimEnter * :IndentGuidesEnable
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesEven ctermbg=233 guibg=#333333
+hi IndentGuidesOdd ctermbg=black guibg=#2b2b2b
 
 " 80-column line
 if v:version >= 703
@@ -252,7 +253,7 @@ set completeopt-=preview
 cmap w!! w !sudo tee % >/dev/null
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-let g:user_emmet_settings = {'html':{'quote_char': "'",},}"'"}}
+" let g:user_emmet_settings = {'html':{'quote_char': "'",},}"'"}}
 
 let c='a'
 while c <= 'z'

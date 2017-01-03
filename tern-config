@@ -1,0 +1,16 @@
+{
+  "plugins": {
+    "node": {},
+    "es_modules": {},
+    "webpack": {},
+    "complete_strings": {}
+  },
+  "libs": [
+    "browser",
+    "ecmascript",
+    "chai",
+    "ecma5",
+    "ecma6"
+  ],
+  "ecmaVersion": 6
+}
