@@ -19,8 +19,9 @@ call vundle#begin()
 " Bundles
 Plugin 'gmarik/Vundle.vim'
 Plugin 'fortes/vim-escuro'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'guns/xterm-color-table.vim'
+" Plugin 'ajh17/Spacegray'
+" Plugin 'altercation/vim-colors-solarized'
+" Plugin 'guns/xterm-color-table.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -36,19 +37,19 @@ Plugin 'mattn/emmet-vim'
 Plugin 'godlygeek/tabular'
 " Plugin 'taglist.vim'
 " Plugin 'iandoe/vim-osx-colorpicker'
-Plugin 'ap/vim-css-color'
-Plugin 'AndrewRadev/splitjoin.vim'
+" Plugin 'ap/vim-css-color'
+" Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'mkitt/tabline.vim'
 
 " All hail
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-endwise'
+" Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-dispatch'
+" Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-sensible'
 
 " Language specific
@@ -63,8 +64,8 @@ Plugin 'evanmiller/nginx-vim-syntax'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'rust-lang/rust.vim'
 
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-fireplace'
+" Plugin 'guns/vim-clojure-static'
+" Plugin 'tpope/vim-fireplace'
 
 " JavaScript
 Plugin 'pangloss/vim-javascript'
@@ -80,7 +81,7 @@ Plugin 'HerringtonDarkholme/yats.vim'
 " Plugin 'osyo-manga/vim-monster'
 " Plugin 'Shougo/vimproc.vim'
 
-" Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 
 " Plugin 'easymotion/vim-easymotion'
 
@@ -96,12 +97,10 @@ endif
 
 filetype plugin indent on
 
+" Spell check
 nnoremap <Leader>sp :setlocal spell spelllang=en_us<CR>
 au BufRead *.txt,*.md setlocal spell
 nnoremap <Leader>nsp :set nospell<CR>
-
-" let mapleader=" "
-" map <Leader> <Plug>(easymotion-prefix)
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -119,7 +118,7 @@ colorscheme escuro
 " let g:solarized_termcolors=256
 
 " OSX color picker
-let g:colorpicker_app = 'iTerm.app'
+" let g:colorpicker_app = 'iTerm.app'
 
 " Line numbers
 set number
@@ -186,6 +185,14 @@ nmap <leader>t :tabedit<cr>
 set listchars=tab:▸\ ,eol:¬,space:.
 nnoremap <leader>l :setlocal list!<cr>
 
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+
+autocmd BufWritePre *.rb,*.mote,*.js :call TrimWhitespace()
+
 " Highlighting
 set hlsearch
 nmap <leader>hs :set hlsearch! hlsearch?<CR>
@@ -208,7 +215,7 @@ else
 endif
 
 " Mouse crutch
-set mouse=a
+" set mouse=a
 
 " Toggle paste mode
 set pastetoggle=<leader>p
@@ -226,9 +233,6 @@ function! ToggleSystemClip()
   endif
 endfunction
 
-" Toggle paste mode on paste?
-" imap <D-V> ^O"+p
-
 " NERD
 let NERDRemoveExtraSpaces=1
 let NERDSpaceDelims=1
@@ -236,12 +240,15 @@ map <Leader>n :NERDTreeToggle<CR>
 map <leader>/ <plug>NERDCommenterToggle<CR>
 imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 
+" http://vim.wikia.com/wiki/Disable_automatic_comment_insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " Statusline
 set laststatus=2
 let g:airline_powerline_fonts = 1
 
-" YouCompleteMe settings"
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+" YouCompleteMe settings
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_auto_trigger = 0
 nnoremap <Leader>yd :YcmCompleter GetDoc <CR>
@@ -250,14 +257,11 @@ nnoremap <Leader>yt :YcmCompleter GetType <CR>
 " let g:ycm_confirm_extra_conf = 0
 set completeopt-=preview
 
+" Forgot to edit with sudo
 cmap w!! w !sudo tee % >/dev/null
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 " let g:user_emmet_settings = {'html':{'quote_char': "'",},}"'"}}
 
-let c='a'
-while c <= 'z'
-  exec "set <M-".tolower(c).">=\e".c
-  exec "imap \e".c." <M-".tolower(c).">"
-  let c = nr2char(1+char2nr(c))
-endw
+" Auto pairs
+let g:AutoPairsShortcutToggle='<leader>a'

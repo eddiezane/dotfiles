@@ -1,8 +1,14 @@
-TW() { cd ~/Codez/Twilio/$1; }
-_TW() { _files -W ~/Codez/Twilio -/; }
-compdef _TW TW
+CB() { cd ~/Codez/citrusbyte/$1; }
+_CB() { _files -W ~/Codez/citrusbyte -/; }
+compdef _CB CB
 
 __git_files () { _wanted files expl 'local files' _files }
+
+function gs_check() {
+  if [[ -n ${GEM_HOME} ]]; then
+    echo " GS"
+  fi
+}
 
 # function rbenv_check() {
   # global=`rbenv global`
@@ -53,18 +59,6 @@ function ssh {
 
 function chrome {
   open -a /Applications/Google\ Chrome.app $@
-}
-
-function dnsset() {
-  if [ "$1" = "google" ]; then
-    sudo networksetup -setdnsservers wi-fi 8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844
-  elif [ "$1" = "" ]; then
-    sudo networksetup -setdnsservers wi-fi Empty
-  fi
-}
-
-function dnsget() {
-  networksetup -getdnsservers wi-fi
 }
 
 function gi() { curl https://www.gitignore.io/api/$@ ;}

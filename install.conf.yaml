@@ -11,6 +11,7 @@
     ~/.gemrc: gemrc
     ~/.tern-config: tern-config
     ~/.gitconfig: gitconfig
+    ~/.gitignore_global: gitignore_global
     ~/.oh-my-zsh/custom/themes/eddiezane.zsh-theme: eddiezane.zsh-theme
     ~/.oh-my-zsh/custom/plugins/eddiezane/eddiezane.plugin.zsh: eddiezane.plugin.zsh
 

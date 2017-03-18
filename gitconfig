@@ -8,3 +8,5 @@
 	default = simple
 [commit]
 	gpgsign = true
+[github]
+	user = eddiezane
