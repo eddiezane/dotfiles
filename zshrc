@@ -18,6 +18,8 @@ bindkey '^r' history-incremental-search-backward
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
+bindkey -M viins '^A' vi-beginning-of-line
+bindkey -M viins '^E' vi-end-of-line
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
@@ -27,11 +29,13 @@ if [[ -z "$TMUX" ]]; then
   export EDITOR=vim
   export GOPATH=/Users/eddiezane/Codez/GOPATH
   export ANDROID_HOME=/Users/eddiezane/Library/Android/sdk
-  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/Users/eddiezane/Library/Android/sdk/tools:/Users/eddiezane/Library/Android/sdk/platform-tools:$PATH
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/Users/eddiezane/Library/Android/sdk/tools/bin:/Users/eddiezane/Library/Android/sdk/platform-tools:$PATH
   [ -f ~/.dotfiles/secrets ] && source ~/.dotfiles/secrets
   [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
   [ -f /Users/eddiezane/.travis/travis.sh ] && source /Users/eddiezane/.travis/travis.sh
+  # export PATH=/Users/eddiezane/.config/yarn/global/node_modules/.bin:$PATH
+  # export PATH="`yarn global bin`:$PATH"
 fi
 [ -f /usr/local/share/zsh/site-functions/_tmuxinator ] && source /usr/local/share/zsh/site-functions/_tmuxinator
 

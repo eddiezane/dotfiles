@@ -57,6 +57,10 @@ function ssh {
   fi
 }
 
+function flushdns {
+  sudo killall -HUP mDNSResponder
+}
+
 function chrome {
   open -a /Applications/Google\ Chrome.app $@
 }
