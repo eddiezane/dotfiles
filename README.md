@@ -1,7 +1,4 @@
 dotfiles
 =========
 
-TODO
-----
-* Remote vs local 
-* Update setup script
+Installed via [strap](https://github.com/mikemcquaid/strap)

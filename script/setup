@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# vim: ft=sh
+
+set -e
+
+cd ~/.dotfiles
+
+if [ ! -d ~/.oh-my-zsh ]; then
+  git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+  mkdir -p ~/.oh-my-zsh/custom/plugins/eddiezane
+  mkdir -p ~/.oh-my-zsh/custom/themes
+fi
+
+if [ ! -d ~/.vim ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
+if hash stow 2>/dev/null; then
+  stow brew
+  stow git
+  stow node
+  stow tmux
+  stow vim
+  stow zsh
+else
+  brew install stow
+fi
+
+if [ -d ~/.vim/bundle ]; then
+  echo | echo | vim +PluginInstall +qall
+fi
