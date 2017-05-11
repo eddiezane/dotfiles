@@ -25,7 +25,7 @@ fi
 # Remove file created by strap
 rm ~/.gitconfig
 
-for i in git brew node tmux vim zsh; do
+for i in git brew node ruby tmux vim zsh; do
   stow $i
 done
 
