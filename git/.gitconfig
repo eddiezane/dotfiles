@@ -10,3 +10,5 @@
 	gpgsign = true
 [github]
 	user = eddiezane
+[credential]
+	helper = osxkeychain
