@@ -4,6 +4,9 @@
 
 set -e
 
+# Accept Xcode License
+sudo xcodebuild -license accept
+
 cd ~/.dotfiles
 
 # Bootstrap oh-my-zsh
@@ -92,6 +95,9 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write -g com.apple.trackpad.scaling -float 2.5
 defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string "TwoButton"
 defaults write -g com.apple.mouse.scaling -float 2
+# Trackpad: Three finger drag
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 # Trackpad: enable 3 finger swipe gesture
 # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 # defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerSwipeGesture -int 1

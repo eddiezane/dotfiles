@@ -12,3 +12,5 @@
 	user = eddiezane
 [credential]
 	helper = osxkeychain
+[alias]
+  changelog = log --abbrev-commit --pretty=format:'- %h - %s - %aN'

@@ -18,9 +18,12 @@ call vundle#begin()
 
 " Bundles
 Plugin 'gmarik/Vundle.vim'
+
 Plugin 'fortes/vim-escuro'
 " Plugin 'ajh17/Spacegray'
 " Plugin 'altercation/vim-colors-solarized'
+" Plugin 'roosta/srcery'
+
 " Plugin 'guns/xterm-color-table.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -28,7 +31,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 " Plugin 'terryma/vim-multiple-cursors'
@@ -112,7 +115,12 @@ let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " Colors
 syntax on
+
 colorscheme escuro
+
+" colorscheme srcery
+" set background=dark
+
 " colorscheme solarized
 " set background=light
 " let g:solarized_termcolors=256
@@ -232,6 +240,12 @@ function! ToggleSystemClip()
     echom "SysClip On"
   endif
 endfunction
+
+" Ignore some folders and files for CtrlP indexing
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
+      \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+      \ }
 
 " NERD
 let NERDRemoveExtraSpaces=1
