@@ -45,6 +45,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'mkitt/tabline.vim'
+Plugin 'mileszs/ack.vim'
 
 " All hail
 " Plugin 'tpope/vim-rails'
@@ -62,7 +63,6 @@ Plugin 'tpope/vim-markdown'
 " Plugin 'slim-template/vim-slim'
 " Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'fatih/vim-go'
-Plugin 'evanmiller/nginx-vim-syntax'
 " Plugin 'marijnh/tern_for_vim'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'rust-lang/rust.vim'
@@ -73,8 +73,9 @@ Plugin 'evanmiller/nginx-vim-syntax'
 " JavaScript
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'HerringtonDarkholme/yats.vim'
+" Plugin 'leafgarland/typescript-vim'
+" Plugin 'HerringtonDarkholme/yats.vim'
+Plugin 'prettier/vim-prettier'
 " Plugin 'jelera/vim-javascript-syntax'
 " Plugin 'othree/yajs'
 " Plugin 'othree/es.next.syntax.vim'
@@ -276,6 +277,13 @@ cmap w!! w !sudo tee % >/dev/null
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 " let g:user_emmet_settings = {'html':{'quote_char': "'",},}"'"}}
+
+" Prettier
+nmap <Leader>py <Plug>(Prettier)
+let g:prettier#exec_cmd_async = 1
+let g:prettier#config#semi = 'false'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#trailing_comma = 'none'
 
 " Auto pairs
 let g:AutoPairsShortcutToggle='<leader>a'

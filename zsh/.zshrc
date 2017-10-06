@@ -30,11 +30,12 @@ if [[ -z "$TMUX" ]]; then
   export GOPATH=/Users/eddiezane/Codez/GOPATH
   export ANDROID_HOME=/Users/eddiezane/Library/Android/sdk
   export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/Users/eddiezane/Library/Android/sdk/tools/bin:/Users/eddiezane/Library/Android/sdk/platform-tools:$PATH
-  [ -f ~/.dotfiles/secrets ] && source ~/.dotfiles/secrets
   # [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   # [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-  # [ -f /Users/eddiezane/.travis/travis.sh ] && source /Users/eddiezane/.travis/travis.sh
 fi
+
+[ -f /Users/eddiezane/.travis/travis.sh ] && source /Users/eddiezane/.travis/travis.sh
+[ -f ~/.dotfiles/secrets ] && source ~/.dotfiles/secrets
 [ -f /usr/local/share/zsh/site-functions/_tmuxinator ] && source /usr/local/share/zsh/site-functions/_tmuxinator
 
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
