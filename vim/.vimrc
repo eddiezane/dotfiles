@@ -26,7 +26,8 @@ Plugin 'fortes/vim-escuro'
 
 " Plugin 'guns/xterm-color-table.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'bling/vim-airline'
@@ -74,7 +75,7 @@ Plugin 'fatih/vim-go'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 " Plugin 'leafgarland/typescript-vim'
-" Plugin 'HerringtonDarkholme/yats.vim'
+Plugin 'HerringtonDarkholme/yats.vim'
 Plugin 'prettier/vim-prettier'
 " Plugin 'jelera/vim-javascript-syntax'
 " Plugin 'othree/yajs'
@@ -247,6 +248,7 @@ let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
       \ 'file': '\.so$\|\.dat$|\.DS_Store$'
       \ }
+" set rtp+=/usr/local/opt/fzf
 
 " NERD
 let NERDRemoveExtraSpaces=1
@@ -284,6 +286,7 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#config#semi = 'false'
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#parser = 'typescript'
 
 " Auto pairs
 let g:AutoPairsShortcutToggle='<leader>a'

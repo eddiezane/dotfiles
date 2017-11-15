@@ -36,7 +36,10 @@ fi
 
 [ -f /Users/eddiezane/.travis/travis.sh ] && source /Users/eddiezane/.travis/travis.sh
 [ -f ~/.dotfiles/secrets ] && source ~/.dotfiles/secrets
-[ -f /usr/local/share/zsh/site-functions/_tmuxinator ] && source /usr/local/share/zsh/site-functions/_tmuxinator
+# [ -f /usr/local/share/zsh/site-functions/_tmuxinator ] && source /usr/local/share/zsh/site-functions/_tmuxinator
+# [ -f /usr/local/opt/asdf/asdf.sh ] && source /usr/local/opt/asdf/asdf.sh
+# [ -f /usr/local/etc/bash_completion.d/asdf.bash ] && source /usr/local/etc/bash_completion.d/asdf.bash
+
 
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # if which jenv > /dev/null; then eval "$(jenv init -)"; fi

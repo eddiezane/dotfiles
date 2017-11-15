@@ -5,7 +5,7 @@
 set -e
 
 # Accept Xcode License
-sudo xcodebuild -license accept
+# sudo xcodebuild -license accept
 
 cd ~/.dotfiles
 
