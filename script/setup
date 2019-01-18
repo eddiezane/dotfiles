@@ -2,10 +2,7 @@
 
 # vim: ft=sh
 
-set -e
-
 # Accept Xcode License
-sudo xcodebuild -license accept
 
 cd ~/.dotfiles
 
@@ -21,14 +18,10 @@ if [ ! -d ~/.vim ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-if ! hash stow 2>/dev/null; then
-  brew install stow
-fi
-
 # Remove file created by strap
-rm ~/.gitconfig
+rm -rf ~/.gitconfig
 
-for i in git brew node ruby tmux vim zsh; do
+for i in git node ruby tmux vim zsh; do
   stow $i
 done
 
@@ -36,69 +29,3 @@ if [ -d ~/.vim/bundle ]; then
   echo | echo | vim +PluginInstall +qall
   # ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --tern-completer --gocode-completer
 fi
-
-# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
-
-# Dock
-defaults write com.apple.dock autohide-delay -float 0
-defaults write com.apple.dock autohide-time-modifier -float 0
-defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock tilesize -int 24
-defaults write com.apple.dock persistent-apps -array
-defaults write com.apple.dock expose-animation-duration -float 0.1
-defaults write com.apple.dashboard mcx-disabled -bool true
-defaults write com.apple.dock dashboard-in-overlay -bool true
-defaults write com.apple.dock mru-spaces -bool false
-
-# Menu
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"
-sudo defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool true
-# Top right screen corner → Screen off
-defaults write com.apple.dock wvous-tr-corner -int 10
-defaults write com.apple.dock wvous-tr-modifier -int 0
-
-# Keyboard
-# Disable press-and-hold for keys in favor of key repeat
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
-# Disable automatic capitalization as it’s annoying when typing code
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
-# Disable smart dashes as they’re annoying when typing code
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-# Disable automatic period substitution as it’s annoying when typing code
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
-# Disable smart quotes as they’re annoying when typing code
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-# Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-# Follow the keyboard focus while zoomed in
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
-
-# Finder
-# Disable window animations and Get Info animations
-defaults write com.apple.finder DisableAllAnimations -bool true
-# When performing a search, search the current folder by default
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-# Show all filename extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# Change default path for new Finder windows to home
-defaults write com.apple.finder NewWindowTarget -string "PfHm"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
-
-# Mouse
-# Trackpad: enable tap to click for this user and for the login screen
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write -g com.apple.trackpad.scaling -float 2.5
-defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string "TwoButton"
-defaults write -g com.apple.mouse.scaling -float 2
-# Trackpad: Three finger drag
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
-# Trackpad: enable 3 finger swipe gesture
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerSwipeGesture -int 1
-# defaults write NSGlobalDomain com.apple.trackpad.threeFingerSwipeGesture -int 1

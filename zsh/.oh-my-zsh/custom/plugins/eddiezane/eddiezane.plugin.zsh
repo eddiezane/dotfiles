@@ -57,6 +57,12 @@ function ssh {
   fi
 }
 
+function ssh_check {
+  if [[ -n ${SSH_CLIENT} ]]; then
+    echo "🔌 "
+  fi
+}
+
 function flushdns {
   sudo killall -HUP mDNSResponder
 }

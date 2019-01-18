@@ -83,6 +83,8 @@ Plugin 'prettier/vim-prettier'
 " Plugin 'gavocanov/vim-js-indent'
 " Plugin 'rschmukler/pangloss-vim-indent'
 
+Plugin 'hashivim/vim-terraform'
+
 " Plugin 'osyo-manga/vim-monster'
 " Plugin 'Shougo/vimproc.vim'
 
@@ -262,12 +264,13 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Statusline
 set laststatus=2
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 
 " YouCompleteMe settings
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_auto_trigger = 0
+let g:ycm_filetype_blacklist = { 'go': 1  }
 nnoremap <Leader>yd :YcmCompleter GetDoc <CR>
 nnoremap <Leader>yt :YcmCompleter GetType <CR>
 " let g:ycm_autoclose_preview_window_after_completion = 1
@@ -290,3 +293,5 @@ let g:prettier#config#parser = 'typescript'
 
 " Auto pairs
 let g:AutoPairsShortcutToggle='<leader>a'
+
+let g:go_gocode_propose_source = 1

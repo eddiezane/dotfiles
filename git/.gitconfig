@@ -3,7 +3,7 @@
 	email = eddiezane@gmail.com
 	signingkey = D5A86448
 [core]
-	excludesfile = /Users/eddiezane/.gitignore_global
+	excludesfile = /home/eddiezane/.gitignore_global
 [push]
 	default = simple
 [commit]
@@ -11,6 +11,8 @@
 [github]
 	user = eddiezane
 [credential]
-	helper = osxkeychain
+	; helper = osxkeychain
 [alias]
   changelog = log --abbrev-commit --pretty=format:'- %h - %s - %aN'
+[url "git@github.com:"]
+	insteadOf = https://github.com/
