@@ -48,6 +48,9 @@
     - jq
     - fail2ban
 
+- name: Set default editor to vim
+  command: update-alternatives --set editor /usr/bin/vim.nox
+
 - name: Disallow password authentication
   lineinfile:
     dest: /etc/ssh/sshd_config
