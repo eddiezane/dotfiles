@@ -33,7 +33,10 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
+
+" Plugin 'Quramy/tsuquyomi'
 Plugin 'Valloric/YouCompleteMe'
+
 Plugin 'airblade/vim-gitgutter'
 " Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mattn/emmet-vim'

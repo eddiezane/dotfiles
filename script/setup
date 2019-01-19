@@ -3,6 +3,7 @@
 # vim: ft=sh
 
 # Accept Xcode License
+# sudo xcodebuild -license accept
 
 cd ~/.dotfiles
 

@@ -29,7 +29,9 @@ if [[ -z "$TMUX" ]]; then
   export EDITOR=vim
   export GOPATH=/home/eddiezane/Codez/GOPATH
   # export ANDROID_HOME=/Users/eddiezane/Library/Android/sdk
-  export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:$GOPATH/bin:$PATH
+  export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:$PATH
+  # export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/usr/local/go/bin:$PATH
+  # export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/Users/eddiezane/Library/Android/sdk/tools/bin:/Users/eddiezane/Library/Android/sdk/platform-tools:$PATH
   # [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   # [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
@@ -58,6 +60,9 @@ alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")
 alias bu="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade"
 alias vu="vim +PluginUpdate +qa"
 alias buvu="bu && vu"
+
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
 
 ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then

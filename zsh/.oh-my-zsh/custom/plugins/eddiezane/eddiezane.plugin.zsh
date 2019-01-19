@@ -10,6 +10,12 @@ function gs_check() {
   fi
 }
 
+function gopath_check() {
+  case $PWD/ in
+    */GOPATH/*) echo " GP"
+  esac
+}
+
 # function rbenv_check() {
   # global=`rbenv global`
   # current=`rbenv version-name`
