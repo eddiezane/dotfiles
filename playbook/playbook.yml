@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  user: root
+  # user: eddiezane
+  # become: yes
+  roles:
+  - base
+  - user
+  - home
+  vars:
+    username: eddiezane
+    sudo: true

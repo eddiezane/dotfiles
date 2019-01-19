@@ -1,0 +1,26 @@
+---
+
+- name: Add wheel group
+  group:
+    name: wheel
+  when: sudo
+
+- name: Allow wheel group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: visudo -cf %s
+  when: sudo
+
+- name: Create user
+  user:
+    name: "{{ username }}"
+    shell: /usr/bin/zsh
+
+- name: Add user to wheel
+  user:
+    name: "{{ username }}"
+    groups: wheel
+    append: yes
+  when: sudo

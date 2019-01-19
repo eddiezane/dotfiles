@@ -1,0 +1,70 @@
+---
+
+- name: Update apt
+  apt:
+    update_cache: yes
+    upgrade: full
+
+- name: Add node source apt key
+  apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+
+- name: Add node source repo
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_11.x {{ ansible_distribution_release }} main 
+
+- name: Add google apt key
+  apt_key: url=https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Add node source repo
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+
+- name: Add docker apt key
+  apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+
+- name: Add docker repo
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+
+- name: Install packages
+  apt:
+    name:
+    - vim-nox
+    - zsh
+    - build-essential
+    - tmux
+    - tree
+    - python2.7
+    - python3
+    - python-dev
+    - git
+    - ack
+    - wget
+    - nodejs
+    - kubectl
+    - stow
+    - cmake
+    - docker-ce
+    - jq
+    - fail2ban
+
+- name: Disallow password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PasswordAuthentication
+    line: PasswordAuthentication no
+  notify: Restart ssh
+
+- name: Disallow root SSH access
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PermitRootLogin
+    line: PermitRootLogin no
+  notify: Restart ssh
+
+- name: Only allow ssh
+  ufw:
+    state: enabled
+    rule: limit
+    port: ssh
+    proto: tcp

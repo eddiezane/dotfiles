@@ -1,0 +1,86 @@
+---
+
+- name: Add ssh key
+  become: yes
+  become_user: "{{ username }}"
+  authorized_key:
+    user: "{{ username }}"
+    key: https://github.com/eddiezane.keys
+
+- name: Clone dotfiles
+  become: yes
+  become_user: "{{ username }}"
+  git:
+    repo: git://github.com/eddiezane/dotfiles.git
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    version: ubuntu
+    update: no
+
+- name: Clone oh my zsh
+  become: yes
+  become_user: "{{ username }}"
+  git:
+    repo: git://github.com/robbyrussell/oh-my-zsh.git
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+    accept_hostkey: yes
+
+- name: Create oh my zsh custom folders
+  become: yes
+  become_user: "{{ username }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+  - "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/eddiezane"
+  - "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes"
+
+- name: Clone Vundle
+  become: yes
+  become_user: "{{ username }}"
+  git:
+    repo: git://github.com/VundleVim/Vundle.vim.git
+    dest: "{{ lookup('env', 'HOME') }}/.vim/bundle/Vundle.vim"
+    accept_hostkey: yes
+
+- name: stow files
+  become: yes
+  become_user: "{{ username }}"
+  command: "stow {{ item }}"
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/.dotfiles"
+  with_items:
+  - git
+  - node
+  - ruby
+  - tmux
+  - vim
+  - zsh
+
+# - name: Comment out git url rewrite
+  # become: yes
+  # become_user: "{{ username }}"
+  # lineinfile:
+    # dest: "{{ lookup('env', 'HOME') }}/.dotfiles/git/.gitconfig"
+    # regexp: "\tinsteadOf"
+    # line: "\t;insteadOf = https://github.com/"
+
+# - name: Install vim plugins
+  # become: yes
+  # become_user: "{{ username }}"
+  # command: vim -E -s -c "source ~/.vimrc" -c PluginInstall -c qa
+
+# - name: Install YouCompleteMe
+  # become: yes
+  # become_user: "{{ username }}"
+  # command: "./install.py --clang-completer --js-completer"
+  # args:
+    # chdir: "{{ lookup('env', 'HOME') }}/.vim/bundle/YouCompleteMe"
+    # creates: "{{ lookup('env', 'HOME') }}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/tern_runtime/node_modules"
+
+# - name: Uncomment git url rewrite
+  # become: yes
+  # become_user: "{{ username }}"
+  # lineinfile:
+    # dest: "{{ lookup('env', 'HOME') }}/.dotfiles/git/.gitconfig"
+    # regexp: "\t;insteadOf"
+    # line: "\tinsteadOf = https://github.com/"
