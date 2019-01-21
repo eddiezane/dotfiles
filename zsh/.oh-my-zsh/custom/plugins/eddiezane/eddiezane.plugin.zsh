@@ -89,4 +89,3 @@ _gitignireio () {
 }
 
 compdef _gitignireio gi
-
