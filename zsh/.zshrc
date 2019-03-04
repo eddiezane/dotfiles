@@ -51,7 +51,7 @@ fi
 # source /usr/local/share/zsh-completions/_nvm
 # source $(brew --prefix php-version)/php-version.sh && php-version 5
 
-if [ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   export PATH=/home/linuxbrew/.linuxbrew/bin::$PATH
 fi
