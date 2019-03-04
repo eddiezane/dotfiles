@@ -297,4 +297,4 @@ let g:prettier#config#parser = 'typescript'
 " Auto pairs
 let g:AutoPairsShortcutToggle='<leader>a'
 
-let g:go_gocode_propose_source = 1
+" let g:go_gocode_propose_source = 1

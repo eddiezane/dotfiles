@@ -1,12 +1,14 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
+ZSH_THEME="eddiezane"
+# ZSH_THEME="$ZSH_CUSTOM/themes/eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane go)
-fpath=(/usr/local/share/zsh-completions $fpath)
+plugins=(git eddiezane golang docker)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
 setopt HIST_IGNORE_SPACE
+
+autoload -U compinit && compinit
 
 bindkey -v
 bindkey '^P' up-history
@@ -48,6 +50,11 @@ fi
 # source ~/.nvm/nvm.sh
 # source /usr/local/share/zsh-completions/_nvm
 # source $(brew --prefix php-version)/php-version.sh && php-version 5
+
+if [ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+  export PATH=/home/linuxbrew/.linuxbrew/bin::$PATH
+fi
 
 alias :q="exit"
 alias :r="ruby"
