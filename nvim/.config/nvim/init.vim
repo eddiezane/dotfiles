@@ -26,8 +26,17 @@ Plug 'w0rp/ale'
 " Plug 'godlygeek/tabular'
 " Plug 'jiangmiao/auto-pairs'
 
-Plug 'fatih/vim-go'
-Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'sheerun/vim-polyglot', { 'tag': '*' }
+" Plug 'pangloss/vim-javascript'
+" Plug 'mxw/vim-jsx'
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zxqfl/tabnine-vim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 Plug 'prettier/vim-prettier', {
@@ -116,3 +125,6 @@ let g:prettier#config#semi = 'false'
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#trailing_comma = 'none'
 let g:prettier#config#parser = 'typescript'
+
+" deoplete
+let g:deoplete#enable_at_startup = 1

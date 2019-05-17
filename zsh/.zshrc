@@ -25,17 +25,17 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
+export EDITOR=vim
+export GOPATH=/home/eddiezane/Codez/GOPATH
+
 # Don't double set path in tmux
 if [[ -z "$TMUX" ]]; then
-  export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 
   if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   fi
 fi
-
-export EDITOR=vim
-export GOPATH=/home/eddiezane/Codez/GOPATH
 
 [ -f ~/.dotfiles/secrets ] && source ~/.dotfiles/secrets
 
@@ -48,7 +48,6 @@ alias :r="ruby"
 alias :n="node"
 alias :p="python"
 alias k="kubectl"
-alias pypi-deploy="python setup.py sdist bdist_wininst upload"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias bu="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade && brew upgrade"
 alias vu="vim +PlugUpdate +qa"
@@ -61,9 +60,6 @@ ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then
   ssh-add &>/dev/null
 fi
-
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
 
 # make sure return code is 0
 true
