@@ -37,7 +37,7 @@ Plug 'sheerun/vim-polyglot', { 'tag': '*' }
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'zxqfl/tabnine-vim'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
