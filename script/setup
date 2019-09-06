@@ -9,7 +9,7 @@ cd ~/.dotfiles
 
 # Bootstrap oh-my-zsh
 if [ ! -d ~/.oh-my-zsh ]; then
-  git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
   mkdir -p ~/.oh-my-zsh/custom/plugins/eddiezane
   mkdir -p ~/.oh-my-zsh/custom/themes
 fi
@@ -26,7 +26,7 @@ for i in git node ruby tmux vim zsh; do
   stow $i
 done
 
-if [ -d ~/.vim/bundle ]; then
-  echo | echo | vim +PluginInstall +qall
-  # ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --tern-completer --gocode-completer
-fi
+# if [ -d ~/.vim/bundle ]; then
+#   echo | echo | vim +PluginInstall +qall
+#   ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --tern-completer --gocode-completer
+# fi
