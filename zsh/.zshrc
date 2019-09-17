@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane golang docker)
+plugins=(git eddiezane golang docker kube-ps1)
 # FPATH must be set before calling compinit. Sourcing oh-my-zsh calls it.
 FPATH=/opt/linuxbrew/share/zsh/site-functions:$FPATH
 source $ZSH/oh-my-zsh.sh
@@ -10,6 +10,8 @@ unsetopt auto_name_dirs
 setopt HIST_IGNORE_SPACE
 
 # autoload -U compinit && compinit
+
+export KUBE_PS1_ENABLED=false
 
 bindkey -v
 bindkey '^P' up-history
@@ -44,6 +46,9 @@ fi
 if [[ -z "$TMUX" ]]; then
   export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 
+  # kubectl krew
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
   if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   elif [ -f /opt/linuxbrew/bin/brew ]; then
@@ -62,6 +67,7 @@ alias :r="ruby"
 alias :n="node"
 alias :p="python"
 alias k="kubectl"
+alias kx="kubectx"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias vu="vim +PlugUpdate +qa"
 alias buvu="bu && vu"

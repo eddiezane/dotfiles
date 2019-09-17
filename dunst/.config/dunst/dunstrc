@@ -186,3 +186,7 @@
 [notify-send]
     appname = notify-send
     format  = "%s\n%b"
+
+[dunst]
+  appname = dunst
+  format  = ""

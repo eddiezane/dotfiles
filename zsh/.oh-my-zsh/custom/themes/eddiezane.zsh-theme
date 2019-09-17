@@ -1,4 +1,4 @@
-PROMPT='%{$FG[207]%}$(ssh_check)%2~%{$fg_bold[white]%}$(git_prompt_info)%{$fg_bold[grey]%}%{$fg[yellow]%}$(gs_check)$(gopath_check)%{$reset_color%} '
+PROMPT='$(kube_ps1) %{$FG[207]%}$(ssh_check)%2~%{$fg_bold[white]%}$(git_prompt_info)%{$fg_bold[grey]%}%{$fg[yellow]%}$(gs_check)$(gopath_check)%{$reset_color%} '
 RPROMPT='%{$FG[207]%}%(1j.[%j].)%{$reset_color%}'
 # RPROMPT='%{$FG[207]%}%(1j.[%j].)$(rbenv_check)%{$reset_color%}'
 

@@ -85,16 +85,16 @@ nmap <leader>hs :set hlsearch! hlsearch?<CR>
 highlight clear SignColumn
 
 " Toggle system clipboard
-nnoremap <leader>C :call ToggleSystemClip()<cr>
-function! ToggleSystemClip()
-  if &clipboard == "unnamed"
-    set clipboard-=unnamed
-    echom "SysClip Off"
-  else
-    set clipboard=unnamed
-    echom "SysClip On"
-  endif
-endfunction
+" nnoremap <leader>C :call ToggleSystemClip()<cr>
+" function! ToggleSystemClip()
+  " if &clipboard == "unnamed"
+    " set clipboard-=unnamed
+    " echom "SysClip Off"
+  " else
+    " set clipboard=unnamed
+    " echom "SysClip On"
+  " endif
+" endfunction
 
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_custom_ignore = {
@@ -104,6 +104,7 @@ let g:ctrlp_custom_ignore = {
 
 " NERD
 let NERDRemoveExtraSpaces=1
+let NERDTreeShowHidden=1
 let NERDSpaceDelims=1
 map <Leader>n :NERDTreeToggle<CR>
 map <leader>/ <plug>NERDCommenterToggle<CR>
@@ -128,3 +129,5 @@ let g:prettier#config#parser = 'typescript'
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]

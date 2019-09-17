@@ -141,6 +141,8 @@ bindsym $mod+minus scratchpad show
 #navigate workspaces next / previous
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -194,6 +196,10 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
+
+assign [class="Slack"] $ws9
+
+for_window [class="Spotify"] move to workspace $ws8
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
