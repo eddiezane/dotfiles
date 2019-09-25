@@ -29,7 +29,7 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-export EDITOR=vim
+export EDITOR=nvim
 export GOPATH=/home/eddiezane/Codez/GOPATH
 
 export nvim_path=$(which nvim)
