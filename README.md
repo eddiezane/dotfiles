@@ -1,4 +1,3 @@
-dotfiles
-=========
+# dotfiles
 
-Installed via [strap](https://github.com/mikemcquaid/strap)
+Check out [script/setup](https://github.com/eddiezane/dotfiles/blob/master/script/setup) for installing.
