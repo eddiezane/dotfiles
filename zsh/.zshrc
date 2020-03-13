@@ -11,7 +11,7 @@ setopt HIST_IGNORE_SPACE
 
 # autoload -U compinit && compinit
 
-export KUBE_PS1_ENABLED=false
+export KUBE_PS1_ENABLED=off
 
 bindkey -v
 bindkey '^P' up-history

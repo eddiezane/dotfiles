@@ -127,7 +127,10 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#trailing_comma = 'none'
 let g:prettier#config#parser = 'typescript'
 
+" coc-nvim completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
 " deoplete
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
