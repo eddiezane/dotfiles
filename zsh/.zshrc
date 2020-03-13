@@ -71,6 +71,7 @@ alias kx="kubectx"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias vu="vim +PlugUpdate +qa"
 alias buvu="bu && vu"
+alias kk="cd ~/Codez/kubernetes"
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
