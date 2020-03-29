@@ -299,7 +299,7 @@ exec --no-startup-id pamac-tray
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id xss-lock -- i3lock -n -c 222222
-exec --no-startup-id xflux -z 80203 -k 2000
+# exec --no-startup-id xflux -z 80203 -k 2000
 # exec --no-startup-id "killall fusuma; /home/eddiezane/.asdf/shims/fusuma"
 # exec_always --no-startup-id ff-theme-util
 # exec_always --no-startup-id fix_xcursor
