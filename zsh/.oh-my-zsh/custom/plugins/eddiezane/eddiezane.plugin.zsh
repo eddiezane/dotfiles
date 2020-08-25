@@ -1,6 +1,13 @@
-CB() { cd ~/Codez/citrusbyte/$1; }
-_CB() { _files -W ~/Codez/citrusbyte -/; }
-compdef _CB CB
+kk() { 
+  if [[ $1 == "" ]]
+  then
+    cd ~/Codez/kubernetes/kubernetes;
+  else
+    cd ~/Codez/kubernetes/$1;
+  fi
+}
+_kk() { _files -W ~/Codez/kubernetes -/; }
+compdef _kk kk
 
 __git_files () { _wanted files expl 'local files' _files }
 

@@ -3,7 +3,7 @@
 	email = eddiezane@gmail.com
 	signingkey = D5A86448
 [core]
-	excludesfile = /home/eddiezane/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
 [commit]
@@ -16,3 +16,5 @@
   changelog = log --abbrev-commit --pretty=format:'- %h - %s - %aN'
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[pull]
+	ff = only

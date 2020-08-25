@@ -30,7 +30,7 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
 export EDITOR=nvim
-export GOPATH=/home/eddiezane/Codez/GOPATH
+export GOPATH=$HOME/Codez/GOPATH
 
 export nvim_path=$(which nvim)
 alias vim=$nvim_path
@@ -38,8 +38,9 @@ alias vim=$nvim_path
 if [[ -f /etc/arch-release ]]; then
   export BROWSER=/usr/bin/google-chrome-stable;
   alias bu="sudo yay -Syu"
-else
-  alias bu="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade && brew upgrade"
+elif [[ `uname` == "Darwin" ]]; then
+  alias bu="brew upgrade"
+  export GOPROXY=direct
 fi
 
 # Don't double set path in tmux
@@ -53,6 +54,8 @@ if [[ -z "$TMUX" ]]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   elif [ -f /opt/linuxbrew/bin/brew ]; then
     eval $(/opt/linuxbrew/bin/brew shellenv)
+  elif [ -f /usr/local/bin/brew ]; then
+    eval $(/usr/local/bin/brew shellenv)
   fi
 fi
 
@@ -71,10 +74,11 @@ alias kx="kubectx"
 alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")"
 alias vu="vim +PlugUpdate +qa"
 alias buvu="bu && vu"
-alias kk="cd ~/Codez/kubernetes"
 
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
+if [[ `uname` == 'Linux' ]]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
 
 ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then

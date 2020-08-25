@@ -14,11 +14,6 @@ if [ ! -d ~/.oh-my-zsh ]; then
   mkdir -p ~/.oh-my-zsh/custom/themes
 fi
 
-# Bootstrap Vundle
-if [ ! -d ~/.vim ]; then
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-
 if [ ! -d ~/.config/alacritty ]; then
   mkdir -p ~/.config/alacritty
 fi
@@ -29,9 +24,6 @@ if [ ! -d ~/.config/nvim/autoload ]; then
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-
-# Remove file created by strap
-rm -rf ~/.gitconfig
 
 for i in git node ruby tmux nvim zsh; do
   stow $i
