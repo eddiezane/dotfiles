@@ -1,7 +1,7 @@
 [user]
 	name = Eddie Zaneski
 	email = eddiezane@gmail.com
-	signingkey = D5A86448
+  ;signingkey = override with gitconfig_local
 [core]
 	excludesfile = ~/.gitignore_global
 [push]
@@ -10,11 +10,11 @@
 	gpgsign = true
 [github]
 	user = eddiezane
-[credential]
-	; helper = osxkeychain
 [alias]
   changelog = log --abbrev-commit --pretty=format:'- %h - %s - %aN'
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [pull]
 	ff = only
+[include]
+  path = $HOME/.gitconfig_local
