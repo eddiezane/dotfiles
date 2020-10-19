@@ -45,23 +45,22 @@ fi
 
 # Don't double set path in tmux
 if [[ -z "$TMUX" ]]; then
-  export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
+  export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-  # kubectl krew
-  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-  if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  if [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-  elif [ -f /opt/linuxbrew/bin/brew ]; then
+  elif [[ -f /opt/linuxbrew/bin/brew ]]; then
     eval $(/opt/linuxbrew/bin/brew shellenv)
-  elif [ -f /usr/local/bin/brew ]; then
+  elif [[ -f /usr/local/bin/brew ]]; then
     eval $(/usr/local/bin/brew shellenv)
   fi
 fi
 
-[ -f ~/.dotfiles/secrets ] && source ~/.dotfiles/secrets
-[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-[ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash
+[[ -f ~/.dotfiles/secrets ]] && source ~/.dotfiles/secrets
+[[ -f ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
+[[ -f ~/.asdf/completions/asdf.bash ]] && source ~/.asdf/completions/asdf.bash
+[[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+[[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 alias ovim=$HOMEBREW_PREFIX/bin/vim
 
@@ -84,10 +83,6 @@ ssh-add -l &>/dev/null
 if [[ $? == 1 ]]; then
   ssh-add &>/dev/null
 fi
-
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  # exec tmux
-# fi
 
 # make sure return code is 0
 true
