@@ -106,4 +106,8 @@ let g:prettier#config#semi = 'false'
 let g:prettier#config#trailing_comma = 'es5'
 let g:prettier#config#parser = 'typescript'
 
+" coc.nvim
+" extensions
+let g:coc_global_extensions = [ 'coc-json', 'coc-yaml', 'coc-tsserver', 'coc-go' ]
+" config
 source $HOME/.config/nvim/coc-config.vim
