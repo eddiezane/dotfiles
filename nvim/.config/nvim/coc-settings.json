@@ -1,6 +1,6 @@
 {
   "yaml.schemas": {
-      "kubernetes": ["/*.yaml", "/*.yml"]
+      "kubernetes": ["/*_c.yaml", "/*_c.yml"]
   },
   "coc.preferences.extensionUpdateCheck": "daily"
 }

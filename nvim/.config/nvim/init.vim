@@ -102,8 +102,8 @@ cmap w!! w !sudo tee % >/dev/null
 nmap <Leader>py <Plug>(Prettier)
 let g:prettier#exec_cmd_async = 1
 let g:prettier#config#single_quote = 'true'
-let g:prettier#config#semi = 'false'
-let g:prettier#config#trailing_comma = 'es5'
+let g:prettier#config#semi = 'true'
+let g:prettier#config#trailing_comma = 'all'
 let g:prettier#config#parser = 'typescript'
 
 " coc.nvim
