@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane golang docker kube-ps1)
+plugins=(git eddiezane kube-ps1)
 # FPATH must be set before calling compinit. Sourcing oh-my-zsh calls it.
 FPATH=/opt/linuxbrew/share/zsh/site-functions:$FPATH
 source $ZSH/oh-my-zsh.sh

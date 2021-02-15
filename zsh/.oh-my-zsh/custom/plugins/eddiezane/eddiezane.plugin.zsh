@@ -9,8 +9,6 @@ kk() {
 _kk() { _files -W ~/Codez/kubernetes -/; }
 compdef _kk kk
 
-__git_files () { _wanted files expl 'local files' _files }
-
 function gs_check() {
   if [[ -n ${GEM_HOME} ]]; then
     echo " GS"
@@ -34,11 +32,6 @@ function gopath_check() {
 function mkcd {
   dir="$*";
   mkdir -p "$dir" && cd "$dir";
-}
-
-function mdo {
-  file="$*";
-  open -a /Applications/MacDown.app "$file"
 }
 
 function name_dat_tmux {
@@ -79,20 +72,3 @@ function ssh_check {
 function flushdns {
   sudo killall -HUP mDNSResponder
 }
-
-function chrome {
-  open -a /Applications/Google\ Chrome.app $@
-}
-
-function gi() { curl https://www.gitignore.io/api/$@ ;}
-
-_gitignireio_get_command_list() {
-  curl -s http://www.gitignore.io/api/list | tr "," "\n"
-}
-
-_gitignireio () {
-  compset -P '*,'
-  compadd -S '' `_gitignireio_get_command_list`
-}
-
-compdef _gitignireio gi

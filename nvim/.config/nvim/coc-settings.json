@@ -2,5 +2,10 @@
   "yaml.schemas": {
       "kubernetes": ["/*_c.yaml", "/*_c.yml"]
   },
-  "coc.preferences.extensionUpdateCheck": "daily"
+  "go.goplsOptions": {
+    "allowModfileModifications": true,
+    "experimentalWorkspaceModule": true,
+    "experimentalPackageCacheKey": true
+  },
+  "coc.preferences.extensionUpdateCheck": "weekly"
 }

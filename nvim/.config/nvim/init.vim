@@ -19,17 +19,10 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ConradIrwin/vim-bracketed-paste'
-" Plug 'w0rp/ale'
-
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 Plug 'sheerun/vim-polyglot', { 'tag': '*' }
-" Plug 'pangloss/vim-javascript'
-" Plug 'mxw/vim-jsx'
-" Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
@@ -106,8 +99,11 @@ let g:prettier#config#semi = 'true'
 let g:prettier#config#trailing_comma = 'all'
 let g:prettier#config#parser = 'typescript'
 
+" set completeopt=longest,menuone
+
 " coc.nvim
 " extensions
-let g:coc_global_extensions = [ 'coc-json', 'coc-yaml', 'coc-tsserver', 'coc-go' ]
+let g:coc_global_extensions = [ 'coc-snippets', 'coc-json', 'coc-yaml', 'coc-tsserver', 'coc-go', 'coc-python', 'coc-html', 'coc-css' ]
 " config
 source $HOME/.config/nvim/coc-config.vim
+
