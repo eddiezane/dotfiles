@@ -42,6 +42,7 @@ alias vim=$nvim_path
 if [[ -f /etc/arch-release ]]; then
   export BROWSER=/usr/bin/google-chrome-stable;
   alias bu="sudo yay -Syu"
+  complete -C /usr/bin/aws_completer aws
 elif [[ `uname` == "Darwin" ]]; then
   alias bu="brew upgrade"
   export GOPROXY=direct
