@@ -2,6 +2,9 @@ kk() {
   if [[ $1 == "" ]]
   then
     cd ~/Codez/kubernetes/kubernetes;
+  elif [[ $1 == "kubectl" ]]
+  then
+    cd ~/Codez/kubernetes/kubernetes/staging/src/k8s.io/kubectl;
   else
     cd ~/Codez/kubernetes/$1;
   fi

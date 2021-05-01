@@ -19,7 +19,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'sheerun/vim-polyglot', { 'tag': '*' }
+Plug 'sheerun/vim-polyglot'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }

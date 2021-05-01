@@ -7,5 +7,6 @@
     "experimentalWorkspaceModule": true,
     "experimentalPackageCacheKey": true
   },
-  "coc.preferences.extensionUpdateCheck": "weekly"
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.formatOnSaveFiletypes": ["go"]
 }
