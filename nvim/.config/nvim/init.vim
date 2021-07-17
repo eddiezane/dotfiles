@@ -103,7 +103,7 @@ let g:prettier#config#parser = 'typescript'
 
 " coc.nvim
 " extensions
-let g:coc_global_extensions = [ 'coc-snippets', 'coc-json', 'coc-yaml', 'coc-tsserver', 'coc-go', 'coc-python', 'coc-html', 'coc-css' ]
+let g:coc_global_extensions = [ 'coc-snippets', 'coc-json', 'coc-yaml', 'coc-tsserver', 'coc-go', 'coc-python', 'coc-html', 'coc-css', 'coc-rls' ]
 " config
 source $HOME/.config/nvim/coc-config.vim
 

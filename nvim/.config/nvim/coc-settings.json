@@ -1,6 +1,17 @@
 {
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
   "yaml.schemas": {
-      "kubernetes": ["/*_c.yaml", "/*_c.yml"]
+    "kubernetes": ["/*_c.yaml", "/*_c.yml"]
   },
   "go.goplsOptions": {
     "allowModfileModifications": true,
