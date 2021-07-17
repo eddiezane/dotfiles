@@ -26,7 +26,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql',
+  \ 'markdown', 'vue', 'yaml', 'html'] }
 
 call plug#end()
 
@@ -103,7 +104,7 @@ let g:prettier#config#parser = 'typescript'
 
 " coc.nvim
 " extensions
-let g:coc_global_extensions = [ 'coc-snippets', 'coc-json', 'coc-yaml', 'coc-tsserver', 'coc-go', 'coc-python', 'coc-html', 'coc-css', 'coc-rls' ]
+let g:coc_global_extensions = [ 'coc-snippets', 'coc-json', 'coc-yaml', 'coc-tsserver',
+      \ 'coc-go', 'coc-python', 'coc-html', 'coc-css', 'coc-rls' ]
 " config
 source $HOME/.config/nvim/coc-config.vim
-

@@ -46,6 +46,8 @@ if [[ -f /etc/arch-release ]]; then
 elif [[ `uname` == "Darwin" ]]; then
   alias bu="brew upgrade"
   export GOPROXY=direct
+  source "$HOME/.cargo/env"
+
 fi
 
 # Don't double set path in tmux
