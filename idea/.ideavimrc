@@ -1,0 +1,9 @@
+set NERDTree
+set surround
+set showmode
+set incsearch
+set scrolloff=5
+
+map <Leader>n :NERDTreeToggle<CR>
+map <Leader>gf <Action>(GoFmtFileAction)
+map Q <Action>(GoFmtFileAction)
