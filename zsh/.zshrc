@@ -12,6 +12,18 @@ setopt HIST_IGNORE_SPACE
 # autoload -U compinit && compinit
 
 export KUBE_PS1_ENABLED=off
+function kube_cut_ns() {
+  if [[ $1 == "default" ]]; then
+    echo ""
+  else
+    echo " $1"
+  fi
+}
+export KUBE_PS1_SYMBOL_ENABLE=false
+export KUBE_PS1_PREFIX=""
+export KUBE_PS1_SUFFIX=""
+export KUBE_PS1_DIVIDER=""
+export KUBE_PS1_NAMESPACE_FUNCTION=kube_cut_ns
 
 bindkey -v
 bindkey '^P' up-history
