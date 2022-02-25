@@ -4,6 +4,7 @@ Plug 'tpope/vim-sensible'
 
 " color scheme
 Plug 'fortes/vim-escuro'
+Plug 'jnurmine/Zenburn'
 
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -36,7 +37,8 @@ set encoding=utf-8
 set autoread
 filetype plugin indent on
 syntax on
-colorscheme escuro
+" colorscheme escuro
+colorscheme zenburn
 
 " Line numbers
 set number

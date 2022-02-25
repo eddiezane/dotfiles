@@ -6,8 +6,6 @@
 	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
-[commit]
-	gpgsign = true
 [github]
 	user = eddiezane
 [alias]
@@ -17,6 +15,10 @@
 [pull]
 	ff = only
 [include]
-  path = $HOME/.gitconfig_local
+  path = ~/.gitconfig_local
 [init]
 	defaultBranch = main
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true

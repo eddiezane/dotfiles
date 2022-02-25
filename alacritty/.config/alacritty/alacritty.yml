@@ -71,6 +71,8 @@ window:
   # Window class (Linux only):
   #class: Alacritty
 
+  opacity: 1.0
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -165,8 +167,8 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xeaeaea'
+    background: '0x3a3a3a'
+    foreground: '0xd7d7d7'
 
     # Bright and dim foreground colors
     #
@@ -269,7 +271,6 @@ bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
 
 # Mouse bindings
 #
