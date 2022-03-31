@@ -12,6 +12,12 @@ kk() {
 _kk() { _files -W ~/Codez/kubernetes -/; }
 compdef _kk kk
 
+sigstore() {
+  cd ~/Codez/sigstore/$1;
+}
+_sigstore() { _files -W ~/Codez/sigstore -/; }
+compdef _sigstore sigstore
+
 function gs_check() {
   if [[ -n ${GEM_HOME} ]]; then
     echo " GS"

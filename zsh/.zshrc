@@ -64,7 +64,8 @@ fi
 
 # Don't double set path in tmux
 if [[ -z "$TMUX" ]]; then
-  export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  # export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  export PATH=$GOPATH/bin:$PATH
 
   if [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
