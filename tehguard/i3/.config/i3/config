@@ -270,6 +270,8 @@ exec --no-startup-id xss-lock -- i3lock -n -c 222222
 # exec --no-startup-id blueman-applet
 exec --no-startup-id xflux -z 80214
 
+exec --no-startup-id /usr/lib/gsd-xsettings
+
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
 # https://i3wm.org/docs/userguide.html#xresources

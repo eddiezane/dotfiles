@@ -23,15 +23,23 @@ local servers = {
 
 for lsp, config in pairs(servers) do
   local tab = {
-    on_attach = function()
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = 0 })
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0 })
-      vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, { buffer = 0 })
-      vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, { buffer = 0 })
-      vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, { buffer = 0 })
-      vim.keymap.set('n', '<leader>[', vim.diagnostic.goto_next, { buffer = 0 })
-      vim.keymap.set('n', '<leader>]', vim.diagnostic.goto_next, { buffer = 0 })
+    on_attach = function(_, bufnr)
+      local bufopts = { buffer = bufnr }
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+      vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, bufopts)
+      vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, bufopts)
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+      vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+
+      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
+      vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
 
       require('lsp_signature').on_attach()
 

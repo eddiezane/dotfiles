@@ -17,6 +17,7 @@ Plug 'mattn/emmet-vim'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
+Plug 'windwp/nvim-autopairs'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'

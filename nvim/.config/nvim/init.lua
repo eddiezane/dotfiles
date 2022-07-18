@@ -14,6 +14,7 @@ vim.cmd('colorscheme catppuccin')
 vim.opt.number = true
 vim.opt.scrolloff = 5
 vim.opt.wrap = false
+vim.opt.relativenumber = true
 
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -47,3 +48,5 @@ require('lualine').setup()
 
 require('telescope').setup({})
 require('telescope').load_extension('fzf')
+
+require("nvim-autopairs").setup {}

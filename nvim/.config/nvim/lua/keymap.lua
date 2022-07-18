@@ -17,3 +17,4 @@ vim.keymap.set('i', '<leader>/', '<esc><plug>NERDCommenterToggle<cr>i', { remap 
 vim.keymap.set('n', '<leader>n', '<cmd>NERDTreeToggle<cr>')
 
 vim.keymap.set('n', '<leader>t', ':Telescope<cr>', { remap = true })
+vim.keymap.set('n', '<leader>f', ':Telescope find_files<cr>', { remap = true })
