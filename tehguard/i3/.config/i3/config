@@ -186,7 +186,9 @@ assign [class="Slack"] $ws9
 
 for_window [class="Spotify"] move to workspace $ws8
 
-for_window [title="JetBrains Toolbox"] floating disable
+for_window [title="JetBrains Toolbox"] floating enable
+
+for_window [title="Bluetooth Devices"] floating enable
 
 for_window [class="zoom"] floating enable
 for_window [title="^join\?action=join.*$"] floating enable

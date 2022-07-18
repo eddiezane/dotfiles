@@ -47,7 +47,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 
 export NPM_PACKAGES=$HOME/.local/lib/npm
-export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules"
 
 export nvim_path=$(which nvim)
 alias vim=$nvim_path
@@ -57,16 +57,15 @@ complete -C /usr/bin/aws_completer aws
 
 # Don't double set path
 if [[ -z "$THE_PATH_IS_SET" ]]; then
+  export PATH=$HOME/.local/bin:$PATH
   export PATH=$GOPATH/bin:$PATH
+  [[ -f ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
+  [[ -f /opt/gcloud/google-cloud-sdk/path.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/path.zsh.inc
   export THE_PATH_IS_SET=true
 fi
 
-[[ -f ~/.dotfiles/secrets ]] && source ~/.dotfiles/secrets
-[[ -f ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
 [[ -f ~/.asdf/completions/asdf.bash ]] && source ~/.asdf/completions/asdf.bash
-
-if [ -f '/opt/gcloud/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/gcloud/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/opt/gcloud/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/gcloud/google-cloud-sdk/completion.zsh.inc'; fi
+[[ -f /opt/gcloud/google-cloud-sdk/completion.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/completion.zsh.inc
 
 alias k="kubectl"
 alias kx="kubectx"
