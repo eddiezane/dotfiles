@@ -14,6 +14,7 @@ vim.cmd('colorscheme catppuccin')
 vim.opt.number = true
 vim.opt.scrolloff = 5
 vim.opt.wrap = false
+vim.opt.linebreak = false
 vim.opt.relativenumber = true
 
 vim.opt.expandtab = true

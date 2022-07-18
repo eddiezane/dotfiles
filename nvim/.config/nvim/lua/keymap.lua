@@ -1,15 +1,8 @@
 vim.keymap.set('n', '<leader>l', ':setlocal list!<cr>')
 
 vim.keymap.set('n', '<leader>w', function()
-  if vim.opt.wrap:get() == true then
-    vim.opt.wrap = false
-    vim.opt.linebreak = false
-    print('wrap off')
-  else
-    vim.opt.wrap = true
-    vim.opt.linebreak = true
-    print('wrap on')
-  end
+  vim.api.nvim_command('set wrap!')
+  vim.api.nvim_command('set linebreak!')
 end, { desc = 'Toggle line wrapping' })
 
 vim.keymap.set('', '<leader>/', '<plug>NERDCommenterToggle<cr>', { remap = true })
