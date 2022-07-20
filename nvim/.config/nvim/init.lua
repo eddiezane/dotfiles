@@ -1,7 +1,7 @@
 require('plugins')
+require('snippets')
 require('lsp')
 require('completion')
-require('snippets')
 require('keymap')
 require('dapdebug')
 
@@ -9,6 +9,7 @@ require('dapdebug')
 require('catppuccin').setup()
 
 -- vim.cmd('colorscheme zenburn')
+vim.g.catppuccin_flavour = 'macchiato'
 vim.cmd('colorscheme catppuccin')
 
 vim.opt.number = true
@@ -41,7 +42,7 @@ require('nvim-treesitter.configs').setup({
     additional_vim_regex_highlighting = false,
   },
   indent = {
-    enable = true,
+    enable = false,
   },
 })
 

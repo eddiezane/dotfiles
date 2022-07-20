@@ -9,7 +9,9 @@ local servers = {
   rust_analyzer = {},
   pyright = {},
   gopls = {},
+  bashls = {},
   tsserver = {},
+  yamlls = {},
   sumneko_lua = {
     settings = {
       Lua = {
@@ -31,7 +33,6 @@ for lsp, config in pairs(servers) do
       vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, bufopts)
       vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, bufopts)
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-      vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
@@ -40,6 +41,11 @@ for lsp, config in pairs(servers) do
       vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
+      vim.keymap.set('n', '<leader>qf', vim.lsp.buf.formatting, bufopts)
+
+      vim.diagnostic.config({
+        update_in_insert = true,
+      })
 
       require('lsp_signature').on_attach()
 

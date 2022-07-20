@@ -73,5 +73,7 @@ alias vu="vim +PlugUpdate +qa"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
+bindkey -s ^f "tmux-sessionizer\n"
+
 # make sure return code is 0
 true
