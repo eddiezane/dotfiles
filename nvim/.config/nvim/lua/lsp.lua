@@ -8,7 +8,11 @@ local servers = {
   clangd = {},
   rust_analyzer = {},
   pyright = {},
-  gopls = {},
+  gopls = {
+    cmd = {
+      "gopls", "-remote=auto",
+    },
+  },
   bashls = {},
   tsserver = {},
   yamlls = {},
@@ -57,6 +61,9 @@ for lsp, config in pairs(servers) do
   }
   if config['settings'] then
     tab['settings'] = config['settings']
+  end
+  if config['cmd'] then
+    tab['cmd'] = config['cmd']
   end
   lspconfig[lsp].setup(tab)
 end
