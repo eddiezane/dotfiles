@@ -12,6 +12,9 @@ local servers = {
     cmd = {
       "gopls", "-remote=auto",
     },
+    on_attach = function(_)
+      vim.api.nvim_command([[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync() ]])
+    end,
   },
   bashls = {},
   tsserver = {},
@@ -34,7 +37,7 @@ for lsp, config in pairs(servers) do
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-      vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, bufopts)
+      vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, bufopts)
       vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, bufopts)
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
@@ -54,7 +57,7 @@ for lsp, config in pairs(servers) do
       require('lsp_signature').on_attach()
 
       if config['on_attach'] then
-        config['on_attach']()
+        config['on_attach'](bufopts)
       end
     end,
     capabilities = capabilities,

@@ -39,26 +39,13 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-export EDITOR=nvim
-export GOPATH=$HOME/Codez/GOPATH
-
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-
-export NPM_PACKAGES=$HOME/.local/lib/npm
-export NODE_PATH="$NPM_PACKAGES/lib/node_modules"
-
 export nvim_path=$(which nvim)
 alias vim=$nvim_path
 
-export BROWSER=/usr/bin/google-chrome-stable;
 complete -C /usr/bin/aws_completer aws
 
 # Don't double set path
 if [[ -z "$THE_PATH_IS_SET" ]]; then
-  export PATH=$HOME/.local/bin:$PATH
-  export PATH=$GOPATH/bin:$PATH
   [[ -f ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
   [[ -f /opt/gcloud/google-cloud-sdk/path.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/path.zsh.inc
   export THE_PATH_IS_SET=true

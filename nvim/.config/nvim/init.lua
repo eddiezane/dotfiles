@@ -42,13 +42,23 @@ require('nvim-treesitter.configs').setup({
     additional_vim_regex_highlighting = false,
   },
   indent = {
-    enable = false,
+    enable = true,
   },
 })
 
 require('lualine').setup()
 
-require('telescope').setup({})
+require('telescope').setup({
+  defaults ={
+    -- path_display = {"smart"},
+    wrap_results = true,
+  },
+  pickers = {
+    lsp_references = {
+      fname_width = 1000
+    }
+  }
+})
 require('telescope').load_extension('fzf')
 
 require("nvim-autopairs").setup {}
