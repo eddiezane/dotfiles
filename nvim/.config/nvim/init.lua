@@ -62,3 +62,5 @@ require('telescope').setup({
 require('telescope').load_extension('fzf')
 
 require("nvim-autopairs").setup {}
+
+require('gitsigns').setup()

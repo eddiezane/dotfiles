@@ -19,6 +19,10 @@
 [init]
 	defaultBranch = main
 [commit]
-	gpgSign = true
+	gpgsign = true
 [tag]
-	gpgSign = true
+	gpgsign = true
+[gpg "x509"]
+	program = gitsign
+[gpg]
+	format = x509
