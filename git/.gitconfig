@@ -6,6 +6,7 @@
 	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
+	autoSetupRemote = true
 [github]
 	user = eddiezane
 [alias]
