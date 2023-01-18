@@ -248,6 +248,8 @@ bindsym $mod+Ctrl+l exec --no-startup-id i3lock -c 222222
 # Rebind caps to escape
 exec --no-startup-id setxkbmap -option caps:escape
 
+exec_always --no-startup-id picom --backend glx --vsync
+
 # Autostart applications
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
@@ -256,7 +258,7 @@ exec --no-startup-id xss-lock -- i3lock -n -c 222222
 # exec --no-startup-id nitrogen --restore; sleep 1; compton -b --no-fading-openclose
 # exec --no-startup-id xfce4-power-manager
 # exec --no-startup-id blueman-applet
-exec --no-startup-id xflux -z 80214
+# exec --no-startup-id xflux -z 80214
 
 exec --no-startup-id /usr/lib/gsd-xsettings
 

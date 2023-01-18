@@ -24,6 +24,12 @@ ls.add_snippets(nil, {
         insert(0),
         text({'', '}'})
       }),
+      snip('iferrp', {
+        text({'if err != nil {', ''}),
+        text '\t',
+        text 'panic(err)',
+        text({'', '}', ''})
+      }),
       snip('for', {
         text('for '),
         insert(1),

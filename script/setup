@@ -2,9 +2,6 @@
 
 # vim: ft=sh
 
-# Accept Xcode License
-# sudo xcodebuild -license accept
-
 cd ~/.dotfiles
 
 # Bootstrap oh-my-zsh
@@ -13,18 +10,3 @@ if [ ! -d ~/.oh-my-zsh ]; then
   mkdir -p ~/.oh-my-zsh/custom/plugins/eddiezane
   mkdir -p ~/.oh-my-zsh/custom/themes
 fi
-
-if [ ! -d ~/.config/alacritty ]; then
-  mkdir -p ~/.config/alacritty
-fi
-
-# Bootstrap vim-plug
-if [ ! -d ~/.config/nvim/autoload ]; then
-  mkdir -p ~/.config/nvim/{autoload,plugged}
-  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-for i in git node ruby tmux nvim zsh; do
-  stow $i
-done
