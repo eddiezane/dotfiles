@@ -39,9 +39,15 @@ local config = {
 
   -- Configure plugins
   plugins = {
-    init = {
-        { "tpope/vim-surround" }
-    },
+      init = {
+          { "tpope/vim-surround" }
+      },
+      -- Show full filepath
+      -- https://github.com/AstroNvim/AstroNvim/issues/1136
+      heirline = function(config)
+          config[1][3] = astronvim.status.component.file_info { filename = { modify = ":." } }
+          return config
+      end,
   },
 
   -- LuaSnip Options

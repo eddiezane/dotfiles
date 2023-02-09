@@ -1,6 +1,7 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="eddiezane"
 CASE_SENSITIVE="true"
+DISABLE_MAGIC_FUNCTIONS=true
 DISABLE_AUTO_TITLE="true"
 plugins=(git eddiezane kube-ps1)
 source $ZSH/oh-my-zsh.sh
