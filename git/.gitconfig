@@ -27,3 +27,5 @@
 	program = gitsign
 [gpg]
 	format = x509
+[gitsign]
+	connectorID = https://accounts.google.com
