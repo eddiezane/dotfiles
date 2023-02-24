@@ -29,3 +29,4 @@
 	format = x509
 [gitsign]
 	connectorID = https://accounts.google.com
+	matchCommitter = true
