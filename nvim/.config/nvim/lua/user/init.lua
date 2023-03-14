@@ -43,15 +43,14 @@ local config = {
       "tpope/vim-surround",
       lazy = false,
     },
-      -- Show full filepath
-      -- https://github.com/AstroNvim/AstroNvim/issues/1136
-      -- {
-      --   "rebelot/heirline.nvim",
-      --   config = function(config)
-      --     config[1][3] = astronvim.status.component.file_info { filename = { modify = ":." } }
-      --     return config
-      --   end
-      -- },
+    {
+      "rebelot/heirline.nvim",
+      config = function(plugin, opts)
+        local status = require "astronvim.utils.status"
+        opts.statusline[4] = status.component.file_info { filename = { modify = ":." } }
+        require("plugins.configs.heirline")(plugin, opts)
+      end
+    },
   },
 
   -- LuaSnip Options
