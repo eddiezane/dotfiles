@@ -7,6 +7,9 @@ plugins=(git eddiezane kube-ps1)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
 setopt HIST_IGNORE_SPACE
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
 
 # autoload -U compinit && compinit
 
@@ -54,6 +57,8 @@ fi
 
 [[ -f ~/.asdf/completions/asdf.bash ]] && source ~/.asdf/completions/asdf.bash
 [[ -f /opt/gcloud/google-cloud-sdk/completion.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/completion.zsh.inc
+[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
 
 alias k="kubectl"
 alias kx="kubectx"
