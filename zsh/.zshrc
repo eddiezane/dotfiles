@@ -59,6 +59,7 @@ fi
 [[ -f /opt/gcloud/google-cloud-sdk/completion.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/completion.zsh.inc
 [[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
 [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f ~/.config/op/plugins.sh ]] && source ~/.config/op/plugins.sh
 
 alias k="kubectl"
 alias kx="kubectx"
