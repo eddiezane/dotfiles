@@ -179,6 +179,8 @@ for_window [title="JetBrains Toolbox"] floating enable
 
 for_window [title="Bluetooth Devices"] floating enable
 
+for_window [class="gnome-calculator"] floating enable
+
 for_window [class="zoom"] floating enable
 for_window [title="^join\?action=join.*$"] floating enable
 for_window [title="^Zoom - .* Account$"] floating disable
