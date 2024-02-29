@@ -3,13 +3,16 @@ ZSH_THEME="eddiezane"
 CASE_SENSITIVE="true"
 DISABLE_MAGIC_FUNCTIONS=true
 DISABLE_AUTO_TITLE="true"
-plugins=(git eddiezane kube-ps1)
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=false
+ZSH_TMUX_AUTOCONNECT=false
+plugins=(tmux git eddiezane kube-ps1)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
 setopt HIST_IGNORE_SPACE
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
-setopt EXTENDED_HISTORY
+export ZSH_TMUX_AUTOSTART=true
 
 # autoload -U compinit && compinit
 
@@ -64,8 +67,15 @@ fi
 alias k="kubectl"
 alias kx="kubectx"
 alias vu="vim +PlugUpdate +qa"
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
+
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]]
+then
+  alias pbcopy='wl-copy -n -p'
+  alias pbpaste='wl-paste -p'
+else
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
 
 bindkey -s ^f "tmux-sessionizer\n"
 

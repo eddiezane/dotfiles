@@ -57,7 +57,7 @@ local config = {
         require "plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
         require("luasnip.loaders.from_lua").lazy_load { paths = { "./lua/user/snippets" } } -- load snippets paths
       end,
-    }
+    },
   },
 
   -- LuaSnip Options

@@ -23,7 +23,7 @@ render_timer = false
 TERM = "xterm-256color"
 
 [font]
-size = 18
+size = 16
 
 [font.bold]
 family = "Source Code Pro"
