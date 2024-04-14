@@ -5,7 +5,7 @@ DISABLE_MAGIC_FUNCTIONS=true
 DISABLE_AUTO_TITLE="true"
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOSTART_ONCE=false
-ZSH_TMUX_AUTOCONNECT=false
+ZSH_TMUX_AUTOCONNECT=true
 plugins=(tmux git eddiezane kube-ps1)
 source $ZSH/oh-my-zsh.sh
 unsetopt auto_name_dirs
