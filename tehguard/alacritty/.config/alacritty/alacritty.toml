@@ -594,6 +594,7 @@ y = 4
 # https://raw.githubusercontent.com/catppuccin/alacritty/main/catppuccin-macchiato.toml
 
 [colors.primary]
+# background = "#1A1D23"
 background = "#24273A"
 foreground = "#CAD3F5"
 dim_foreground = "#CAD3F5"
