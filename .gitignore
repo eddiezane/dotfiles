@@ -1,3 +1,4 @@
 .DS_Store
 secrets
 git/.gitconfig_local
+nvim/.config/nvim/lazy-lock.json
