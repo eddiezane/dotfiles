@@ -50,6 +50,10 @@ return {
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
+
+      require("luasnip.loaders.from_lua").lazy_load {
+        paths = { "./lua/snippets" },
+      }
     end,
   },
 
@@ -93,30 +97,7 @@ return {
     config = function(plugin, opts)
       local status = require "astroui.status"
       opts.statusline[3] = status.component.file_info { filetype = false, filename = { modify = ":." } }
-      require("astronvim.plugins.configs.heirline")(plugin, opts)
-    end
-  },
-
-  {
-    "L3MON4D3/LuaSnip",
-    config = function(plugin, opts)
-      require("astronvim.plugins.configs.luasnip")(plugin, opts)
-      require("luasnip.loaders.from_lua").lazy_load({
-        paths = { "./lua/snippets" }
-      })
+      require "astronvim.plugins.configs.heirline"(plugin, opts)
     end,
   },
-
-  -- luasnip = {
-  --   -- Extend filetypes
-  --   filetype_extend = {
-  --     -- javascript = { "javascriptreact" },
-  --   },
-  --   -- Configure luasnip loaders (vscode, lua, and/or snipmate)
-  --   vscode = {
-  --     -- Add paths for including more VS Code style snippets in luasnip
-  --     paths = {},
-  --   },
-  -- },
-
 }
