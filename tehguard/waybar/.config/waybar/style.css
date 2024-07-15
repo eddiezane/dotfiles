@@ -80,6 +80,7 @@ button:hover {
 #mode,
 #idle_inhibitor,
 #scratchpad,
+#custom-notification,
 #mpd {
     padding: 0 10px;
     color: @crust;
@@ -120,10 +121,10 @@ button:hover {
 /* } */
 
 @keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
+to {
+    background-color: #ffffff;
+    color: #000000;
+}
 }
 
 #battery.critical:not(.charging) {
@@ -141,7 +142,7 @@ label:focus {
 
 #cpu {
     background-color: @maroon;
-    color: #000000;
+        color: #000000;
 }
 
 #memory {
@@ -166,12 +167,17 @@ label:focus {
 
 #pulseaudio {
     background-color: @lavender;
-    color: #000000;
+        color: #000000;
 }
 
 #pulseaudio.muted {
     background-color: #90b1b1;
     color: #2a5c45;
+}
+
+#custom-notification {
+    font-family: "NotoSansMono Nerd Font";
+    background-color: @pink;
 }
 
 #wireplumber {
