@@ -1,2 +1,0 @@
-[all]
-IP_GOES_HERE ansible_python_interpreter=/usr/bin/python3
