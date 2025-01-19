@@ -1,8 +1,8 @@
-font-family = "Source Code Pro"
+font-family = "SauceCodePro Nerd Font Mono"
+font-family = "Noto Color Emoji"
 font-size = 16
+
 window-decoration = false
-# cursor-style = "block"
-# shell-integration-features = no-cursor
 
 # https://raw.githubusercontent.com/catppuccin/ghostty/refs/heads/main/themes/catppuccin-macchiato.conf
 palette = 0=#494d64
