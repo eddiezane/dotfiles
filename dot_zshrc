@@ -80,7 +80,5 @@ else
   alias pbpaste='xclip -selection clipboard -o'
 fi
 
-bindkey -s ^f "tmux-sessionizer\n"
-
 # make sure return code is 0
 true
