@@ -1,0 +1,5 @@
+[[ -f /etc/profile ]] && source /etc/profile
+
+[[ -f /opt/gcloud/google-cloud-sdk/path.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/path.zsh.inc
+
+export PATH="$HOME/.local/bin:$GOPATH/bin:$PATH"
