@@ -4,7 +4,7 @@
         "spacing": 4, // Gaps between modules (4px)
         "modules-left": ["hyprland/workspaces"],
         // "modules-center": ["hyprland/window"],
-        "modules-right": ["custom/notification", "idle_inhibitor", "pulseaudio", "network", "disk", "cpu", "memory", "temperature", "backlight", "power-profiles-daemon", "battery", "clock", "clock#date", "tray"],
+        "modules-right": ["custom/notification", "custom/inhibitors", "pulseaudio", "network", "disk", "cpu", "memory", "temperature", "backlight", "power-profiles-daemon", "battery", "clock", "clock#date", "tray"],
         "fixed-center": false,
         "keyboard-state": {
             "numlock": true,
@@ -113,6 +113,13 @@
                 "default": ["", "", ""]
             },
             "on-click": "pavucontrol"
+        },
+        "custom/inhibitors": {
+            "format": "{}",
+            "return-type": "json",
+            "interval": 15,
+            "exec": "~/.config/waybar/scripts/inhibitors.sh",
+            "on-click": "~/.config/waybar/scripts/inhibitors.sh notify"
         },
         "custom/notification": {
             "tooltip": false,

@@ -82,6 +82,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #custom-notification,
+#custom-inhibitors,
 #mpd {
     padding: 0 10px;
     color: @crust;
@@ -179,6 +180,10 @@ label:focus {
 #pulseaudio.muted {
     background-color: #90b1b1;
     color: #2a5c45;
+}
+
+#custom-inhibitors {
+    background-color: @subtext1;
 }
 
 #custom-notification {
