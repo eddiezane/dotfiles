@@ -1,5 +1,13 @@
+{{- if eq .chezmoi.os "linux" -}}
 [[ -f /etc/profile ]] && source /etc/profile
 
 [[ -f /opt/gcloud/google-cloud-sdk/path.zsh.inc ]] && source /opt/gcloud/google-cloud-sdk/path.zsh.inc
+{{- else if eq .chezmoi.os "darwin" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+set -a
+source ~/.config/environment.d/profile.conf
+set +a
+{{- end }}
 
 export PATH="$HOME/.local/bin:$GOPATH/bin:$PNPM_HOME/bin:$PATH"

@@ -1,2 +1,7 @@
 README.md
 LICENSE
+{{ if eq .chezmoi.os "darwin" }}
+.config/hypr
+.config/swaync
+.config/waybar
+{{ end }}
