@@ -1,0 +1,41 @@
+/* Force the main bar to be incredibly thin and flat */
+tabbar {
+    background-color: #1a1b26;
+    padding: 0;
+    border: none;
+}
+
+/* Strip out GTK bloat for unselected tabs */
+tabbar tab {
+    min-height: 22px;
+    padding: 2px 12px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none; 
+    background-color: #1a1b26;
+    color: #565f89;
+    font-size: 11px; /* Smaller font to match the thin bar */
+    font-weight: bold;
+}
+
+/* Active tab gets a subtle background and a clean accent underline */
+tabbar tab:checked {
+    background-color: #24283b;
+    color: #c0caf5;
+    border-bottom: 2px solid #7aa2f7; 
+}
+
+/* Shrink the close button so it doesn't stretch the tab height */
+tabbar tab button.close {
+    min-height: 12px;
+    min-width: 12px;
+    padding: 0;
+    margin-left: 6px;
+    color: #565f89;
+}
+
+tabbar tab button.close:hover {
+    color: #f7768e;
+    background: transparent;
+}
