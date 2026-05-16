@@ -1,2 +1,2 @@
-min-release-age=7 # days
+min-release-age=3 # days
 ignore-scripts=true
