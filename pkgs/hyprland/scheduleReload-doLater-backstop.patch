@@ -1,0 +1,60 @@
+config: drive scheduleReload via doLater backstop when no rendering
+
+`hyprctl keyword monitor "X, disable"` calls `Config::monitorRuleMgr()->add(...)`,
+which calls `scheduleReload()`. `scheduleReload()` just sets `m_reloadScheduled = true`;
+the flag is consumed by a listener on `Event::bus()->m_events.render.preChecks`,
+which only fires when a monitor renders a frame.
+
+Disabling the last real monitor takes the compositor into unsafe state. In
+unsafe state, `MonitorFrameScheduler::scheduleFrame` early-returns on
+`g_pCompositor->m_unsafeState` and no frames are rendered. The FALLBACK
+headless monitor exists but its frame cadence is not enough to reliably
+fire `render.preChecks` (and isn't in some configurations at all).
+
+Net effect: a subsequent `hyprctl keyword monitor "X, preferred, …"` issued
+to re-enable a previously-disabled monitor is parsed, the rule is added,
+`scheduleReload()` is called — but `performMonitorReload()` never runs.
+The monitor stays disabled. Screen stays black. Only an external trigger
+that bypasses `scheduleReload` (e.g. `hyprctl reload`, which calls
+`Config::mgr()->reload()` directly, or DPMS-toggle which goes through a
+different path) recovers. Reported in #14710 (closed by the user-issues
+bot, never fixed); the parallel Lua-config path was fixed in #14447.
+
+Fix: queue a `g_pEventLoopManager->doLater` callback alongside the flag.
+If `preChecks` fires first, the doLater is a flag-checked no-op. If
+`preChecks` doesn't fire (the broken case), doLater forces a single
+direct call to `performMonitorReload()` on the next event-loop tick.
+
+Tested on Framework 13 AMD / Hyprland 0.55.2 / aquamarine 0.11.0 — both
+direct `hyprctl keyword monitor "eDP-1, disable"` then re-enable, and the
+lid-switch `bindl` script use case from the original report.
+
+References: hyprwm/Hyprland#14710, #14447.
+
+diff --git a/src/config/shared/monitor/MonitorRuleManager.cpp b/src/config/shared/monitor/MonitorRuleManager.cpp
+--- a/src/config/shared/monitor/MonitorRuleManager.cpp
++++ b/src/config/shared/monitor/MonitorRuleManager.cpp
+@@ -115,6 +115,23 @@ void CMonitorRuleManager::scheduleReload() {
+         return;
+
+     m_reloadScheduled = true;
++
++    // Without this, in unsafe state (no real monitors rendering), the
++    // render.preChecks event that normally consumes m_reloadScheduled
++    // never fires — so a `hyprctl keyword monitor X, preferred, ...`
++    // issued to re-enable a previously-disabled monitor is silently
++    // ignored, leaving the screen black. Queue a direct event-loop
++    // callback as a backstop. If preChecks fires first, the second one
++    // no-ops via the flag check. Fixes the IPC counterpart of #14447
++    // (which fixed the Lua API path only).
++    if (g_pEventLoopManager) {
++        g_pEventLoopManager->doLater([this] {
++            if (m_reloadScheduled) {
++                performMonitorReload();
++                m_reloadScheduled = false;
++            }
++        });
++    }
+ }
+
+ void CMonitorRuleManager::performMonitorReload() {

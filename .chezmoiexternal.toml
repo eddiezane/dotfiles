@@ -1,5 +1,0 @@
-[".oh-my-zsh"]
-type = "git-repo"
-url = "https://github.com/ohmyzsh/ohmyzsh.git"
-exact = true
-refreshPeriod = "72h"
