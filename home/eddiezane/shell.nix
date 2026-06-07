@@ -39,8 +39,11 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "eddiezane";
-      plugins = [ "git" "eddiezane" "kube-ps1" ];
+      # Prompt is handled by starship now (see programs.starship below); the old
+      # eddiezane theme has been removed. To revert, restore it from git history
+      # and drop the programs.starship block.
+      theme = "";
+      plugins = [ "git" "eddiezane" ];
       # home-manager writes this as a single-quoted string into .zshrc, so it
       # MUST be a literal path (not '$HOME/...'). Evaluate at build time.
       custom = "${config.home.homeDirectory}/.oh-my-zsh-custom";
@@ -54,32 +57,9 @@
     '';
 
     initContent = ''
-      # Match the original ~/.zshrc setup.
-      typeset -U path
-      DISABLE_MAGIC_FUNCTIONS=true
       DISABLE_AUTO_TITLE="true"
-      CASE_SENSITIVE="true"
-      ZSH_TMUX_AUTOSTART=true
-      ZSH_TMUX_AUTOSTART_ONCE=false
-      ZSH_TMUX_AUTOCONNECT=true
 
       unsetopt auto_name_dirs
-      setopt HIST_IGNORE_SPACE
-
-      # kube-ps1 tuning (off by default; toggle with `kubeon`)
-      export KUBE_PS1_ENABLED=off
-      function kube_cut_ns() {
-        if [[ $1 == "default" ]]; then
-          echo ""
-        else
-          echo " $1"
-        fi
-      }
-      export KUBE_PS1_SYMBOL_ENABLE=false
-      export KUBE_PS1_PREFIX=""
-      export KUBE_PS1_SUFFIX=""
-      export KUBE_PS1_DIVIDER=""
-      export KUBE_PS1_NAMESPACE_FUNCTION=kube_cut_ns
 
       bindkey -v
       bindkey '^P' up-history
@@ -93,9 +73,6 @@
       bindkey -M vicmd v edit-command-line
       bindkey -M viins '^A' vi-beginning-of-line
       bindkey -M viins '^E' vi-end-of-line
-      # Register the eddiezane theme's vi-mode prompt widgets.
-      zle -N zle-line-init
-      zle -N zle-keymap-select
       export KEYTIMEOUT=1
 
       if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
@@ -134,5 +111,94 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      add_newline = false;
+      # \${...} is an escaped literal ${...} (starship custom-module ref), not Nix interpolation.
+      format = " $kubernetes$nix_shell$direnv$hostname$directory$git_branch\${custom.gitstate} ";
+      right_format = "$jobs$character";
+
+      directory = {
+        truncation_length = 2;       # like %2~
+        truncate_to_repo = false;
+        truncation_symbol = "";
+        style = "207";
+        format = "[$path]($style)";  # no trailing space: git bracket abuts the path, as before
+      };
+
+      # vi-mode: nothing in insert mode, "[ NORMAL]" in command mode (matches old RPROMPT).
+      character = {
+        success_symbol = "";
+        error_symbol = "";
+        vimcmd_symbol = "[ NORMAL](bold yellow)";
+      };
+
+      # old ssh_check: just the plug when on an SSH connection.
+      hostname = {
+        ssh_only = true;
+        ssh_symbol = "🔌 ";
+        format = "[$ssh_symbol]($style) ";
+        style = "207";
+      };
+
+      git_branch = {
+        symbol = "";
+        format = "[\\[$branch]($style)";  # opening "[branch"; custom.gitstate closes the bracket
+        style = "bold white";
+      };
+
+      custom.gitstate = {
+        when = "git rev-parse --is-inside-work-tree";
+        shell = [ "bash" "--noprofile" "--norc" ];
+        command = ''
+          status="$(git status --porcelain 2>/dev/null)"
+          if [ -z "$status" ]; then printf '☀️'
+          elif grep -q '^[^?]' <<<"$status"; then printf '☂️'; else printf '🚸'; fi
+        '';
+        format = "[( $output)\\]]($style)";
+        style = "bold white";
+      };
+
+      # manual `nix develop` / `nix-shell` (sets IN_NIX_SHELL).
+      nix_shell = {
+        symbol = "❄ ";
+        format = "[$symbol$name]($style) ";
+        style = "cyan";
+      };
+
+      # nix-direnv / direnv-loaded envs. May fire alongside nix_shell in flake
+      # dirs (double ❄) — disable whichever you don't want once you see it live.
+      direnv = {
+        disabled = false;
+        format = "[$symbol]($style) ";
+        symbol = "❄ ";
+        style = "cyan";
+        allowed_msg = "";
+        not_allowed_msg = "";
+        denied_msg = "";
+        loaded_msg = "";
+        unloaded_msg = "";
+      };
+
+      # old RPROMPT job count: [n] when >=1 background job.
+      jobs = {
+        symbol = "";
+        number_threshold = 1;
+        format = "[\\[$number\\]]($style) ";
+        style = "207";
+      };
+
+      # kube context was off by default (KUBE_PS1_ENABLED=off); leave disabled,
+      # flip to false to bring it back.
+      kubernetes = {
+        disabled = true;
+        format = "[$context( \\($namespace\\))]($style) ";
+        style = "207";
+      };
+    };
   };
 }

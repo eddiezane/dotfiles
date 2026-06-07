@@ -12,39 +12,10 @@ kk() {
 _kk() { _files -W ~/Codez/kubernetes -/; }
 compdef _kk kk
 
-sigstore() {
-  cd ~/Codez/sigstore/$1;
-}
-_sigstore() { _files -W ~/Codez/sigstore -/; }
-compdef _sigstore sigstore
-
-function gs_check() {
-  if [[ -n ${GEM_HOME} ]]; then
-    echo " GS"
-  fi
-}
-
-function gopath_check() {
-  case $PWD/ in
-    */GOPATH/*) echo " GP"
-  esac
-}
-
 function mkcd {
   dir="$*";
   mkdir -p "$dir" && cd "$dir";
 }
-
-function name_dat_tmux {
-if [ "$TMUX" ]; then
-  if [ "$PWD" != "$OLDPWD" ]; then
-    OLDPWD="$PWD";
-    tmux rename-window ${PWD##*/};
-  fi
-fi
-}
-
-precmd_functions+='name_dat_tmux'
 
 function ssh {
   if [[ $# == 0 || -z $TMUX ]]; then
@@ -61,19 +32,5 @@ function ssh {
   command ssh $@
   if [[ $renamed == 1 ]]; then
     tmux rename-window "$old_name"
-  fi
-}
-
-function ssh_check {
-  if [[ -n ${SSH_CLIENT} ]]; then
-    echo "🔌 "
-  fi
-}
-
-function nix_check() {
-  if [[ -n "$IN_NIX_SHELL" ]]; then
-    echo "%{$fg[cyan]%}❄ ${name:-nix}%{$reset_color%} "
-  elif [[ -n "$DIRENV_DIR" ]]; then
-    echo "%{$fg[cyan]%}❄%{$reset_color%} "
   fi
 }
