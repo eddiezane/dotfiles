@@ -30,14 +30,6 @@ function gopath_check() {
   esac
 }
 
-# function rbenv_check() {
-  # global=`rbenv global`
-  # current=`rbenv version-name`
-  # if [[ "$global" != "$current" ]]; then
-    # echo " $current"
-  # fi
-# }
-
 function mkcd {
   dir="$*";
   mkdir -p "$dir" && cd "$dir";
@@ -78,6 +70,10 @@ function ssh_check {
   fi
 }
 
-function flushdns {
-  sudo killall -HUP mDNSResponder
+function nix_check() {
+  if [[ -n "$IN_NIX_SHELL" ]]; then
+    echo "%{$fg[cyan]%}❄ ${name:-nix}%{$reset_color%} "
+  elif [[ -n "$DIRENV_DIR" ]]; then
+    echo "%{$fg[cyan]%}❄%{$reset_color%} "
+  fi
 }
