@@ -59,17 +59,10 @@ in
     # Disable targets we already hand-roll. Stylix still themes everything
     # else (GTK4/libadwaita color-scheme, Qt, console, btop, fzf, vim, etc.).
     targets = {
-      grub.enable = false; # systemd-boot, not grub
-      # Stylix's chromium target writes a managed-policy JSON to
-      # /etc/opt/chrome/policies/managed/ which (a) makes Chrome show
-      # "Your administrator has set a default theme" and (b) blocks
-      # manual theme selection. We want neither.
+      grub.enable = false;
       chromium.enable = false;
-      # nixpkgs 26.05 removed services.kmscon.extraConfig and .fonts in
-      # favor of services.kmscon.config / fonts.packages. Stylix's kmscon
-      # target still writes the old options, breaking eval. We don't run
-      # kmscon anyway. Remove once stylix ports its module upstream.
       kmscon.enable = false;
+      console.enable = false;
     };
   };
 

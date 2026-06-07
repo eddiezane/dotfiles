@@ -4,6 +4,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # signal-desktop lands on the stable backport channel (nixos-26.05) well
+    # before nixos-unstable's channel pointer advances past it (the pointer
+    # freezes whenever the channel-blocking Hydra jobset is red, even though
+    # master already has the bump). Pull just signal-desktop from here until
+    # unstable catches up. Deliberately NOT `follows`-ing nixpkgs — we want its
+    # own locked tree so the build comes from cache.nixos.org rather than
+    # rebuilding electron locally.
+    nixpkgs-signal.url = "github:NixOS/nixpkgs/nixos-26.05";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

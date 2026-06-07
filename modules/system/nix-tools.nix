@@ -29,7 +29,7 @@
   # nh: prettier nixos-rebuild + integrated `nh clean` for GC.
   programs.nh = {
     enable = true;
-    flake = "/home/eddiezane/Codez/nixos-laptop";
+    flake = "/home/eddiezane/Codez/dotfiles";
     clean = {
       enable = true;
       extraArgs = "--keep-since 14d --keep 5";

@@ -1,5 +1,5 @@
 # Settings that apply to every host. Per-host stuff lives in hosts/<name>/.
-{ hostname, lib, ... }:
+{ hostname, lib, inputs, ... }:
 
 {
   imports = [
@@ -45,14 +45,13 @@
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [
-    # TEMP: signal-desktop from the upstream .deb. nixpkgs' nixos-unstable lags
-    # upstream and an older Signal refuses to open a profile already migrated by
-    # a newer one, so we pin the .deb at the current release (8.13.0) to stay
-    # openable. Remove this (and pkgs/signal-desktop-deb/) once nixos-unstable
-    # ships >= 8.13.0 — check with
+    # TEMP: signal-desktop from nixpkgs' nixos-26.05 backport channel, which
+    # ships the current release ahead of nixos-unstable (whose channel pointer
+    # lags master). Drop this overlay and the `nixpkgs-signal` flake input once
+    # nixos-unstable catches up — check with
     # `nix eval --refresh --raw github:NixOS/nixpkgs/nixos-unstable#signal-desktop.version`.
     (final: prev: {
-      signal-desktop = final.callPackage ../pkgs/signal-desktop-deb { };
+      signal-desktop = inputs.nixpkgs-signal.legacyPackages.${prev.system}.signal-desktop;
     })
 
     # TEMP: local Hyprland patch for the IPC monitor disable→re-enable bug

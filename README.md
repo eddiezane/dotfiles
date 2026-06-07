@@ -41,7 +41,6 @@ modules/
   disko/luks-btrfs.nix          Declarative disk layout
   system/                       boot, audio, networking, bluetooth, desktop, etc.
 pkgs/
-  signal-desktop-deb/           .deb override (nixos-unstable trails the openable version)
   hyprland/                     Local Hyprland patch (IPC monitor re-enable backstop)
   hyprmod/                      Local hyprmod + Python deps (tracks nixpkgs PR #505419)
 home/eddiezane/
