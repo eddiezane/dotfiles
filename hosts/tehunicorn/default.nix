@@ -4,8 +4,10 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    ../profiles/desktop.nix
     ../../modules/disko/luks-btrfs.nix
     ./hardware.nix
+    ./hibernate-debug.nix
   ];
 
   _module.args.diskoArgs = {

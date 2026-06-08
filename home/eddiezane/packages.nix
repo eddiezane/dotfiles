@@ -32,37 +32,5 @@
     go-containerregistry
     melange
     # Kubernetes tools (kubectl, helm, k9s, kind, k3d, skopeo) -> kubernetes.nix
-
-    # GUI utilities for the desktop session
-    firefox
-    google-chrome
-    signal-desktop
-    slack
-    # Electron's safe-storage auto-detection picks `basic` on Hyprland, which
-    # breaks plugins that store secrets (e.g. obsidian-todoist). Force the
-    # gnome-libsecret backend so creds land in gnome-keyring.
-    (symlinkJoin {
-      name = "obsidian";
-      paths = [ obsidian ];
-      nativeBuildInputs = [ makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/obsidian \
-          --add-flags "--password-store=gnome-libsecret"
-      '';
-    })
-    spotify
-    vlc
-
-    # JetBrains IDEs (all-you-can-eat license).
-    jetbrains.goland
-    android-studio
-
-    # Streaming / recording
-    obs-studio
-    qalculate-qt
-    qdirstat
-    gnome-disk-utility
-    nwg-displays
-    nwg-look
   ];
 }

@@ -319,3 +319,98 @@ timedatectl | grep zone
 
 sudo systemctl hibernate                                     # resume test
 ```
+
+---
+
+# Headless server install (tehfox)
+
+`tehfox` is a headless host (`hosts/tehfox/`): the server-safe base
+(`hosts/common.nix`) without the desktop profile. It differs from the laptop
+flow above in a few deliberate ways:
+
+- **No LUKS** — `modules/disko/btrfs.nix` (plain btrfs), so it boots straight to
+  the network with no passphrase prompt. Skip steps 3, B and C entirely.
+- **No Secure Boot, no hibernation** — skip D; there's no `resume_offset`.
+- **No GUI** — no greeter; access is over the network only.
+
+## Build elsewhere, copy the closure in
+
+The CUDA build (`ollama-cuda`) is not on `cache.nixos.org` (unfree), so it
+compiles from source. Build the whole system on a fast machine **once** and copy
+the closure to the target instead of rebuilding on the box. Both must be
+`x86_64-linux`.
+
+```sh
+# On the build machine:
+SYS=$(nix build .#nixosConfigurations.tehfox.config.system.build.toplevel \
+  --no-link --print-out-paths)
+
+# Partition/mount the target via disko (see step 4; uses the by-id disk in
+# hosts/tehfox/default.nix), write the password hash (step 5), then stream the
+# closure straight into the mounted target store — exporting/importing as root
+# sidesteps signature/trusted-user checks:
+nix-store --export $(nix-store -qR "$SYS") \
+  | ssh <user>@<installer> 'sudo nix-store --store /mnt --import'
+
+# On the installer — installs the bootloader + profile, no rebuild:
+ssh <user>@<installer> \
+  "sudo nixos-install --root /mnt --system $SYS --no-root-passwd --no-channel-copy"
+```
+
+> Tip: if the build machine and target are on the same LAN behind a slow Wi-Fi
+> hop, pin the transfer to the wired NIC with a temporary host route on the
+> sender: `sudo ip route add <target-ip>/32 dev <eth> src <eth-ip>` (it's
+> non-persistent; `ip route del` to undo).
+
+## Clean up dual-boot EFI entries
+
+A disk that previously held Windows leaves stale `Boot####` entries (and the
+new "Linux Boot Manager" lands last in `BootOrder`), so the firmware can boot
+the wrong thing — especially headless. Fix before first reboot:
+
+```sh
+efibootmgr -v                       # identify entries
+efibootmgr -b <windows-num> -B      # delete stale Windows / old-ESP entries
+efibootmgr -o <linux-num>,<usb...>  # put Linux Boot Manager first
+```
+
+## First boot: remote access bootstrap
+
+The committed config has **OpenSSH disabled** — access is Tailscale SSH only
+(`services.tailscale.extraUpFlags = [ "--ssh" ]`), which needs `tailscale up`
+to have run. On a fresh install that's a chicken-and-egg, so bootstrap once at a
+physical console (or temporarily set `services.openssh.enable = true` for the
+first boot):
+
+```sh
+sudo tailscale up --ssh --advertise-exit-node    # advertise omitted if not an exit node
+```
+
+Then it's reachable as `tailscale ssh eddiezane@tehfox` from any tailnet device.
+The password account stays as the console/recovery fallback. If you advertise an
+exit node, **approve it** in the admin console (machine `⋯` → Edit route
+settings); `useRoutingFeatures = "both"` already enables IP forwarding.
+
+## Wake-on-LAN
+
+`networking.interfaces.<if>.wakeOnLan.enable = true` arms the NIC declaratively
+(systemd `.link` → `WakeOnLan=magic`). The rest is firmware + sender:
+
+- **BIOS**: enable "Power On By PCIe / Wake on LAN" and **disable ErP / deep
+  S5** (ErP cuts standby power to the NIC — the usual reason WoL fails).
+- **Verify**: `sudo ethtool <if> | grep Wake-on` → `g`; and
+  `cat /sys/class/net/<if>/device/power/wakeup` → `enabled`.
+- **Send** from any device on the same L2 segment (magic packets don't route):
+  `wakeonlan <mac>`. To wake from off-LAN, broadcast from an always-on box on
+  that segment (a Pi, the router) reached over Tailscale.
+
+## Ongoing rebuilds
+
+The flake lives at `~/Codez/dotfiles` (cloned from GitHub). Update with the
+normal loop — **run it from a Tailscale SSH session** so disabling/restarting
+network services can't cut you off mid-switch:
+
+```sh
+cd ~/Codez/dotfiles && git pull
+sudo nixos-rebuild switch --flake .#tehfox     # or: nh os switch
+```

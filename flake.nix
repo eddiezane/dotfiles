@@ -89,6 +89,12 @@
           hostname = "tehunicorn";
           extraModules = [ nixos-hardware.nixosModules.framework-13-7040-amd ];
         };
+
+        # Headless AI server (Ryzen 9 5900X + RTX 3080). No nixos-hardware
+        # module — it's a generic desktop board, not a known device profile.
+        tehfox = mkHost {
+          hostname = "tehfox";
+        };
       };
 
       # Convenience: `nix fmt`

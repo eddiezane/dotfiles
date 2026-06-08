@@ -37,16 +37,17 @@
     # Network tools
     dig
     bind
+    ethtool         # NIC diagnostics / Wake-on-LAN state (`ethtool <if>`)
     macchanger
     socat
     traceroute
+    wakeonlan       # send WoL magic packets (e.g. `wakeonlan -i <bcast> <mac>`)
     whois
 
     # Hardware / firmware
     acpi
     powertop
     fwupd
-    framework-tool
 
     # Dev runtimes available system-wide; languages best installed per-project.
     gcc
