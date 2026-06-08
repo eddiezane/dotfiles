@@ -34,6 +34,9 @@
   # GPU passthrough into docker/podman (`--device nvidia.com/gpu=all`).
   hardware.nvidia-container-toolkit.enable = true;
 
+  # GPU monitoring TUI. nvidia-only variant — `.full`/`nvtop` also pull AMD+Intel.
+  environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
+
   services.fstrim.enable = true;
   services.smartd.enable = true;
 }
