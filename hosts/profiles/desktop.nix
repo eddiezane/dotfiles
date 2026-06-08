@@ -20,22 +20,13 @@
   ];
 
   # Desktop-only overlays (GUI app patches).
+  #
+  # Note: the Hyprland IPC monitor disable→re-enable backstop patch (#14710)
+  # used to live here as an overlay on pkgs.hyprland. It now rides on the
+  # upstream flake package via programs.hyprland.package in
+  # modules/system/desktop.nix, since that's the package the session actually
+  # runs — patching pkgs.hyprland here would have been a no-op for the session.
   nixpkgs.overlays = [
-    # TEMP: local Hyprland patch for the IPC monitor disable→re-enable bug
-    # (#14710). scheduleReload only fires through render.preChecks, which
-    # doesn't tick in unsafe state — so a `hyprctl keyword monitor X,
-    # preferred, …` re-enable silently no-ops until something else
-    # triggers a config reload. Patch adds a doLater backstop so the
-    # reload always fires. See pkgs/hyprland/scheduleReload-doLater-backstop.patch
-    # for the full rationale. Remove once an equivalent fix lands upstream.
-    (final: prev: {
-      hyprland = prev.hyprland.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [
-          ../../pkgs/hyprland/scheduleReload-doLater-backstop.patch
-        ];
-      });
-    })
-
     # TEMP: local packaging of hyprmod (GTK4 settings app for Hyprland) and its
     # five Python library deps, tracking nixpkgs PR #505419. Built at the latest
     # upstream releases (hyprmod 0.3.0); the PR pins 0.2.0. The five libraries go

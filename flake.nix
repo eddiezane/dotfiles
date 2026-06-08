@@ -4,6 +4,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # Hyprland straight from upstream, pinned to a release tag so we get new
+    # versions without waiting on the nixpkgs bump. Deliberately NOT following
+    # our nixpkgs: we patch the hyprland derivation (see modules/system/
+    # desktop.nix), so only it rebuilds locally — its deps stay on Hyprland's
+    # pinned nixpkgs and come from hyprland.cachix.org. `follows` would force a
+    # full local rebuild of that dependency tree for no benefit.
+    hyprland.url = "github:hyprwm/Hyprland/v0.55.3";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

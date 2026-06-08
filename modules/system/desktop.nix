@@ -1,5 +1,5 @@
 # Wayland session: Hyprland under UWSM + greetd/regreet + portals.
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
 let
   cursor = config.stylix.cursor;
@@ -11,6 +11,19 @@ in {
     enable = true;
     xwayland.enable = true;
     withUWSM = true;
+
+    # Hyprland from the upstream flake (pinned to v0.55.3 in flake.nix) rather
+    # than nixpkgs, so we're not waiting on the nixpkgs bump. The overrideAttrs
+    # carries our local IPC monitor disable→re-enable backstop patch (#14710 /
+    # #14447). Applies cleanly on the 0.55.3 tag; upstream's #14547 refactor
+    # that supersedes it landed post-release, so drop this once we move past it.
+    package = (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland).overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [
+        ../../pkgs/hyprland/scheduleReload-doLater-backstop.patch
+      ];
+    });
+    # Version-matched portal from the same flake (nixpkgs' would lag the tag).
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
   programs.uwsm.enable = true;
 
@@ -31,12 +44,13 @@ in {
   # default. Leave the command alone or stylix's CSS injection breaks.
   programs.regreet.enable = true;
 
-  # XDG desktop portals — Hyprland's own + GTK fallback.
+  # XDG desktop portals — Hyprland's own + GTK fallback. The Hyprland portal
+  # comes from programs.hyprland.portalPackage above (version-matched to the
+  # flake), so it's deliberately not repeated here — only the GTK fallback is.
   xdg.portal = {
     enable = true;
     wlr.enable = false; # hyprland portal supersedes wlr
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
     config.common.default = "*";
