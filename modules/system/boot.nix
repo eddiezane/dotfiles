@@ -43,6 +43,11 @@ in {
 
     powerManagement.enable = true;
 
+    # /tmp on tmpfs: cleared every boot, no stale cruft, fast. Defaults to
+    # 50% of RAM. For big artifacts that won't fit in RAM, set TMPDIR=/var/tmp
+    # (on-disk btrfs) for that command.
+    boot.tmp.useTmpfs = true;
+
     # Compressed in-memory swap, separate from hibernation swap.
     zramSwap = {
       enable = true;
