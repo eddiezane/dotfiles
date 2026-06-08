@@ -1,7 +1,7 @@
 # Desktop/workstation profile: GUI + laptop bundle layered on top of the
 # server-safe base (hosts/common.nix). Imported by interactive hosts only
 # (tehunicorn); headless hosts like tehfox leave it out.
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -21,15 +21,6 @@
 
   # Desktop-only overlays (GUI app patches).
   nixpkgs.overlays = [
-    # TEMP: signal-desktop from nixpkgs' nixos-26.05 backport channel, which
-    # ships the current release ahead of nixos-unstable (whose channel pointer
-    # lags master). Drop this overlay and the `nixpkgs-signal` flake input once
-    # nixos-unstable catches up — check with
-    # `nix eval --refresh --raw github:NixOS/nixpkgs/nixos-unstable#signal-desktop.version`.
-    (final: prev: {
-      signal-desktop = inputs.nixpkgs-signal.legacyPackages.${prev.system}.signal-desktop;
-    })
-
     # TEMP: local Hyprland patch for the IPC monitor disable→re-enable bug
     # (#14710). scheduleReload only fires through render.preChecks, which
     # doesn't tick in unsafe state — so a `hyprctl keyword monitor X,

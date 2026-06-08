@@ -68,6 +68,12 @@
     package = pkgs.ollama-cuda; # `acceleration` option was dropped; pick the pkg
     host = "0.0.0.0";           # firewall scopes exposure to tailscale0 (below)
     port = 11434;
+    # Flash attention + 8-bit KV cache roughly halve context memory — uncomment
+    # to run 14B models with usable context on the 3080's 10GB VRAM.
+    # environment = {
+    #   OLLAMA_FLASH_ATTENTION = "1";
+    #   OLLAMA_KV_CACHE_TYPE = "q8_0";
+    # };
   };
 
   services.open-webui = {

@@ -41,8 +41,8 @@
     macchanger
     socat
     traceroute
-    wakeonlan       # send WoL magic packets (e.g. `wakeonlan -i <bcast> <mac>`)
     whois
+    wol             # send WoL magic packets (`wol -i <bcast> <mac>`); C, no perl
 
     # Hardware / firmware
     acpi

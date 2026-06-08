@@ -401,8 +401,8 @@ settings); `useRoutingFeatures = "both"` already enables IP forwarding.
 - **Verify**: `sudo ethtool <if> | grep Wake-on` → `g`; and
   `cat /sys/class/net/<if>/device/power/wakeup` → `enabled`.
 - **Send** from any device on the same L2 segment (magic packets don't route):
-  `wakeonlan <mac>`. To wake from off-LAN, broadcast from an always-on box on
-  that segment (a Pi, the router) reached over Tailscale.
+  `wol <mac>`. To wake from off-LAN, broadcast from an always-on box on that
+  segment (a Pi, the router) reached over Tailscale.
 
 ## Ongoing rebuilds
 
