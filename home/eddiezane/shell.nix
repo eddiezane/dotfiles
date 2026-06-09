@@ -119,7 +119,7 @@
     settings = {
       add_newline = false;
       # \${...} is an escaped literal ${...} (starship custom-module ref), not Nix interpolation.
-      format = " $kubernetes$nix_shell$direnv$hostname$directory$git_branch\${custom.gitstate}  ";
+      format = " $kubernetes$nix_shell$direnv$hostname$directory$git_branch\${custom.gitstate} ";
       right_format = "$jobs$character";
 
       directory = {
@@ -156,10 +156,10 @@
         shell = [ "bash" "--noprofile" "--norc" ];
         command = ''
           status="$(git status --porcelain 2>/dev/null)"
-          if [ -z "$status" ]; then printf '☀️'
-          elif grep -q '^[^?]' <<<"$status"; then printf '☂️'; else printf '🚸'; fi
+          if [ -z "$status" ]; then printf '🌞'
+          elif grep -q '^[^?]' <<<"$status"; then printf '🌂'; fi
         '';
-        format = "[( $output)\\]]($style)";
+        format = "[( $output)\\]]($style)";  # no trailing space; the single separator comes from the main format
         style = "bold white";
       };
 

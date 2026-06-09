@@ -1,16 +1,10 @@
 # Hyprland configs — links the dotfiles verbatim. These can eventually be
 # migrated to home-manager's native `wayland.windowManager.hyprland.settings`.
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
-  # Hyprland 0.55+ Lua config is the active one. Hyprland loads hyprland.lua
-  # when present and only falls back to hyprland.conf when it's absent, so the
-  # .conf (and its macchiato palette) stays deployed as a safety net until the
-  # Lua migration is fully bedded in. catppuccin.lua is require()d by the .lua.
   xdg.configFile."hypr/hyprland.lua".source   = ./dotfiles/hypr/hyprland.lua;
   xdg.configFile."hypr/catppuccin.lua".source = ./dotfiles/hypr/catppuccin.lua;
-  xdg.configFile."hypr/hyprland.conf".source  = ./dotfiles/hypr/hyprland.conf;
-  xdg.configFile."hypr/macchiato.conf".source = ./dotfiles/hypr/macchiato.conf;
 
   # hypridle / hyprlock — nix-native via home-manager modules.
   services.hypridle = {
@@ -84,7 +78,7 @@
     recursive = true;
   };
 
-  # Packages used by hyprland.conf and the helper scripts. Anything with a
+  # Packages used by the Hyprland config and the helper scripts. Anything with a
   # corresponding `programs.<x>` / `services.<x>` enable in this or its sibling
   # modules pulls its own package, so they're intentionally not repeated here:
   #   - hypridle  (services.hypridle.enable)

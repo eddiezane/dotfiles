@@ -6,6 +6,7 @@
   gobject-introspection,
   gtk4,
   libadwaita,
+  lua5_4,
   python3Packages,
   wrapGAppsHook4,
 }:
@@ -52,8 +53,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   dontWrapGApps = true;
 
+  # hyprmod reads Lua-mode Hyprland configs through hyprland-config, which
+  # shells out to a real `lua` interpreter (it probes PATH for lua/lua5.x).
+  # Hyprland statically embeds its own Lua, so there's no `lua` on a NixOS
+  # PATH — put one on hyprmod's own PATH so the reader can find it.
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ lua5_4 ]})
   '';
 
   postInstall = ''

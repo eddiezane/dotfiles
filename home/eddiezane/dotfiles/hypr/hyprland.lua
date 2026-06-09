@@ -296,7 +296,7 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl -p spotify next"))
 hl.bind(mod .. " + SHIFT + XF86AudioRaiseVolume", hl.dsp.exec_cmd("playerctl -p spotify volume 0.1+"))
 hl.bind(mod .. " + SHIFT + XF86AudioLowerVolume", hl.dsp.exec_cmd("playerctl -p spotify volume 0.1-"))
 
-hl.bind(mod .. "+ CONTROL + 0", hl.dsp.exec_cmd("wlogout -s"))
+hl.bind(mod .. "+ 0", hl.dsp.exec_cmd("wlogout -s"))
 
 -- Screenshots
 hl.bind(mod .. " + Print", hl.dsp.exec_cmd("grim - | satty --filename -"))
@@ -360,5 +360,4 @@ hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- HyprMod managed settings (left disabled; same as before)
--- require("hyprland-gui")
+require("hyprland-gui")
