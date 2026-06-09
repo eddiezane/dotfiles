@@ -31,6 +31,7 @@
       set -g pane-base-index 1
       # Name each window after its cwd basename. Replaces the old name_dat_tmux
       # zsh precmd hook with a tmux-native, shell-agnostic equivalent (b: = basename).
+      set -g allow-rename off
       set -g automatic-rename on
       set -g automatic-rename-format '#{b:pane_current_path}'
 

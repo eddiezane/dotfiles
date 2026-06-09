@@ -119,7 +119,7 @@
     settings = {
       add_newline = false;
       # \${...} is an escaped literal ${...} (starship custom-module ref), not Nix interpolation.
-      format = " $kubernetes$nix_shell$direnv$hostname$directory$git_branch\${custom.gitstate} ";
+      format = " $kubernetes$nix_shell$direnv$hostname$directory$git_branch\${custom.gitstate}  ";
       right_format = "$jobs$character";
 
       directory = {
