@@ -83,6 +83,8 @@
         "scrollback/p=jump_to_prompt:-1"                 # previous prompt
         "scrollback/n=jump_to_prompt:1"                  # next prompt
         "scrollback/slash=start_search"                  # /
+        "scrollback/ctrl+shift+c=copy_to_clipboard:mixed"
+        "scrollback/ctrl+shift+v=paste_from_clipboard"
         "scrollback/escape=deactivate_all_key_tables"    # exit mode
         "scrollback/q=deactivate_all_key_tables"         # exit mode
         "scrollback/catch_all=ignore"                    # modal: swallow other keys

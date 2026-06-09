@@ -7,5 +7,7 @@
   home.packages = [
     inputs.defenseunicorns.packages.${pkgs.stdenv.hostPlatform.system}.uds-cli
     inputs.defenseunicorns.packages.${pkgs.stdenv.hostPlatform.system}.zarf
+    inputs.defenseunicorns.packages.${pkgs.stdenv.hostPlatform.system}.chainctl
+    inputs.defenseunicorns.packages.${pkgs.stdenv.hostPlatform.system}.docker-credential-cgr
   ];
 }

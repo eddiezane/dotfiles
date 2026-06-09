@@ -157,7 +157,7 @@
         command = ''
           status="$(git status --porcelain 2>/dev/null)"
           if [ -z "$status" ]; then printf '🌞'
-          elif grep -q '^[^?]' <<<"$status"; then printf '🌂'; fi
+          elif grep -q '^[^?]' <<<"$status"; then printf '🌂'; else printf '🥬'; fi
         '';
         format = "[( $output)\\]]($style)";  # no trailing space; the single separator comes from the main format
         style = "bold white";
