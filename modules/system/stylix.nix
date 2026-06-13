@@ -62,7 +62,6 @@ in
       grub.enable = false;
       chromium.enable = false;
       kmscon.enable = false;
-      console.enable = false;
     };
   };
 

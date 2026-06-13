@@ -11,6 +11,7 @@
     fd
     fzf
     gdu
+    ghostty.terminfo  # xterm-ghostty terminal def so SSH-in from Ghostty works on headless hosts
     git
     inxi
     lshw
@@ -23,6 +24,10 @@
     vim
     wget
     zip
+
+    # Media
+    ffmpeg
+    gphoto2
 
     # Filesystem / disk
     btrfs-progs

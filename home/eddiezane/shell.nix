@@ -173,7 +173,7 @@
       # nix-direnv / direnv-loaded envs. May fire alongside nix_shell in flake
       # dirs (double ❄) — disable whichever you don't want once you see it live.
       direnv = {
-        disabled = false;
+        disabled = true;
         format = "[$symbol]($style) ";
         symbol = "❄ ";
         style = "cyan";

@@ -5,7 +5,7 @@
   home.packages = with pkgs; [
     kubectl
     kubectx
-    helm
+    kubernetes-helm
     kind
     k3d
     k9s

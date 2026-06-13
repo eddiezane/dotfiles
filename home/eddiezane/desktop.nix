@@ -36,7 +36,20 @@
 
     # JetBrains IDEs (all-you-can-eat license).
     jetbrains.goland
-    android-studio
+    # The bundled Android emulator is a Qt app that ships no Wayland platform
+    # plugin (only offscreen/linuxfb/minimal/xcb/vnc). With the session-wide
+    # QT_QPA_PLATFORM=wayland it SIGABRTs on launch with no dialog, so AVDs
+    # "fail to start" silently. Force xcb (XWayland) for the Studio process
+    # tree; bwrap inherits the env, so the emulator subprocess picks it up too.
+    (symlinkJoin {
+      name = "android-studio";
+      paths = [ android-studio ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/android-studio \
+          --set QT_QPA_PLATFORM xcb
+      '';
+    })
 
     # Streaming / recording
     obs-studio

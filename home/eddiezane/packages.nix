@@ -15,6 +15,7 @@
     noti
     pinentry-gnome3
     pwgen
+    openssl
     ripgrep
     rsync
     sshfs
@@ -31,6 +32,7 @@
     gotools
     go-containerregistry
     melange
+    mise
     pnpm
     # Kubernetes tools (kubectl, helm, k9s, kind, k3d, skopeo) -> kubernetes.nix
   ];
