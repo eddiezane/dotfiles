@@ -123,11 +123,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781293700,
-        "narHash": "sha256-KYw6yeGrcutUtZi751aMpuxCXjjqeq9Imfy/oEFvKTo=",
+        "lastModified": 1781543179,
+        "narHash": "sha256-i6GG/mePWvrwxQdSsHda5Aoqgw1yFKTLRGQEuUPHGyU=",
         "ref": "refs/heads/main",
-        "rev": "64ca39c7c72052aba1c6f8287262f34610bd753e",
-        "revCount": 26,
+        "rev": "a692a0dbc9cbf7199bcf1f3499ce657d950d47a3",
+        "revCount": 30,
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns-labs/nix-packages"
       },
@@ -309,11 +309,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781305496,
-        "narHash": "sha256-g8Vv4Qfc7n+lgov97REu3X6BeJtvYY0hlSUZR1GrGQQ=",
+        "lastModified": 1781615165,
+        "narHash": "sha256-CFF4fNNfr2GZSx1xJhBNBi7VMj8OtOqZGOV+fiBSbzw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c87a39aa979acc4848016d2220c6238390d84779",
+        "rev": "34dd288e65012954cf7170658e0e6a61255b0327",
         "type": "github"
       },
       "original": {
@@ -672,11 +672,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780816331,
-        "narHash": "sha256-0BYqs8yKWkOz2Q7+SP18N5E5gmDKSo6LSxIVIa0wWes=",
+        "lastModified": 1781422160,
+        "narHash": "sha256-W7S8O86bVrw2gaomEwkHStOzmPpnFIHQ6lS4Q2HffJ0=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "1a2ea89c917781e88508d9fd2b507f2d2a0e173c",
+        "rev": "854d04e2368fb2e9c328a36b3c0a04cd713bfae1",
         "type": "github"
       },
       "original": {

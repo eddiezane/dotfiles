@@ -19,7 +19,6 @@
     ripgrep
     rsync
     sshfs
-    tldr
     tree
     yq-go
 
@@ -31,9 +30,6 @@
     gopls
     gotools
     go-containerregistry
-    melange
-    mise
     pnpm
-    # Kubernetes tools (kubectl, helm, k9s, kind, k3d, skopeo) -> kubernetes.nix
   ];
 }

@@ -59,8 +59,10 @@
   home.file.".gitignore_global".text = ''
     .DS_Store
     .direnv/
+    .envrc
     .envrc.local
     *.swp
+    *.qcow2
   '';
 
   home.packages = with pkgs; [

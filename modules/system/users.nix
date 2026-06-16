@@ -7,6 +7,8 @@
     isNormalUser = true;
     description = "Eddie Zaneski";
     shell = pkgs.zsh;
+    homeMode = "0755"; # default is 700
+
     extraGroups = [
       "wheel"
       "networkmanager"

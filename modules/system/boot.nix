@@ -14,7 +14,10 @@ in {
 
     # systemd-boot direct (no signing) OR lanzaboote (signed). Never both.
     boot.loader.systemd-boot.enable = !cfg.enable;
-    boot.loader.systemd-boot.configurationLimit = 20;
+    # Cap the boot menu at 10 entries. Pairs with `nh clean --keep 5`
+    # (modules/system/nix-tools.nix): the menu only reconciles to surviving
+    # generations on a rebuild, so this is the hard ceiling regardless of GC.
+    boot.loader.systemd-boot.configurationLimit = 10;
     # Pin the boot-menu console resolution. The NixOS default is "keep",
     # which preserves whatever mode the firmware/EFI var last had — that
     # drifts (a stray `r` keypress in the menu, or firmware updates, persist
@@ -40,6 +43,19 @@ in {
       "amd_pstate=active"
     ];
     boot.consoleLogLevel = 3;
+
+    # QEMU binfmt emulation so docker buildx (and nix) can cross-build/run
+    # aarch64 binaries on these x86_64 hosts. Persistent across reboots, so
+    # `docker buildx inspect` advertises linux/arm64 without the runtime
+    # `tonistiigi/binfmt` trick. Still need a docker-container driver builder:
+    #   docker buildx create --name multiarch --driver docker-container --use
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+    # Register with the F ("fix binary") flag via a static emulator. Without it
+    # the kernel resolves the /run/binfmt interpreter path at exec time inside
+    # the caller's mount namespace — which fails inside the BuildKit container
+    # (no /nix/store there), so buildx never sees arm64. F loads the emulator
+    # into memory at registration, so emulation works across namespaces.
+    boot.binfmt.preferStaticEmulators = true;
 
     powerManagement.enable = true;
 

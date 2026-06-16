@@ -13,7 +13,11 @@
       general = {
         lock_cmd = "pidof hyprlock || hyprlock --no-fade-in";
         before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        # The Lua parser dropped legacy `hyprctl dispatch dpms on` (it reparses
+        # as the invalid `hl.dispatch(dpms on)` and silently no-ops). Under Lua,
+        # `hyprctl dispatch` is shorthand for `eval 'hl.dispatch(...)'`, so call
+        # the dispatcher from the hl.dsp namespace directly.
+        after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms(\"on\")'";
       };
       listener = [
         {
@@ -22,8 +26,8 @@
         }
         {
           timeout = 360;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          on-timeout = "hyprctl dispatch 'hl.dsp.dpms(\"off\")'";
+          on-resume = "hyprctl dispatch 'hl.dsp.dpms(\"on\")'";
         }
       ];
     };

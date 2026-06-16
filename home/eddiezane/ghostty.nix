@@ -106,6 +106,18 @@
     tabbar tabbox tab label {
       font-size: 16px;   /* primary height lever now — bigger font = taller bar */
     }
+
+    /* Active tab. This is libadwaita's AdwTabBar: the selected tab is
+       `tab:selected` (NOT :checked), and Adwaita only gives it a ~10%
+       currentColor tint — nearly invisible. */
+    tabbar tabbox tab:selected {
+      background-color: color-mix(in srgb, #c6a0f6 22%, transparent);
+      box-shadow: inset 0 0 0 1.5px #c6a0f6; /* catppuccin macchiato mauve */
+    }
+    tabbar tabbox tab:selected label {
+      color: #cad3f5;   /* text — full brightness */
+      font-weight: bold;
+    }
     tabbar tabbox tab button {
       min-height: 16px;
       min-width: 16px;
@@ -115,7 +127,7 @@
 
     tabbar {
       margin-top: 0px;
-      margin-bottom: 0px;
+      margin-bottom: 3px;  /* lift the active pill off waybar below */
     }
     tabbar tabbox {
       transform: translateY(0px);
