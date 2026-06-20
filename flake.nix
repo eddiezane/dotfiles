@@ -21,7 +21,7 @@
     # desktop.nix), so only it rebuilds locally — its deps stay on Hyprland's
     # pinned nixpkgs and come from hyprland.cachix.org. `follows` would force a
     # full local rebuild of that dependency tree for no benefit.
-    hyprland.url = "github:hyprwm/Hyprland/v0.55.3";
+    hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
 
     home-manager = {
       url = "github:nix-community/home-manager";
