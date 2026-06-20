@@ -721,6 +721,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-openwebui": {
+      "locked": {
+        "lastModified": 1778591956,
+        "narHash": "sha256-v0KO5A8X9t7C5N6vxTcgNZ9296R6hAOkA781g6tuN30=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "99b5236774c1b7f4b0cd92cdd54771d959b507e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "99b5236774c1b7f4b0cd92cdd54771d959b507e7",
+        "type": "github"
+      }
+    },
     "nixpkgs-regreet": {
       "locked": {
         "lastModified": 1780749050,
@@ -834,6 +850,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-openwebui": "nixpkgs-openwebui",
         "nixpkgs-regreet": "nixpkgs-regreet",
         "stylix": "stylix"
       }

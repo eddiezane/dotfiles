@@ -15,6 +15,13 @@
     # https://github.com/rharish101/ReGreet/issues/162
     nixpkgs-regreet.url = "github:NixOS/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb";
 
+    # Pin for open-webui ONLY. Web search broke after 0.9.4 (still broken on
+    # 0.9.6, which nixpkgs-unstable currently ships). This rev is master just
+    # before the 0.9.4 -> 0.9.5 bump (#519425), so it carries open-webui 0.9.4.
+    # Deliberately NOT following nixpkgs — the point is to hold open-webui back.
+    # Drop this node once upstream fixes SearXNG web search and nixpkgs ships it.
+    nixpkgs-openwebui.url = "github:NixOS/nixpkgs/99b5236774c1b7f4b0cd92cdd54771d959b507e7";
+
     # Hyprland straight from upstream, pinned to a release tag so we get new
     # versions without waiting on the nixpkgs bump. Deliberately NOT following
     # our nixpkgs: we patch the hyprland derivation (see modules/system/

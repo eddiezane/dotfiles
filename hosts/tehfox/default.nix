@@ -1,7 +1,7 @@
 # tehfox — headless AI/inference server (Ryzen 5900X + RTX 3080).
 # Server-safe base only (no hosts/profiles/desktop.nix). WoL, no LUKS,
 # Ollama + Open WebUI (+ local SearXNG) over Tailscale.
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, inputs, ... }:
 
 {
   imports = [
@@ -80,6 +80,10 @@
 
   services.open-webui = {
     enable = true;
+    # Pinned to 0.9.4 — SearXNG web search broke after this release (still
+    # broken on 0.9.6 in nixpkgs-unstable). See the nixpkgs-openwebui flake
+    # input; drop the pin once upstream fixes web search.
+    package = inputs.nixpkgs-openwebui.legacyPackages.${pkgs.stdenv.hostPlatform.system}.open-webui;
     host = "0.0.0.0";
     port = 8080;
     environment = {
