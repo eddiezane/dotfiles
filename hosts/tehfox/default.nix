@@ -82,8 +82,12 @@
     enable = true;
     # Pinned to 0.9.4 — SearXNG web search broke after this release (still
     # broken on 0.9.6 in nixpkgs-unstable). See the nixpkgs-openwebui flake
-    # input; drop the pin once upstream fixes web search.
-    package = inputs.nixpkgs-openwebui.legacyPackages.${pkgs.stdenv.hostPlatform.system}.open-webui;
+    # input; drop the pin once upstream fixes web search. Imported (not
+    # legacyPackages) so allowUnfree carries over — open-webui is unfree.
+    package = (import inputs.nixpkgs-openwebui {
+      inherit (pkgs.stdenv.hostPlatform) system;
+      config.allowUnfree = true;
+    }).open-webui;
     host = "0.0.0.0";
     port = 8080;
     environment = {
