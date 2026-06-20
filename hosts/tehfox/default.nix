@@ -1,6 +1,6 @@
 # tehfox — headless AI/inference server (Ryzen 5900X + RTX 3080).
 # Server-safe base only (no hosts/profiles/desktop.nix). WoL, no LUKS,
-# Ollama + Open WebUI over Tailscale.
+# Ollama + Open WebUI (+ local SearXNG) over Tailscale.
 { config, lib, pkgs, modulesPath, ... }:
 
 {
@@ -87,6 +87,38 @@
       WEBUI_AUTH = "True";
       ANONYMIZED_TELEMETRY = "False";
       DO_NOT_TRACK = "True";
+      # Self-hosted web search via the local SearXNG below (no API keys).
+      ENABLE_WEB_SEARCH = "True";
+      WEB_SEARCH_ENGINE = "searxng";
+      SEARXNG_QUERY_URL = "http://127.0.0.1:8888/search?q=<query>";
+    };
+  };
+
+  # --- SearXNG: web search backend for Open WebUI ----------------------------
+
+  # Localhost-only — Open WebUI queries it in-process, so it never touches the
+  # tailnet/firewall. secret_key comes from an off-repo env file (the Nix store
+  # is world-readable); create it before the first switch:
+  #   sudo mkdir -p /var/lib/searx
+  #   echo "SEARX_SECRET_KEY=$(openssl rand -hex 32)" | sudo tee /var/lib/searx/secret.env
+  #   sudo chmod 600 /var/lib/searx/secret.env
+  services.searx = {
+    enable = true;
+    redisCreateLocally = true;          # valkey backend for the limiter/cache
+    configureUwsgi = true;
+    environmentFile = "/var/lib/searx/secret.env";
+    uwsgiConfig = {
+      http = "127.0.0.1:8888";
+      disable-logging = true;
+    };
+    settings = {
+      server = {
+        port = 8888;
+        bind_address = "127.0.0.1";
+        secret_key = "$SEARX_SECRET_KEY";
+        limiter = false;                # private single-user instance
+      };
+      search.formats = [ "html" "json" ]; # json is required for Open WebUI
     };
   };
 
