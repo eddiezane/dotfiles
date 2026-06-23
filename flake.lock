@@ -123,11 +123,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782231997,
-        "narHash": "sha256-wbcI2lADS47v8ZBIkmOn6ujwQhPkP8g2X80bdKAoji0=",
+        "lastModified": 1782242883,
+        "narHash": "sha256-T2iCOguOwIk7avn67zlSog2HFOMm1lzmPVZ6vDLAjYI=",
         "ref": "refs/heads/main",
-        "rev": "fe323d65ea591bbcd180de265f54821d168f830f",
-        "revCount": 42,
+        "rev": "d985c682ae5d2d8e05aeeddb4813d85402237b46",
+        "revCount": 44,
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns-labs/nix-packages"
       },
