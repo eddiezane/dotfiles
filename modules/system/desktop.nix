@@ -87,6 +87,16 @@ in {
   services.gvfs.enable = true;
   services.tumbler.enable = true;
 
+  # libgphoto2 udev rules — tag PTP cameras (Canon EOS etc.) with ID_GPHOTO2=1.
+  # gvfs's gphoto2 volume monitor discovers cameras via that udev tag, NOT by
+  # probing with gphoto2. Without these rules the camera still works via the
+  # `gphoto2` CLI and a manual `gphoto2://` mount, but never auto-mounts or shows
+  # up in Thunar's sidebar on plug. The default-installed 70-camera.rules (V4L
+  # webcams) and 69-libmtp.rules (MTP) don't match a PTP still camera. The rules
+  # ship in pkgs.libgphoto2 (lib/udev/rules.d/40-libgphoto2.rules, line matching
+  # USB interface 06/01/01 → ENV{ID_GPHOTO2}="1").
+  services.udev.packages = [ pkgs.libgphoto2 ];
+
   # Most Hyprland-adjacent packages live in home-manager (home/eddiezane/hyprland.nix).
   # System-level packages here are limited to things that need root, system-wide
   # PATH, or system search paths.
