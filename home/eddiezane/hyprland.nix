@@ -24,11 +24,12 @@
           timeout = 300;
           on-timeout = "loginctl lock-session";
         }
-        {
-          timeout = 360;
-          on-timeout = "hyprctl dispatch 'hl.dsp.dpms(\"off\")'";
-          on-resume = "hyprctl dispatch 'hl.dsp.dpms(\"on\")'";
-        }
+        # No idle dpms-off listener: on this AMD DCN3.1 box an idle modeset can
+        # trigger the `REG_WAIT timeout dcn31_program_compbuf_size` hang (see
+        # [[dcn31-compbuf-dpms-hang]]). Let monitor power-management / suspend
+        # handle blanking instead. The community-documented mitigation for the
+        # AMD blank-lock-screen / REG_WAIT class is exactly this. after_sleep_cmd
+        # still restores dpms on resume from suspend.
       ];
     };
   };
@@ -36,6 +37,14 @@
   programs.hyprlock = {
     enable = true;
     settings = {
+      # Fingerprint-at-lock. PAM fprintAuth (security.nix) is necessary but not
+      # sufficient on current hyprlock — it also needs fingerprint enabled in
+      # its own auth block, otherwise only the password path is active.
+      auth = {
+        fingerprint = {
+          enabled = true;
+        };
+      };
       background = [{
         monitor = "";
         color = "rgb(0,0,0)";

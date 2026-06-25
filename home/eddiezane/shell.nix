@@ -67,7 +67,6 @@
       bindkey '^?' backward-delete-char
       bindkey '^h' backward-delete-char
       bindkey '^w' backward-kill-word
-      bindkey '^r' history-incremental-search-backward
       autoload -U edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd v edit-command-line
