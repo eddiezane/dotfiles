@@ -42,17 +42,7 @@ in {
   # regreet config (theme, cursor, background) and the greetd default_session
   # command (cage -- regreet) come from stylix.targets.regreet, which is on by
   # default. Leave the command alone or stylix's CSS injection breaks.
-  #
-  # WARNING: regreet 0.4.0 SIGABRTs at startup with a static-image background,
-  # which leaves greetd in a restart loop and no login screen (hit on the
-  # 2026-06-12 nixpkgs bump). 0.4.0 loads every background as a looping
-  # gtk::MediaFile and the Vulkan/ngl renderer aborts with
-  # VK_ERROR_OUT_OF_DEVICE_MEMORY. Pinned to 0.3.0 via the nixpkgs-regreet
-  # flake input below until this is fixed upstream; drop the pin then.
-  # Tracking: https://github.com/rharish101/ReGreet/issues/162
   programs.regreet.enable = true;
-  programs.regreet.package =
-    inputs.nixpkgs-regreet.legacyPackages.${pkgs.stdenv.hostPlatform.system}.regreet;
 
   # XDG desktop portals — Hyprland's own + GTK fallback. The Hyprland portal
   # comes from programs.hyprland.portalPackage above (version-matched to the

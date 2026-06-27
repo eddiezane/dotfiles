@@ -4,17 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Pin for regreet ONLY. regreet 0.4.0 SIGABRTs at greeter startup with a
-    # static-image background — it loads the background as a looping
-    # gtk::MediaFile and the Vulkan renderer aborts (OUT_OF_DEVICE_MEMORY),
-    # which leaves greetd in a restart loop and no login screen (hit on the
-    # 2026-06-12 nixpkgs bump). This rev is the last nixpkgs carrying regreet
-    # 0.3.0 (gen 128). Deliberately NOT following nixpkgs — the whole point is
-    # to hold regreet back. Drop this node once ReGreet #162 is fixed and
-    # nixpkgs ships a working 0.4.x.
-    # https://github.com/rharish101/ReGreet/issues/162
-    nixpkgs-regreet.url = "github:NixOS/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb";
-
     # Pin for open-webui ONLY. Web search broke after 0.9.4 (still broken on
     # 0.9.6, which nixpkgs-unstable currently ships). This rev is master just
     # before the 0.9.4 -> 0.9.5 bump (#519425), so it carries open-webui 0.9.4.
