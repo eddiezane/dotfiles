@@ -56,6 +56,30 @@ in {
     config.common.default = "*";
   };
 
+  # Work around hyprland-share-picker crashing on screen/window share.
+  #
+  # Symptom: in Chrome (and any app using the ScreenCast portal) only "share a
+  # tab" works — picking a screen or window does nothing. Chrome's tab capture
+  # is internal; screen/window capture goes through the portal, which spawns
+  # hyprland-share-picker (a Qt6 dialog) to choose the source. That picker
+  # SIGSEGVs at startup with infinite QProxyStyle::standardPalette recursion
+  # via QStyleFactory::create("kvantum") — our Stylix Kvantum style. (Confirmed
+  # in coredumpctl; other Qt6 apps like qalculate-qt are unaffected, so this is
+  # specific to the picker, not Kvantum in general.) With the picker dead the
+  # source list never appears and Chrome silently falls back to tab-only.
+  #
+  # Fix: drop Kvantum from just this service's environment so the picker renders
+  # with the plain built-in Fusion style. Scoped via a drop-in so the rest of
+  # the desktop keeps its Kvantum theming. Remove once the picker/Kvantum fix
+  # lands upstream.
+  systemd.user.services.xdg-desktop-portal-hyprland = {
+    overrideStrategy = "asDropin";
+    environment = {
+      QT_QPA_PLATFORMTHEME = "";
+      QT_STYLE_OVERRIDE = "Fusion";
+    };
+  };
+
   # dconf for GTK app settings.
   programs.dconf.enable = true;
 

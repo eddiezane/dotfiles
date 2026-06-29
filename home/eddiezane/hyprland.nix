@@ -5,6 +5,7 @@
 {
   xdg.configFile."hypr/hyprland.lua".source   = ./dotfiles/hypr/hyprland.lua;
   xdg.configFile."hypr/catppuccin.lua".source = ./dotfiles/hypr/catppuccin.lua;
+  xdg.configFile."hypr/xdph.conf".source      = ./dotfiles/hypr/xdph.conf;
 
   # hypridle / hyprlock — nix-native via home-manager modules.
   services.hypridle = {
@@ -13,11 +14,15 @@
       general = {
         lock_cmd = "pidof hyprlock || hyprlock --no-fade-in";
         before_sleep_cmd = "loginctl lock-session";
-        # The Lua parser dropped legacy `hyprctl dispatch dpms on` (it reparses
-        # as the invalid `hl.dispatch(dpms on)` and silently no-ops). Under Lua,
-        # `hyprctl dispatch` is shorthand for `eval 'hl.dispatch(...)'`, so call
-        # the dispatcher from the hl.dsp namespace directly.
-        after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms(\"on\")'";
+        # A one-shot `hyprctl dispatch 'hl.dsp.dpms("on")'` here races the DRM
+        # output re-acquire on resume: hypridle fires it the instant logind
+        # sends PrepareForSleep=false, Hyprland accepts it ("ok") before the
+        # output is back, and it no-ops — leaving a connected eDP-1 powered down
+        # (black screen, dpmsStatus:0, observed on clean s2idle resume
+        # 2026-06-27). resume-dpms.sh polls until every enabled monitor reports
+        # dpmsStatus:1, so it wins the race regardless of timing. (The script
+        # also documents the Lua-parser dispatch-syntax gotcha.)
+        after_sleep_cmd = "$HOME/.config/hypr/scripts/resume-dpms.sh";
       };
       listener = [
         {
