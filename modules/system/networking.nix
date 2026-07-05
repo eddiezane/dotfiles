@@ -31,8 +31,9 @@
     enable = true;
     allowedTCPPorts = [ ];
     allowedUDPPorts = [ ];
-    # Tailscale interface always trusted.
-    trustedInterfaces = [ "tailscale0" ];
+    # Tailscale interface always trusted. virbr0 trusted so libvirt VMs can
+    # reach dev services running on the host.
+    trustedInterfaces = [ "tailscale0" "virbr0" ];
   };
 
   # systemd-resolved for DNS (NetworkManager will plug into it).

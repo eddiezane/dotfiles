@@ -18,6 +18,7 @@
     man-pages
     nmap
     pciutils
+    psmisc
     tmux
     unzip
     usbutils
