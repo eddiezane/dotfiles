@@ -54,6 +54,7 @@
     acpi
     powertop
     fwupd
+    lm_sensors
 
     # Dev runtimes available system-wide; languages best installed per-project.
     gcc

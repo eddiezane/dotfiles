@@ -68,6 +68,7 @@ in
   # Per-user (home-manager) stylix targets toggled where dotfiles already exist.
   home-manager.sharedModules = [
     ({ ... }: {
+      home.pointerCursor.enable = true;
       stylix.targets = {
         hyprland.enable = false;
         hyprlock.enable = false; # we own background + input-field via programs.hyprlock

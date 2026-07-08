@@ -33,6 +33,7 @@
     })
     spotify
     vlc
+    rapidraw
 
     # JetBrains IDEs (all-you-can-eat license).
     jetbrains.goland
@@ -51,7 +52,6 @@
       '';
     })
 
-    # Streaming / recording
     obs-studio
     qalculate-qt
     qdirstat

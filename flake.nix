@@ -51,10 +51,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Defense Unicorns CLIs (uds, zarf). Built from the official upstream
-    # release binaries so SLSA provenance / signed artifacts are preserved.
-    # Internal/private repo — use git+ssh:// so we auth via the 1Password
-    # SSH agent rather than the public GitHub API (which 404s without auth).
     defenseunicorns = {
       url = "git+ssh://git@github.com/defenseunicorns-labs/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
