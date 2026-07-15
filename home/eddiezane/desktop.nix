@@ -58,6 +58,7 @@
     gnome-disk-utility
     nwg-displays
     nwg-look
+    popsicle
   ];
 
   # Desktop-only session env (SSH_AUTH_SOCK → 1Password agent, workstation-only).

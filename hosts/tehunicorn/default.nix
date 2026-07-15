@@ -45,4 +45,19 @@
 
   # nixos-hardware's framework module enables TLP; we use tuned instead.
   services.tlp.enable = false;
+
+  # services.openssh = {
+  #   enable = true;
+  #   settings = {
+  #     PermitRootLogin = "no";
+  #     PasswordAuthentication = true;
+  #   };
+  # };
+  #
+  # networking.firewall.allowedTCPPorts = [ 22 ];
+  #
+  # users.users.tempuser = {
+  #   isNormalUser = true;
+  #   hashedPassword = "$6$2qxWRcsRYBZ.ECnk$VysfdAMXIAnTwdrZcgE9RhdKwlWwIjRnnMIh/Qv5IeVJCivSm2arkZVzFU/AsTAaNL0/j5COqUKI9PTjPkZ82.";
+  # };
 }

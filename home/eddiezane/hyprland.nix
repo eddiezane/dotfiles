@@ -131,6 +131,12 @@
     # truth is the .sh file in dotfiles so it stays diffable.
     (writeShellScriptBin "hypr-stall-capture"
       (builtins.readFile ./dotfiles/hypr/scripts/hypr-stall-capture.sh))
+
+    # Expose geoclue2's `where-am-i` demo client on PATH so wlsunset.sh can
+    # resolve coordinates from geoclue (WiFi/GeoIP via services.geoclue2). The
+    # binary otherwise lives in the package's libexec and isn't on PATH.
+    (writeShellScriptBin "geoclue-where-am-i"
+      ''exec ${geoclue2}/libexec/geoclue-2.0/demos/where-am-i "$@"'')
   ];
 
   # hyprpolkitagent ships its own systemd user service; just enable it.
