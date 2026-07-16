@@ -15,6 +15,7 @@
     ../../modules/system/stylix.nix
     ../../modules/system/hardware.nix        # fprintd, PPD, upower, bolt, IIO sensors
     ../../modules/system/hosts.nix           # hand-managed /etc/hosts (dev overrides)
+    ../../modules/system/dns-local.nix       # loopback dnsmasq for wildcard dev domains (*.uds.dev)
     # ../../modules/system/gaming.nix        # opt in when wanted
     # ../../modules/system/snapshots.nix     # snapper — opt in when wanted
   ];
