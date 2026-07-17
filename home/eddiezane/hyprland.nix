@@ -114,8 +114,7 @@
     rofimoji
     cliphist
     wl-clipboard
-    grim
-    slurp
+    grimblast
     satty
     brightnessctl
     wlsunset

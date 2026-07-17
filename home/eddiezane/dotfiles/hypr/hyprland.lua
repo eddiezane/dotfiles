@@ -299,8 +299,9 @@ hl.bind(mod .. " + SHIFT + XF86AudioLowerVolume", hl.dsp.exec_cmd("playerctl -p 
 hl.bind(mod .. "+ 0", hl.dsp.exec_cmd("wlogout -s"))
 
 -- Screenshots
-hl.bind(mod .. " + Print", hl.dsp.exec_cmd("grim - | satty --filename -"))
-hl.bind(mod .. " + SHIFT + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | satty --filename -'))
+hl.bind("Print", hl.dsp.exec_cmd("grimblast --notify copy active"))
+hl.bind(mod .. " + Print", hl.dsp.exec_cmd("grimblast --notify copysave output - | satty --filename -"))
+hl.bind(mod .. " + SHIFT + Print", hl.dsp.exec_cmd("grimblast --notify copysave area - | satty --filename -"))
 
 -- Color picker
 hl.bind(mod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
