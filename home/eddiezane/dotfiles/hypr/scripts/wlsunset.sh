@@ -19,8 +19,11 @@ DEFAULT_LON="-104.9903"
 cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/wlsunset"
 cache_file="$cache_dir/location"
 
+# Notify with a stable synchronous tag so each toast replaces the previous one
+# (e.g. "locating…" becomes "night-light on") instead of stacking.
 notify() {
-  command -v notify-send >/dev/null 2>&1 && notify-send "wlsunset" "$1"
+  command -v notify-send >/dev/null 2>&1 &&
+    notify-send -h "string:x-canonical-private-synchronous:wlsunset" "wlsunset" "$1"
 }
 
 # Return 0 if the two args look like a valid lat,lon pair.
@@ -39,16 +42,33 @@ if pidof wlsunset >/dev/null; then
   exit 0
 fi
 
+notify "locating…"
+
 lat=""
 lon=""
+src=""
 
-# 1. geoclue2. The where-am-i client keeps running to receive updates, so cap
-#    it with a timeout and just parse the first location it prints.
+# 1. geoclue2. The where-am-i client keeps streaming updates and won't exit on
+#    its own, so run it in the background and kill it the instant the first
+#    location lands — otherwise we'd block for the full -t timeout (the lag).
 if command -v geoclue-where-am-i >/dev/null 2>&1; then
-  geo=$(timeout 8 geoclue-where-am-i -t 6 2>/dev/null || true)
-  lat=$(awk -F: '/Latitude:/  {gsub(/[^0-9.-]/, "", $2); print $2; exit}' <<<"$geo")
-  lon=$(awk -F: '/Longitude:/ {gsub(/[^0-9.-]/, "", $2); print $2; exit}' <<<"$geo")
+  geo_tmp=$(mktemp)
+  geoclue-where-am-i -t 10 >"$geo_tmp" 2>/dev/null &
+  gc_pid=$!
+  for _ in $(seq 1 30); do                       # poll up to ~6s
+    grep -q "Longitude:" "$geo_tmp" && break
+    kill -0 "$gc_pid" 2>/dev/null || break        # client died early
+    sleep 0.2
+  done
+  kill "$gc_pid" 2>/dev/null
+  wait "$gc_pid" 2>/dev/null
+
+  lat=$(awk -F: '/Latitude:/  {gsub(/[^0-9.-]/, "", $2); print $2; exit}' "$geo_tmp")
+  lon=$(awk -F: '/Longitude:/ {gsub(/[^0-9.-]/, "", $2); print $2; exit}' "$geo_tmp")
+  rm -f "$geo_tmp"
+
   if valid_coords "$lat" "$lon"; then
+    src="geoclue"
     save_cache "$lat" "$lon"
   else
     lat="" lon=""
@@ -61,6 +81,7 @@ if ! valid_coords "$lat" "$lon"; then
     lat=$(echo "$loc" | cut -f1 -d,)
     lon=$(echo "$loc" | cut -f2 -d,)
     if valid_coords "$lat" "$lon"; then
+      src="ipinfo"
       save_cache "$lat" "$lon"
     else
       lat="" lon=""
@@ -71,14 +92,15 @@ fi
 # 3. Fall back to cache.
 if ! valid_coords "$lat" "$lon" && [[ -r "$cache_file" ]]; then
   { read -r lat; read -r lon; } <"$cache_file"
-  valid_coords "$lat" "$lon" && notify "no location source; using cached location"
+  valid_coords "$lat" "$lon" && src="cache"
 fi
 
 # 4. Fall back to the hardcoded default.
 if ! valid_coords "$lat" "$lon"; then
   lat="$DEFAULT_LAT"
   lon="$DEFAULT_LON"
-  notify "no location available; using default ($lat, $lon)"
+  src="default"
 fi
 
+notify "night-light on ($lat, $lon via $src)"
 exec wlsunset -l "$lat" -L "$lon" -t "$TEMP_NIGHT"

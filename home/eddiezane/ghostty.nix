@@ -20,7 +20,7 @@
       font-size = 15;
       window-padding-y = 0;
 
-      # theme = "catppuccin-macchiato.conf";
+      theme = "catppuccin-macchiato.conf";
 
       # ~1GB scrollback per surface (default is 10MB). Bytes, not lines, and
       # allocated lazily so a big cap is cheap until actually used.
