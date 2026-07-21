@@ -107,7 +107,7 @@
   home.packages = with pkgs; [
     hyprpaper
     hyprpicker
-    hyprmod                  # GTK4 settings app (local pkg; tracks nixpkgs PR #505419)
+    hyprmod                  # GTK4 settings app (upstream flake)
     hyprpolkitagent          # Hyprland-native polkit agent
     hyprcursor               # native cursor protocol
     wlogout

@@ -4,12 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Pin for open-webui ONLY. Web search broke after 0.9.4 (still broken on
-    # 0.9.6, which nixpkgs-unstable currently ships). This rev is master just
-    # before the 0.9.4 -> 0.9.5 bump (#519425), so it carries open-webui 0.9.4.
-    # Deliberately NOT following nixpkgs — the point is to hold open-webui back.
-    # Drop this node once upstream fixes SearXNG web search and nixpkgs ships it.
-    nixpkgs-openwebui.url = "github:NixOS/nixpkgs/99b5236774c1b7f4b0cd92cdd54771d959b507e7";
+    # # Pin for open-webui ONLY. Web search broke after 0.9.4 (still broken on
+    # # 0.9.6, which nixpkgs-unstable currently ships). This rev is master just
+    # # before the 0.9.4 -> 0.9.5 bump (#519425), so it carries open-webui 0.9.4.
+    # # Deliberately NOT following nixpkgs — the point is to hold open-webui back.
+    # # Drop this node once upstream fixes SearXNG web search and nixpkgs ships it.
+    # nixpkgs-openwebui.url = "github:NixOS/nixpkgs/99b5236774c1b7f4b0cd92cdd54771d959b507e7";
 
     # Hyprland straight from upstream, pinned to a release tag so we get new
     # versions without waiting on the nixpkgs bump. Deliberately NOT following
@@ -17,7 +17,7 @@
     # desktop.nix), so only it rebuilds locally — its deps stay on Hyprland's
     # pinned nixpkgs and come from hyprland.cachix.org. `follows` would force a
     # full local rebuild of that dependency tree for no benefit.
-    hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
+    hyprland.url = "github:hyprwm/Hyprland/v0.56.0";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -51,13 +51,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprmod = {
+      url = "github:BlueManCZ/hyprmod";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     defenseunicorns = {
       url = "git+ssh://git@github.com/defenseunicorns-labs/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, lanzaboote, nixos-hardware, stylix, nix-index-database, defenseunicorns, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, disko, lanzaboote, nixos-hardware, stylix, nix-index-database, hyprmod, defenseunicorns, ... }@inputs:
     let
       system = "x86_64-linux";
 
