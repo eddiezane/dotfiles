@@ -102,6 +102,12 @@
         tehfox = mkHost {
           hostname = "tehfox";
         };
+
+        # Headless Framework server (12th-gen Intel i7-1260P, 64 GB RAM).
+        tehbadger = mkHost {
+          hostname = "tehbadger";
+          extraModules = [ nixos-hardware.nixosModules.framework-12th-gen-intel ];
+        };
       };
 
       # Convenience: `nix fmt`

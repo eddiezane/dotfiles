@@ -1,6 +1,6 @@
 # Installing
 
-End-to-end recipe for laying this flake down on a Framework 13 AMD. Most steps
+End-to-end recipe for laying this flake down on a NixOS host. Most steps
 generalize; the bits that don't (NVMe device name, hostname, real name, etc.)
 are called out.
 
@@ -414,3 +414,85 @@ network services can't cut you off mid-switch:
 cd ~/Codez/dotfiles && git pull
 sudo nixos-rebuild switch --flake .#tehfox     # or: nh os switch
 ```
+
+## Headless Framework server (tehbadger)
+
+`tehbadger` uses the same server base as `tehfox`, plus Docker and libvirt so
+small services can run in containers and Home Assistant OS can later run as a
+KVM guest. It does not enable Home Assistant or Pi-hole yet. The target is a
+Framework 13 12th-gen Intel i7-1260P with 64 GB RAM and a 1 TB Samsung 980 PRO.
+
+### Recommended install: standard NixOS minimal ISO
+
+Use the normal NixOS minimal installer ISO. A custom ISO would still need the
+same disk identification, disko formatting, password secret, and bootloader
+installation steps; it mainly pays off for repeated offline installs. The
+standard ISO is easier to update and recover with.
+
+Install the NVMe internally rather than formatting it while it is in the USB
+enclosure. Boot the ISO on the Framework, connect it to the network, and use
+the installer console. Confirm the target disk:
+
+```sh
+lsblk -o NAME,MODEL,SERIAL,SIZE,TYPE,FSTYPE,MOUNTPOINTS
+ls -l /dev/disk/by-id
+cat /sys/block/nvme0n1/device/model
+```
+
+The committed host targets `/dev/nvme0n1`, which is appropriate for this
+dedicated machine only if the verification above shows the 1 TB 980 PRO. The
+next command erases that disk.
+
+From a checkout of this repository on the installer:
+
+```sh
+cd ~/Codez/dotfiles
+sudo nix run github:nix-community/disko/latest#disko -- \
+  --mode destroy,format,mount --flake .#tehbadger --yes-wipe-all-disks
+sudo mkdir -p /mnt/etc/nixos-secrets
+mkpasswd -m sha-512 | sudo tee /mnt/etc/nixos-secrets/eddiezane >/dev/null
+sudo chmod 600 /mnt/etc/nixos-secrets/eddiezane
+sudo nixos-install --flake .#tehbadger --no-root-passwd --no-channel-copy
+reboot
+```
+
+The layout creates a GPT/EFI + Btrfs disk with separate `/`, `/home`, `/nix`,
+`/var/log`, and swapfile subvolumes. The first boot needs a physical-console
+bootstrap because SSH is intentionally disabled:
+
+```sh
+sudo tailscale up --ssh
+```
+
+After that, use `tailscale ssh eddiezane@tehbadger`. Home Assistant OS can be
+imported as a VM later; keeping it isolated makes the Raspberry Pi migration
+and rollback much easier.
+
+### Optional: build the system before booting the target
+
+The server configuration is light enough to build on another x86_64 NixOS
+machine, then transfer the closure to the installer. This is useful when the
+installer has slow or unreliable Internet, but it is not a different operating
+system image:
+
+```sh
+# On the build machine, from a clean checkout containing the host files:
+SYS=$(nix build .#nixosConfigurations.tehbadger.config.system.build.toplevel \
+  --no-link --print-out-paths)
+nix-store --export $(nix-store -qR "$SYS") > /tmp/tehbadger-closure-export
+printf '%s\n' "$SYS" > /tmp/tehbadger-system-path
+```
+
+On the installer, after disko has mounted `/mnt`, copy the closure into the
+target store (using SSH from the installer or a removable drive), then install
+with:
+
+```sh
+SYS=$(cat /path/to/tehbadger-system-path)
+sudo nix-store --store /mnt --import < /path/to/tehbadger-closure-export
+sudo nixos-install --root /mnt --system "$SYS" \
+  --no-root-passwd --no-channel-copy
+```
+
+For a first installation, building directly from the minimal ISO is simpler;
+the prebuilt-closure route is an optimization, not a requirement.

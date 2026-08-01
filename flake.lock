@@ -123,11 +123,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785512058,
-        "narHash": "sha256-tgpVYl0tVuvD+DyHBiInd/6pYxhr27mZ+6ooIXnieQI=",
+        "lastModified": 1785594161,
+        "narHash": "sha256-bH5z4f0f9e5+ZoRcxWK0abDZUPDk9U60lBRtzXbZLu8=",
         "ref": "refs/heads/main",
-        "rev": "0334f5f8388fa752c6ec97d6d39b82f90ddbe3e5",
-        "revCount": 98,
+        "rev": "d85505250bed7de915be86f5054cb48742034b6b",
+        "revCount": 100,
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns-labs/nix-packages"
       },
@@ -267,11 +267,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785496534,
-        "narHash": "sha256-EASdusMYLuPhOCrE3LmsAGOvGhX3vnKBLxFvj9lI8tU=",
+        "lastModified": 1785531816,
+        "narHash": "sha256-vkMnV0JIyw+g/NmcfoajlGaAO+9a0ezia+FZohQJrik=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e8827fbbb12015a8dd9f66285aec79d655bcb9f6",
+        "rev": "bf9ce9fec78f95f374e8dd3b503863a3ec128ebe",
         "type": "github"
       },
       "original": {
@@ -840,11 +840,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1784676123,
-        "narHash": "sha256-ndyanKzw90yX2nUVFmTuYqXidUNymtMfgmIHyNdhht0=",
+        "lastModified": 1785518890,
+        "narHash": "sha256-BeXpCHTPZ+ZlRR12nYe/0JHjfp/fgJVY2YV2xAz8JHs=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "66714e5ce44269ecc58c20d9196da8dbe1b27a31",
+        "rev": "6316d1d03e7a12cae7cdb007f34d2eaebbfc802a",
         "type": "github"
       },
       "original": {
