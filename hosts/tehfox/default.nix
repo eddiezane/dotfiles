@@ -127,6 +127,8 @@
     enable = true;
     environment = {
       N8N_LISTEN_ADDRESS = "0.0.0.0";
+      # n8n is currently exposed over the private tailnet without TLS.
+      N8N_SECURE_COOKIE = false;
     };
   };
 
