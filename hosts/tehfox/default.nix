@@ -122,6 +122,14 @@
     };
   };
 
+  # n8n automation UI/API, reachable on the tailnet only.
+  services.n8n = {
+    enable = true;
+    environment = {
+      N8N_LISTEN_ADDRESS = "0.0.0.0";
+    };
+  };
+
   # Ollama/Open WebUI reachable on the tailnet only.
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 11434 8080 ];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 5678 11434 8080 ];
 }
