@@ -17,7 +17,7 @@
     # desktop.nix), so only it rebuilds locally — its deps stay on Hyprland's
     # pinned nixpkgs and come from hyprland.cachix.org. `follows` would force a
     # full local rebuild of that dependency tree for no benefit.
-    hyprland.url = "github:hyprwm/Hyprland/v0.56.0";
+    hyprland.url = "github:hyprwm/Hyprland/v0.56.1";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -52,7 +52,14 @@
     };
 
     hyprmod = {
-      url = "github:BlueManCZ/hyprmod";
+      # TEMP PIN 2026-07-27: upstream packaging bug — hyprmod 0.4.0's pyproject
+      # requires hyprland-config>=0.9.13, but their nix/hyprmod.nix INLINE
+      # derivation for it (deps not in nixpkgs yet) still pins 0.9.12, so
+      # current master cannot build itself. v0.9.13 tag exists upstream; the
+      # fix is a version+hash bump in their nix/hyprmod.nix. Pinned to
+      # last-good rev; drop the /rev suffix + `nix flake update hyprmod` once
+      # they fix it (no existing issue as of pinning — consider filing/PRing).
+      url = "github:BlueManCZ/hyprmod/857d0170fec51dffa11cc8827a930121f66dc1e3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

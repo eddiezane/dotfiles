@@ -1,0 +1,105 @@
+diff -ruN '--color=never' b/drivers/gpu/drm/ttm/ttm_resource.c c/drivers/gpu/drm/ttm/ttm_resource.c
+--- b/drivers/gpu/drm/ttm/ttm_resource.c	2026-07-23 22:32:56.642212074 -0400
++++ c/drivers/gpu/drm/ttm/ttm_resource.c	2026-07-23 22:34:13.220712664 -0400
+@@ -228,6 +228,9 @@
+ {
+ 	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
+ 
++	if (WARN_ON_ONCE(res->bulk_tracked))
++		return;
++
+ 	if (!pos->first) {
+ 		pos->first = res;
+ 		pos->last = res;
+@@ -235,6 +238,7 @@
+ 		WARN_ON(pos->first->bo->base.resv != res->bo->base.resv);
+ 		ttm_lru_bulk_move_pos_tail(pos, res);
+ 	}
++	res->bulk_tracked = true;
+ }
+ 
+ /* Remove the resource from a bulk_move range */
+@@ -243,6 +247,9 @@
+ {
+ 	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
+ 
++	if (!res->bulk_tracked)
++		return;
++
+ 	if (unlikely(WARN_ON(!pos->first || !pos->last) ||
+ 		     (pos->first == res && pos->last == res))) {
+ 		pos->first = NULL;
+@@ -254,6 +261,7 @@
+ 	} else {
+ 		list_move(&res->lru.link, &pos->last->lru.link);
+ 	}
++	res->bulk_tracked = false;
+ }
+ 
+ /**
+@@ -274,10 +282,12 @@
+ 	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
+ 
+ 	if (WARN(pos->first == res || pos->last == res,
+-		 "TTM: %s: res %p (mem_type %u prio %u pin %u) is a stale bulk pos endpoint\n",
++		 "TTM: %s: res %p (mem_type %u prio %u pin %u tracked %d) is a stale bulk pos endpoint\n",
+ 		 when, res, res->mem_type, res->bo->priority,
+-		 res->bo->pin_count))
++		 res->bo->pin_count, res->bulk_tracked)) {
++		res->bulk_tracked = true;	/* force the keyed del to run */
+ 		ttm_lru_bulk_move_del(bulk, res);
++	}
+ }
+ 
+ static bool ttm_resource_is_swapped(struct ttm_resource *res, struct ttm_buffer_object *bo)
+@@ -312,7 +322,13 @@
+ void ttm_resource_del_bulk_move(struct ttm_resource *res,
+ 				struct ttm_buffer_object *bo)
+ {
+-	if (bo->bulk_move && !ttm_resource_unevictable(res, bo))
++	/*
++	 * Removal is keyed on tracked membership (res->bulk_tracked), NOT on
++	 * the BO's current evictability: pin/swap state can change while the
++	 * resource is still linked in the range, and skipping the fixup here
++	 * leaves pos->first/last dangling once the resource is freed.
++	 */
++	if (bo->bulk_move)
+ 		ttm_lru_bulk_move_del(bo->bulk_move, res);
+ }
+ 
+@@ -340,7 +356,7 @@
+ 	if (ttm_resource_unevictable(res, bo)) {
+ 		list_move_tail(&res->lru.link, &bdev->unevictable);
+ 
+-	} else if (bo->bulk_move) {
++	} else if (bo->bulk_move && res->bulk_tracked) {
+ 		struct ttm_lru_bulk_move_pos *pos =
+ 			ttm_lru_bulk_move_pos(bo->bulk_move, res);
+ 
+@@ -376,6 +392,7 @@
+ 	res->bus.is_iomem = false;
+ 	res->bus.caching = ttm_cached;
+ 	res->bo = bo;
++	res->bulk_tracked = false;
+ 
+ 	man = ttm_manager_type(bo->bdev, place->mem_type);
+ 	spin_lock(&bo->bdev->lru_lock);
+diff -ruN '--color=never' b/include/drm/ttm/ttm_resource.h c/include/drm/ttm/ttm_resource.h
+--- b/include/drm/ttm/ttm_resource.h	2026-07-23 22:32:56.642313465 -0400
++++ c/include/drm/ttm/ttm_resource.h	2026-07-23 22:33:36.874072252 -0400
+@@ -274,6 +274,15 @@
+ 	 * @lru: Least recently used list, see &ttm_resource_manager.lru
+ 	 */
+ 	struct ttm_lru_item lru;
++
++	/**
++	 * @bulk_tracked: Resource is currently linked inside a
++	 * &ttm_lru_bulk_move range. Tracked explicitly so removal never
++	 * depends on recomputing the BO's evictability, which can change
++	 * (pin, swapout) while the resource is still in the range.
++	 * Protected by ttm_device::lru_lock.
++	 */
++	bool bulk_tracked;
+ };
+ 
+ /**

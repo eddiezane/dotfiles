@@ -24,6 +24,7 @@
 
     # Dev tooling (keep this list light; per-project devshells are the nix way)
     claude-code
+    codex
     docker-compose
     gh
     go

@@ -22,6 +22,14 @@
 
       theme = "catppuccin-macchiato.conf";
 
+      # Blinking block cursor. zsh shell integration otherwise switches to a
+      # thin bar at the prompt (DECSCUSR); `no-cursor` stops it so the block
+      # sticks everywhere. (The old bar rendered as a ~1px sliver despite
+      # adjust-cursor-thickness — a fractional-scale (1.33) rounding thing.)
+      cursor-style = "block";
+      cursor-style-blink = true;
+      shell-integration-features = "no-cursor";
+
       # ~1GB scrollback per surface (default is 10MB). Bytes, not lines, and
       # allocated lazily so a big cap is cheap until actually used.
       scrollback-limit = 1000000000;

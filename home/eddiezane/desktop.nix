@@ -12,6 +12,7 @@
     ./swaync.nix
     ./ghostty.nix
     ./defenseunicorns.nix  # uds/zarf (private flake input)
+    ./ttm-bug-watch.nix    # TEMP: notify on kernel TTM bug signals
   ];
 
   home.packages = with pkgs; [

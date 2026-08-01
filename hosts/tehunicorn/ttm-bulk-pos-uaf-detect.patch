@@ -1,0 +1,68 @@
+diff -ruN '--color=never' a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+--- a/drivers/gpu/drm/ttm/ttm_bo.c	2026-07-22 23:21:03.921430724 -0400
++++ b/drivers/gpu/drm/ttm/ttm_bo.c	2026-07-22 23:21:45.412841363 -0400
+@@ -111,6 +111,9 @@
+ 	spin_lock(&bo->bdev->lru_lock);
+ 	if (bo->resource)
+ 		ttm_resource_del_bulk_move(bo->resource, bo);
++	if (bo->resource && bo->bulk_move)
++		ttm_lru_bulk_move_verify_pos(bo->bulk_move, bo->resource,
++					     "set_bulk_move");
+ 	bo->bulk_move = bulk;
+ 	if (bo->resource)
+ 		ttm_resource_add_bulk_move(bo->resource, bo);
+diff -ruN '--color=never' a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+--- a/drivers/gpu/drm/ttm/ttm_resource.c	2026-07-22 23:21:03.921368076 -0400
++++ b/drivers/gpu/drm/ttm/ttm_resource.c	2026-07-22 23:21:37.082741368 -0400
+@@ -256,6 +256,30 @@
+ 	}
+ }
+ 
++/**
++ * ttm_lru_bulk_move_verify_pos - debug check for a stale bulk-move endpoint
++ * @bulk: the bulk move the BO is (or was) tracked in
++ * @res: the resource about to be freed or orphaned
++ * @when: call-site tag for the warning message
++ *
++ * The pos[type][prio].first/.last cache is only repaired by
++ * ttm_lru_bulk_move_del(), which is skipped when the BO currently looks
++ * unevictable. If a resource is freed while it is still a cached range
++ * endpoint, the next bulk operation dereferences freed memory. Catch that
++ * here with a stack trace and repair the cache so the machine survives.
++ */
++void ttm_lru_bulk_move_verify_pos(struct ttm_lru_bulk_move *bulk,
++				  struct ttm_resource *res, const char *when)
++{
++	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
++
++	if (WARN(pos->first == res || pos->last == res,
++		 "TTM: %s: res %p (mem_type %u prio %u pin %u) is a stale bulk pos endpoint\n",
++		 when, res, res->mem_type, res->bo->priority,
++		 res->bo->pin_count))
++		ttm_lru_bulk_move_del(bulk, res);
++}
++
+ static bool ttm_resource_is_swapped(struct ttm_resource *res, struct ttm_buffer_object *bo)
+ {
+ 	/*
+@@ -380,6 +404,8 @@
+ 	struct ttm_device *bdev = man->bdev;
+ 
+ 	spin_lock(&bdev->lru_lock);
++	if (res->bo && res->bo->bulk_move)
++		ttm_lru_bulk_move_verify_pos(res->bo->bulk_move, res, "fini");
+ 	list_del_init(&res->lru.link);
+ 	man->usage -= res->size;
+ 	spin_unlock(&bdev->lru_lock);
+diff -ruN '--color=never' a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+--- a/include/drm/ttm/ttm_resource.h	2026-07-22 23:21:03.925781708 -0400
++++ b/include/drm/ttm/ttm_resource.h	2026-07-22 23:21:15.397481598 -0400
+@@ -450,6 +450,8 @@
+ 				struct ttm_buffer_object *bo);
+ void ttm_resource_del_bulk_move_unevictable(struct ttm_resource *res,
+ 					    struct ttm_buffer_object *bo);
++void ttm_lru_bulk_move_verify_pos(struct ttm_lru_bulk_move *bulk,
++				  struct ttm_resource *res, const char *when);
+ void ttm_resource_move_to_lru_tail(struct ttm_resource *res);
+ 
+ void ttm_resource_init(struct ttm_buffer_object *bo,
