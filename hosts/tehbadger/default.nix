@@ -7,6 +7,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ../../modules/disko/btrfs.nix
+    ../../modules/system/k0s.nix
     ./hardware.nix
   ];
 
@@ -37,5 +38,10 @@
   services.fwupd.enable = true;
   services.smartd.enable = true;
   services.fstrim.enable = true;
+
+  services.k0s = {
+    enable = true;
+    singleNode = true;
+  };
 
 }

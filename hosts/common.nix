@@ -13,6 +13,12 @@
     ../modules/system/users.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      k0s = final.callPackage ../packages/k0s.nix { };
+    })
+  ];
+
   networking.hostName = hostname;
 
   # Enable flakes + nix command

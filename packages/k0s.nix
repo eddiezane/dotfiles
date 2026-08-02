@@ -1,0 +1,25 @@
+{ lib, stdenvNoCC, fetchurl }:
+
+stdenvNoCC.mkDerivation {
+  pname = "k0s";
+  version = "1.36.3+k0s.0";
+
+  src = fetchurl {
+    url = "https://github.com/k0sproject/k0s/releases/download/v1.36.3%2Bk0s.0/k0s-v1.36.3%2Bk0s.0-amd64";
+    hash = "sha256-yxVgBXWwJX4juySgFwMpPpZmaUsJY2MgrEMm/m7d5vI=";
+  };
+
+  dontUnpack = true;
+
+  installPhase = ''
+    install -Dm755 "$src" "$out/bin/k0s"
+  '';
+
+  meta = {
+    description = "Zero-friction Kubernetes distribution";
+    homepage = "https://k0sproject.io";
+    license = lib.licenses.asl20;
+    mainProgram = "k0s";
+    platforms = [ "x86_64-linux" ];
+  };
+}
