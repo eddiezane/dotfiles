@@ -88,6 +88,16 @@ in
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
 
+      # k0s launches kubelet and the bundled CNI components from this unit.
+      # Unlike a login shell, its generated PATH does not contain host tools
+      # such as mount, ip, iptables, and modprobe unless we provide them.
+      path = with pkgs; [
+        util-linux
+        iproute2
+        iptables
+        kmod
+      ];
+
       serviceConfig = {
         ExecStart = lib.escapeShellArgs command;
         Restart = "on-failure";
