@@ -26,16 +26,8 @@
   services.openssh.enable = false;
   services.tailscale.extraUpFlags = [ "--ssh" ];
 
-  # Inert while OpenSSH is off; kept so re-enabling it is one line.
-  users.users.eddiezane.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKG0lTesnNipOivciXzdFw5NleibHykQ6V3Dp9ic1yzg SSH Key"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII76gJY0VgQhPOXpkihjBZDwK2OAkapxghO/21J16Mxl TEHUNICORN"
-  ];
-
   # Wake-on-LAN (also needs "Power On By PCIe" + ErP off in BIOS — manual).
   networking.interfaces.enp6s0.wakeOnLan.enable = true;
-
-  # --- Tailscale exit node ---------------------------------------------------
 
   # "both" (overrides base "client") enables IPv4/IPv6 forwarding for exit-node
   # use. Still needs approval in the admin console.
