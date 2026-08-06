@@ -1,0 +1,118 @@
+{
+  "$schema": "https://f.jstanger.dev/github/ironbar/schema-v0.19.0.json",
+  "name": "main",
+  "layer": "top",
+  "position": "bottom",
+  "height": 20,
+  "popup_autohide": true,
+  "start": [
+    {
+      "type": "workspaces",
+      "name": "workspaces",
+      "all_monitors": false,
+      "sort": "index"
+    }
+  ],
+  "end": [
+    {
+      "type": "notifications",
+      "name": "notification",
+      "show_count": false,
+      "on_click_right": "swaync-client -d -sw"
+    },
+    {
+      "type": "inhibit",
+      "name": "inhibitors",
+      "default_duration": "01:00:00",
+      "durations": ["00:30:00", "01:00:00", "02:00:00", "04:00:00", "inf"],
+      "format_off": "",
+      "format_on": ""
+    },
+    {
+      "type": "volume",
+      "name": "pulseaudio",
+      "format": "{icon} {percentage}%",
+      "mute_format": "{icon}",
+      "show_sinks": true,
+      "show_sources": true,
+      "on_click_right": "pavucontrol"
+    },
+    {
+      "type": "network_manager",
+      "name": "network",
+      "icon_size": 14,
+      "types_whitelist": ["wifi", "ethernet"]
+    },
+    {
+      "type": "script",
+      "name": "disk",
+      "cmd": "df --output=pcent / | tail -1 | tr -dc '0-9' | sed 's/$/% /'",
+      "tooltip": "Root filesystem\n{{60000:df -h / | awk 'NR == 2 { printf \"Used: %s / %s\\nAvailable: %s\", $3, $2, $4 }'}}",
+      "interval": 30000
+    },
+    {
+      "type": "sys_info",
+      "name": "cpu",
+      "format": ["{cpu_percent}% "],
+      "tooltip": "CPU\n{{60000:awk '/model name/ {sub(/.*: /, \"\"); print; exit}' /proc/cpuinfo}}\nLoad average: {{30000:cut -d ' ' -f1-3 /proc/loadavg}}",
+      "interval": { "cpu": 5 }
+    },
+    {
+      "type": "sys_info",
+      "name": "memory",
+      "format": ["{memory_percent}% "],
+      "tooltip": "Memory\n{{30000:free -h | awk '/^Mem:/ {printf \"Used: %s / %s\\nAvailable: %s\", $3, $2, $7} /^Swap:/ {printf \"\\nSwap: %s / %s\", $3, $2}'}}",
+      "interval": { "memory": 5 }
+    },
+    {
+      "type": "sys_info",
+      "name": "temperature",
+      "format": ["{temp_c}°C "],
+      "tooltip": "{{30000:sh ~/.config/ironbar/scripts/temperature-tooltip.sh}}",
+      "interval": { "temps": 5 }
+    },
+    {
+      "type": "brightness",
+      "name": "backlight",
+      "format": "{percentage}%",
+      "icon_label": "󰃠",
+      "mode": { "type": "systemd", "subsystem": "backlight" }
+    },
+    {
+      "type": "script",
+      "name": "power-profiles-daemon",
+      "cmd": "sh ~/.config/ironbar/scripts/power-profile.sh",
+      "on_click_left": "sh ~/.config/ironbar/scripts/power-profile.sh cycle",
+      "tooltip": "Power profile: {{60000:sh ~/.config/ironbar/scripts/power-profile.sh name}}",
+      "interval": 2000
+    },
+    {
+      "type": "battery",
+      "name": "battery",
+      "format": "{percentage}%",
+      "icon_size": 14,
+      "profiles": {
+        "warning": { "percent": 30 },
+        "critical": { "percent": 15, "charging": false }
+      }
+    },
+    {
+      "type": "script",
+      "name": "clock",
+      "cmd": "date '+%H:%M %Z'",
+      "interval": 5000
+    },
+    {
+      "type": "clock",
+      "name": "clock-date",
+      "format": "%Y-%m-%d",
+      "format_popup": "%A, %Y-%m-%d"
+    },
+    {
+      "type": "tray",
+      "name": "tray",
+      "icon_size": 16,
+      "prefer_theme_icons": true
+    }
+  ]
+}

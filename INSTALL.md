@@ -5,6 +5,7 @@ generalize; the bits that don't (NVMe device name, hostname, real name, etc.)
 are called out.
 
 If you're adapting this to a different machine:
+
 - Add `hosts/<your-host>/` (mirror `hosts/tehunicorn/`).
 - Update `mkHost { hostname = "..."; }` in `flake.nix`.
 - Adjust `users.nix` (name, SSH keys, `hashedPasswordFile` path).
@@ -97,7 +98,6 @@ sudo nixos-install --root /mnt --system "$SYSTEM" \
 
 ```sh
 sudo reboot
-# Yank the installer USB at the BIOS splash.
 ```
 
 First boot prompts for the install LUKS passphrase, then the regreet

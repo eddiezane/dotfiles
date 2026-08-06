@@ -102,7 +102,7 @@
   #   - hypridle  (services.hypridle.enable)
   #   - hyprlock  (programs.hyprlock.enable)
   #   - wofi      (programs.wofi.enable)
-  #   - waybar    (programs.waybar.enable — waybar.nix)
+  #   - ironbar   (systemd user service — ironbar.nix)
   #   - swaync    (services.swaync.enable — swaync.nix)
   home.packages = with pkgs; [
     hyprpaper

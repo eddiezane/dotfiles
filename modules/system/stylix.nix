@@ -2,7 +2,7 @@
 # cursors, console, fonts, and any stylix-aware app added later.
 #
 # We intentionally DISABLE stylix's targets for apps where we already maintain
-# explicit dotfiles (hyprland, waybar, swaync, wofi, ghostty). Stylix would
+# explicit dotfiles (hyprland, ironbar, swaync, wofi, ghostty). Stylix would
 # otherwise fight our `xdg.configFile.<...>.source` symlinks.
 { pkgs, lib, ... }:
 
@@ -72,7 +72,6 @@ in
       stylix.targets = {
         hyprland.enable = false;
         hyprlock.enable = false; # we own background + input-field via programs.hyprlock
-        waybar.enable = false;
         swaync.enable = false;
         wofi.enable = false;
         ghostty.enable = false; # we ship the catppuccin theme file

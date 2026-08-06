@@ -22,11 +22,8 @@
 
   # Desktop-only overlays (GUI app patches).
   #
-  # Note: the Hyprland IPC monitor disable→re-enable backstop patch (#14710)
-  # used to live here as an overlay on pkgs.hyprland. It now rides on the
-  # upstream flake package via programs.hyprland.package in
-  # modules/system/desktop.nix, since that's the package the session actually
-  # runs — patching pkgs.hyprland here would have been a no-op for the session.
+  # Hyprland's canonical-package overlay lives in modules/system/desktop.nix so
+  # the session and packages that consume pkgs.hyprland share one derivation.
   nixpkgs.overlays = [
     inputs.hyprmod.overlays.default
   ];

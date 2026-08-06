@@ -18,7 +18,7 @@
     espSize = "1G";
   };
 
-  # --- Remote access: Tailscale SSH only ------------------------------------
+  # Remote access: Tailscale SSH only.
 
   # OpenSSH off → remote shell is Tailscale SSH (`tailscale up --ssh`), no port
   # 22 anywhere. Persists in /var/lib/tailscale; password account is the console
@@ -45,7 +45,7 @@
     };
   };
 
-  # --- GPU container runtime + inference -------------------------------------
+  # GPU container runtime and inference.
 
   # docker for ad-hoc GPU workloads via nvidia-container-toolkit (CDI).
   virtualisation.docker = {
@@ -86,7 +86,7 @@
     };
   };
 
-  # --- SearXNG: web search backend for Open WebUI ----------------------------
+  # SearXNG: web search backend for Open WebUI.
 
   # Localhost-only — Open WebUI queries it in-process, so it never touches the
   # tailnet/firewall. secret_key comes from an off-repo env file (the Nix store

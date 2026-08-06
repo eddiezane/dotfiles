@@ -135,7 +135,7 @@
 
     tabbar {
       margin-top: 0px;
-      margin-bottom: 3px;  /* lift the active pill off waybar below */
+      margin-bottom: 3px;  /* lift the active pill off the status bar below */
     }
     tabbar tabbox {
       transform: translateY(0px);

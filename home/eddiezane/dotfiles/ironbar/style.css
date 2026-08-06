@@ -1,0 +1,192 @@
+@import url("macchiato.css");
+
+* {
+    font-family: "SauceCodePro Nerd Font";
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Ironbar modules contain GTK buttons, labels, and images.  GTK's theme gives
+ * some of those children their own surface and font weight unless we reset
+ * them, which makes a second, mismatched rectangle appear inside a pill. */
+box,
+button,
+label,
+image,
+calendar {
+    background-color: transparent;
+    color: inherit;
+    font-weight: normal;
+}
+
+window {
+    background-color: #1B1B1B;
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    color: @text;
+}
+
+#bar {
+    padding: 0;
+}
+
+button {
+    padding: 0 10px;
+}
+
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+.workspaces .item {
+    margin: 0 2px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background: @surface0;
+    color: @text;
+}
+
+.workspaces .item:hover {
+    background: @surface0;
+    color: @text;
+}
+
+.workspaces .item.focused {
+    background-color: @red;
+    color: @crust;
+    box-shadow: none;
+}
+
+.workspaces .item.urgent {
+    background-color: #eb4d4b;
+}
+
+#notification,
+#network,
+#disk,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#power-profiles-daemon,
+#battery,
+#clock,
+#clock-date,
+#tray,
+#pulseaudio {
+    margin: 0 2px;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: @crust;
+}
+
+#notification {
+    background-color: @pink;
+}
+
+#inhibitors {
+    margin: 0 2px;
+    padding: 0 10px;
+    border-radius: 4px;
+    background-color: @subtext1;
+    color: @crust;
+}
+
+#network {
+    background-color: @sky;
+}
+
+.network_manager > .icon:not(:last-child) {
+    padding-right: 5px;
+}
+
+#disk {
+    background-color: #C68642;
+}
+
+#cpu,
+#power-profiles-daemon {
+    background-color: @maroon;
+    color: #000000;
+}
+
+#memory {
+    background-color: @mauve;
+}
+
+#temperature {
+    background-color: @yellow;
+}
+
+#backlight {
+    background-color: @overlay1;
+}
+
+#battery {
+    background-color: @green;
+}
+
+/* Present power profile and charge as a single status group while retaining
+ * independent click targets (the profile icon remains clickable). */
+#power-profiles-daemon {
+    margin-right: 0;
+    padding-right: 10px;
+    border-radius: 4px 0 0 4px;
+    background-color: @green;
+    color: @crust;
+    border-right: 1px solid @surface0;
+}
+
+#battery {
+    margin-left: 0;
+    padding-left: 10px;
+    border-radius: 0 4px 4px 0;
+}
+
+#battery.critical {
+    background-color: #f53c3c;
+}
+
+#clock {
+    background-color: @peach;
+}
+
+#clock-date {
+    background-color: @flamingo;
+}
+
+#tray {
+    background-color: @sapphire;
+    padding: 0 4px;
+}
+
+/* Tray items are individually rendered as buttons. Keep their hit targets
+ * usable, but do not apply the regular status-module padding to every icon. */
+#tray button {
+    padding: 0 4px;
+}
+
+#pulseaudio {
+    background-color: @lavender;
+    color: #000000;
+}
+
+#pulseaudio .source {
+    margin-left: 6px;
+}
+
+popover contents {
+    background-color: #1B1B1B;
+    color: @text;
+    border: 1px solid @surface1;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.popup-clock .calendar .today {
+    background-color: @red;
+    color: @crust;
+    border-radius: 4px;
+}

@@ -1,4 +1,4 @@
-# Desktop home profile: Wayland session (Hyprland/waybar/wofi/swaync/ghostty),
+# Desktop home profile: Wayland session (Hyprland/ironbar/wofi/swaync/ghostty),
 # GUI apps, and desktop-only env (browser, MIME handlers, dark mode, 1Password
 # agent socket). Pulled in by hosts/profiles/desktop.nix on interactive hosts;
 # the base (home/eddiezane/default.nix) carries the shared shell/CLI environment.
@@ -7,7 +7,7 @@
 {
   imports = [
     ./hyprland.nix
-    ./waybar.nix
+    ./ironbar.nix
     ./wofi.nix
     ./swaync.nix
     ./ghostty.nix

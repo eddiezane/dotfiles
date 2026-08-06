@@ -10,7 +10,7 @@
       source-code-pro
       ubuntu-classic
       font-awesome
-      # SauceCodePro Nerd Font (referenced by waybar/wofi/ghostty)
+      # SauceCodePro Nerd Font (referenced by ironbar/wofi/ghostty)
       nerd-fonts.sauce-code-pro
       nerd-fonts.symbols-only
     ];

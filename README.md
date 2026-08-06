@@ -9,13 +9,13 @@ For the step-by-step install, see [INSTALL.md](./INSTALL.md).
 ## Stack at a glance
 
 | Layer | Choice |
-|---|---|
+| --- | --- |
 | Disk | LUKS → BTRFS (subvols `@`, `@home`, `@nix`, `@log`, `@swap`) — no LVM |
 | Hibernation | BTRFS swapfile in a NoCoW subvol, ≥ RAM (96 GB) |
 | Boot | systemd-boot + lanzaboote (Secure Boot, declaratively signed) |
 | Display manager | greetd + regreet, running inside cage |
 | Compositor | Hyprland under UWSM |
-| Bar / notifications / launcher | waybar / swaync / wofi |
+| Bar / notifications / launcher | ironbar / swaync / wofi |
 | Theming | stylix (Catppuccin Macchiato) — GTK, Qt, cursors, console, etc. |
 | Terminal | ghostty + tmux |
 | Editor | neovim (AstroNvim, plugin-managed by Lazy) |
@@ -28,7 +28,7 @@ For the step-by-step install, see [INSTALL.md](./INSTALL.md).
 | Tool versioning | per-project devShells (`flake.nix` + `direnv` + `nix-direnv`) |
 | Snapshots | snapper (opt-in; layout is ready) |
 | Secrets | password hash kept outside the repo via `hashedPasswordFile` |
-| Dotfiles | home-manager — native `programs.*` where possible, raw files via `xdg.configFile` for the rest |
+| Dotfiles | home-manager — native `programs.*` where possible; raw files via `xdg.configFile` for the rest |
 
 ## Layout
 
@@ -45,8 +45,8 @@ pkgs/
   hyprmod/                      Local hyprmod + Python deps (tracks nixpkgs PR #505419)
 home/eddiezane/
   default.nix                   Home-manager entrypoint
-  hyprland.nix waybar.nix ...   One file per surface
-  dotfiles/                     Hand-tuned configs (hyprland.conf, waybar, swaync)
+  hyprland.nix ironbar.nix ...  One file per surface
+  dotfiles/                     Hand-tuned configs (hyprland.conf, ironbar, swaync)
 ```
 
 ## Day-to-day

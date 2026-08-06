@@ -4,6 +4,25 @@
 let
   cursor = config.stylix.cursor;
 in {
+  # Keep one authoritative Hyprland package across the desktop configuration.
+  # The session uses pkgs.hyprland below, and this overlay also makes nixpkgs
+  # consumers such as grimblast resolve their hyprctl from that same package.
+  nixpkgs.overlays = [
+    (final: _prev: {
+      hyprland = (inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland).overrideAttrs (old: {
+        # TEMP 2026-08-05: v0.56.2's pinned nixpkgs provides glaze 8, but
+        # the release still restricts CMake discovery to glaze 7.x and
+        # falls back to an impossible FetchContent clone in the Nix sandbox.
+        # Mirrors nixpkgs #549253 / Hyprland 91f29f2; remove once a release
+        # containing the upstream fix is pinned.
+        postPatch = ''
+          substituteInPlace CMakeLists.txt start/CMakeLists.txt hyprpm/CMakeLists.txt \
+            --replace-fail "glaze 7...<8" "glaze"
+        '' + (old.postPatch or "");
+      });
+    })
+  ];
+
   # System-level Hyprland enable. home-manager owns the actual config files.
   # UWSM = Universal Wayland Session Manager. Required by upstream Hyprland to
   # silence the nag and get systemd-scoped per-app units.
@@ -12,7 +31,7 @@ in {
     xwayland.enable = true;
     withUWSM = true;
 
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = pkgs.hyprland;
     # Version-matched portal from the same flake (nixpkgs' would lag the tag).
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };

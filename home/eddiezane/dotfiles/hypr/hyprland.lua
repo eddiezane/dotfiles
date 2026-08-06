@@ -19,9 +19,7 @@ local menu = "wofi --show drun"
 local brightness_script = home .. "/.config/hypr/scripts/brightness.sh"
 local volume_script = home .. "/.config/hypr/scripts/volume.sh"
 
-------------------
----- MONITORS ----
-------------------
+-- Monitors
 
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 hl.monitor({ output = "eDP-1", mode = "2256x1504", position = "0x0", scale = 1.333333 })
@@ -37,9 +35,7 @@ hl.monitor({ output = "eDP-1", mode = "2256x1504", position = "0x0", scale = 1.3
 -- Laptop - centered underneath the Dell
 -- hl.monitor({ output = "desc:BOE 0x0BCA", mode = "2256x1504@60.00Hz", position = "874x1440", scale = 1.333333 })
 
--------------------------------
----- ENVIRONMENT VARIABLES ----
--------------------------------
+-- Environment variables
 
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
@@ -58,20 +54,16 @@ hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 -- SSH via 1Password's agent (matches home.sessionVariables; both for safety).
 hl.env("SSH_AUTH_SOCK", home .. "/.1password/agent.sock")
 
--------------------
----- AUTOSTART ----
--------------------
+-- Autostart
 
 -- UWSM + graphical-session.target start hypridle, hyprpolkitagent, nm-applet,
--- swaync, waybar, and yubikey-touch-detector via their upstream user units.
+-- swaync, ironbar, and yubikey-touch-detector via their user units.
 -- Only things without a packaged systemd unit need an exec here.
 hl.on("hyprland.start", function()
 	hl.exec_cmd("tailscale systray")
 end)
 
------------------------
----- LOOK AND FEEL ----
------------------------
+-- Look and feel
 
 hl.config({
 	general = {
@@ -148,9 +140,7 @@ hl.config({
 
 hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })
 
----------------
----- INPUT ----
----------------
+-- Input
 
 hl.config({
 	input = {
@@ -173,9 +163,7 @@ hl.config({
 	},
 })
 
------------------------------
----- WORKSPACE / WINDOW RULES
------------------------------
+-- Workspace and window rules
 
 -- App-specific workspace rules
 hl.window_rule({ match = { class = "Spotify" }, workspace = "8 silent" })
@@ -221,9 +209,7 @@ hl.window_rule({
 })
 hl.workspace_rule({ workspace = "special:minus", gaps_out = 10 })
 
----------------------
----- KEYBINDINGS ----
----------------------
+-- Keybindings
 
 -- Workspace -> monitor moves
 -- MIGRATION NOTE: `movecurrentworkspacetomonitor, +1` doesn't have an obvious
@@ -265,8 +251,8 @@ hl.bind(mod .. " + W", hl.dsp.group.next())
 hl.bind(mod .. " + SHIFT + W", hl.dsp.group.toggle())
 
 -- Bar
-hl.bind(mod .. " + M", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
-hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/bar.sh"))
+hl.bind(mod .. " + M", hl.dsp.exec_cmd("ironbar bar main toggle-visible"))
+hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("systemctl --user restart ironbar.service"))
 
 -- Session
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.close())
