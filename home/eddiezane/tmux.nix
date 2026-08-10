@@ -7,7 +7,7 @@
 {
   programs.tmux = {
     enable = true;
-    prefix = "C-a";
+    prefix = "C-b";
     baseIndex = 1;
     escapeTime = 10;
     focusEvents = true;
