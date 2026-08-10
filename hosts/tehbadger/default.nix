@@ -1,7 +1,12 @@
 # tehbadger — headless Framework server.
 # Plain Btrfs keeps the first install simple; add encryption once the machine
 # has a reliable remote-unlock/recovery plan.
-{ modulesPath, ... }:
+{
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -33,7 +38,22 @@
     autoPrune.enable = true;
   };
   virtualisation.libvirtd.enable = true;
-  users.users.eddiezane.extraGroups = [ "docker" "libvirtd" "kvm" ];
+  users.users.eddiezane.extraGroups = [
+    "docker"
+    "libvirtd"
+    "kvm"
+  ];
+
+  # The shared home profile already supplies Codex, Go, Docker Compose, Git/gh,
+  # Nix/direnv, Neovim, and Kubernetes tooling. Add the DU CLI bundle that the
+  # desktop home imports separately, without pulling any GUI packages onto this
+  # host. Use OpenSSH for commit signing instead of the desktop's 1Password
+  # signing helper; ~/.gitconfig_local can point user.signingkey at the key that
+  # is provisioned on tehbadger.
+  home-manager.users.eddiezane = {
+    imports = [ ../../home/eddiezane/defenseunicorns.nix ];
+    programs.git.settings.gpg.ssh.program = lib.mkForce "${pkgs.openssh}/bin/ssh-keygen";
+  };
 
   services.fwupd.enable = true;
   services.smartd.enable = true;
