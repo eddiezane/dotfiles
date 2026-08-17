@@ -44,6 +44,15 @@
   location.provider = "geoclue2";
   services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
 
+  # GeoClue 2.8 split IP geolocation out of the WiFi source, but the NixOS
+  # module does not yet emit the now-required backend method. Keep the IP
+  # fallback enabled so unknown WiFi access points can still resolve a city.
+  environment.etc."geoclue/geoclue.conf".text = lib.mkAfter ''
+    [ip]
+    enable=true
+    method=ichnaea
+  '';
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking.timeServers = [

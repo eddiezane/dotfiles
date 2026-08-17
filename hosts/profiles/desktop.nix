@@ -12,11 +12,12 @@
     ../../modules/system/printing.nix
     ../../modules/system/virtualization.nix # docker + libvirt + virt-manager (GUI)
     ../../modules/system/security.nix        # gnome-keyring, 1Password GUI, fprint/u2f PAM
+    ../../modules/system/smartcard.nix
     ../../modules/system/stylix.nix
     ../../modules/system/hardware.nix        # fprintd, PPD, upower, bolt, IIO sensors
     ../../modules/system/hosts.nix           # hand-managed /etc/hosts (dev overrides)
     ../../modules/system/dns-local.nix       # loopback dnsmasq for wildcard dev domains (*.uds.dev)
-    # ../../modules/system/gaming.nix        # opt in when wanted
+    ../../modules/system/gaming.nix          # Steam, Proton, Gamescope, gaming tools
     # ../../modules/system/snapshots.nix     # snapper — opt in when wanted
   ];
 

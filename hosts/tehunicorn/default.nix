@@ -7,24 +7,27 @@
     ../profiles/desktop.nix
     ../../modules/disko/luks-btrfs.nix
     ./hardware.nix
-    ./hibernate-debug.nix
+    # TEMP disabled 2026-08-11: the local TTM membership patch proved
+    # incomplete after another post-hibernate scanline freeze. Keep the module
+    # out until drm/amd#5387 has an upstream fix we trust.
+    # ./hibernate-debug.nix
   ];
 
   _module.args.diskoArgs = {
     disk = "/dev/nvme0n1";
-    swapSize = "96G"; # >= RAM (86G usable) so hibernation works
+    swapSize = "96G"; # Retained for future hibernation; also normal swap.
     espSize = "1G";
   };
 
-  # Used by disko + boot to wire `resume=` to the BTRFS-hosting block device,
-  # along with the swapfile's resume_offset that disko computes for us.
+  # LUKS backing device for the root filesystem and retained swapfile.
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/disk-main-luks";
 
-  # Hibernation: resume from the swapfile inside the LUKS-backed BTRFS.
-  # Offset computed once post-install via:
-  #   sudo btrfs inspect-internal map-swapfile -r /swap/swapfile
-  boot.resumeDevice = "/dev/mapper/cryptroot";
-  boot.kernelParams = [ "resume_offset=533760" ];
+  # TEMP: disable hibernation and image restore in the kernel. Keep the RTC
+  # alarm quirk from hibernate-debug.nix because plain s2idle still uses it.
+  boot.kernelParams = [
+    "nohibernate"
+    "rtc_cmos.use_acpi_alarm=1"
+  ];
 
   secureBoot.enable = true;
 
@@ -32,14 +35,17 @@
   services.smartd.enable = true;
 
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend-then-hibernate";
+    HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
 
-  # Suspend for ~30 min, then hibernate.
+  # TEMP: expose only plain suspend to systemd. This also rejects manual
+  # `systemctl hibernate`, hybrid-sleep, and suspend-then-hibernate requests.
   systemd.sleep.settings.Sleep = {
-    HibernateDelaySec = "30min";
+    AllowHibernation = "no";
+    AllowHybridSleep = "no";
+    AllowSuspendThenHibernate = "no";
     SuspendState = "mem";
   };
 

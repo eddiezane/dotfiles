@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-# Toggle wlsunset. On start, resolve location with graceful fallbacks so a
-# missing network connection never leaves us without night-light:
+# Toggle wlsunset in automatic mode, or pass `manual` to force the night
+# temperature immediately. Automatic mode resolves location with graceful
+# fallbacks so a missing network connection never leaves us without night-light:
 #
 #   1. geoclue2 (via the where-am-i client) -> cache the result
 #   2. ipinfo.io                            -> cache the result
@@ -13,8 +14,18 @@ set -uo pipefail
 # correct even behind a VPN / Tailscale exit node (unlike IP geolocation).
 
 TEMP_NIGHT=2500
+TEMP_MANUAL_DAY=$((TEMP_NIGHT + 1))
 DEFAULT_LAT="39.7392"
 DEFAULT_LON="-104.9903"
+
+mode="${1:-auto}"
+case "$mode" in
+  auto | manual) ;;
+  *)
+    printf 'usage: %s [auto|manual]\n' "$0" >&2
+    exit 2
+    ;;
+esac
 
 cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/wlsunset"
 cache_file="$cache_dir/location"
@@ -36,10 +47,48 @@ save_cache() {
   printf '%s\n%s\n' "$1" "$2" >"$cache_file"
 }
 
+# Detect the forced instance by its distinctive high-temperature argument.
+manual_instance_running() {
+  local pid i
+  local -a args
+
+  for pid in $(pidof wlsunset 2>/dev/null); do
+    args=()
+    mapfile -d '' -t args <"/proc/$pid/cmdline" 2>/dev/null || true
+    for ((i = 0; i + 1 < ${#args[@]}; i++)); do
+      if [[ "${args[i]}" == "-T" && "${args[i + 1]}" == "$TEMP_MANUAL_DAY" ]]; then
+        return 0
+      fi
+    done
+  done
+
+  return 1
+}
+
 if pidof wlsunset >/dev/null; then
-  pkill wlsunset
-  notify "night-light off"
-  exit 0
+  # Manual replaces a running automatic instance; invoking the same mode again
+  # retains the original toggle behavior and turns the night-light off.
+  if [[ "$mode" == "manual" ]] && ! manual_instance_running; then
+    pkill wlsunset
+    for _ in $(seq 1 20); do
+      pidof wlsunset >/dev/null || break
+      sleep 0.05
+    done
+  else
+    pkill wlsunset
+    notify "night-light off"
+    exit 0
+  fi
+fi
+
+if [[ "$mode" == "manual" ]]; then
+  notify "night-light forced on ($TEMP_NIGHT K)"
+
+  # Keep both endpoints effectively at the night temperature so the warmer
+  # color takes effect immediately. wlsunset requires high to exceed low.
+  exec wlsunset \
+    -l "$DEFAULT_LAT" -L "$DEFAULT_LON" \
+    -t "$TEMP_NIGHT" -T "$TEMP_MANUAL_DAY"
 fi
 
 notify "locating…"

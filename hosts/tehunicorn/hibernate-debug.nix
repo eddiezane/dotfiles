@@ -1,3 +1,7 @@
+# RETIRED 2026-08-11 — do not import as-is. The bulk_tracked membership patch
+# hit its own double-add WARN on 7.1.7 and a scanline freeze followed after the
+# next hibernate cycle, disproving the earlier "crash-proof" assessment.
+#
 # TEMP hibernate/TTM debugging knobs — laptop-only. Turning transient lockups
 # into panic→reboot helps root-cause the laptop's bugs but would wrongly reboot
 # a server under load, so they're scoped to this host rather than the shared

@@ -6,8 +6,8 @@
   # Fingerprint reader (Framework uses a Goodix sensor; nixos-hardware enables it).
   services.fprintd.enable = true;
 
-  # YubiKey: FIDO/U2F only (web 2FA + pam_u2f for sudo). No smartcard / PIV /
-  # GPG-on-card use, so pcscd + gpgSmartcards are intentionally off.
+  # YubiKey: FIDO/U2F only (web 2FA + pam_u2f for sudo). PIV and GPG-on-card
+  # remain unconfigured.
 
   # Power profiles. power-profiles-daemon is Framework's recommended choice for
   # the AMD 7040 (the EC cooperates with PPD; FW explicitly advises against TLP).

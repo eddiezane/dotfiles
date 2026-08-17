@@ -260,6 +260,7 @@ hl.bind(mod .. " + CONTROL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -t"))
 
 hl.bind(mod .. " + CONTROL + N", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wlsunset.sh"))
+hl.bind(mod .. " + CONTROL + SHIFT + N", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wlsunset.sh manual"))
 hl.bind(mod .. " + CONTROL + backspace", hl.dsp.dpms("toggle"))
 
 -- Brightness

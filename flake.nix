@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # TEMP: Linux support for the official ChatGPT desktop app. Drop this
+    # input and use pkgs.chatgpt once nixpkgs#551713 reaches nixos-unstable.
+    chatgpt-nixpkgs.url = "github:NixOS/nixpkgs?ref=pull/551713/head";
+
     # Hyprland straight from upstream, pinned to a release tag so we get new
     # versions without waiting on the nixpkgs bump. Deliberately NOT following
     # our nixpkgs: modules/system/desktop.nix applies release-specific patches

@@ -9,6 +9,7 @@
     bc
     curl
     fd
+    file
     fzf
     gdu
     ghostty.terminfo  # xterm-ghostty terminal def so SSH-in from Ghostty works on headless hosts
