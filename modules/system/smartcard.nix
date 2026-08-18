@@ -42,9 +42,6 @@ let
         modutil -force -dbdir "sql:$nssdb" -delete p11-kit-proxy
       fi
 
-      modutil -force -dbdir "sql:$nssdb" -add p11-kit-proxy \
-        -libfile ${pkgs.p11-kit}/lib/p11-kit-proxy.so
-
       workdir="$(mktemp -d)"
       trap 'rm -rf "$workdir"' EXIT
 
@@ -82,13 +79,19 @@ let
         certutil -A -d "sql:$nssdb" -n "$nickname" -t "$trust" -i "$certificate"
       done
 
+      modutil -force -dbdir "sql:$nssdb" -add p11-kit-proxy \
+        -libfile ${pkgs.p11-kit}/lib/p11-kit-proxy.so
+
       printf 'Configured %s with %d trust anchors and %d intermediates.\n' \
         "$nssdb" "$anchors" "$intermediates"
     '';
   };
 in
 {
-  services.pcscd.enable = true;
+  services.pcscd = {
+    enable = true;
+    ignoreReaderNames = [ "YubiKey" ];
+  };
 
   environment.etc."pkcs11/modules/opensc-pkcs11".text = ''
     module: ${pkgs.opensc}/lib/opensc-pkcs11.so

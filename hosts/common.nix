@@ -15,7 +15,7 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      k0s = final.callPackage ../packages/k0s.nix { };
+      k0s = inputs.defenseunicorns.packages.${final.stdenv.hostPlatform.system}.k0s;
     })
   ];
 
