@@ -1,5 +1,5 @@
 {
-  "$schema": "https://f.jstanger.dev/github/ironbar/schema-v0.19.0.json",
+  "$schema": "https://f.jstanger.dev/github/ironbar/schema.json",
   "name": "main",
   "layer": "top",
   "position": "bottom",
@@ -10,6 +10,7 @@
       "type": "workspaces",
       "name": "workspaces",
       "all_monitors": false,
+      "hidden": ["special:scratch", "special:equal", "special:minus"],
       "sort": "index"
     }
   ],

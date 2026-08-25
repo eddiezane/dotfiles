@@ -35,6 +35,7 @@
   services.smartd.enable = true;
 
   services.logind.settings.Login = {
+    HandlePowerKey = "lock";
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";

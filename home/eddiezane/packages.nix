@@ -32,5 +32,6 @@
     gotools
     go-containerregistry
     pnpm
+    uv
   ];
 }

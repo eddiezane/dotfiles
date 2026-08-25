@@ -1,16 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let
-  # Ironbar 0.19.0 predates upstream's Hyprland-Lua workspace-click fix.
-  # Remove this once nixpkgs packages a release containing #1554.
-  ironbar = pkgs.ironbar.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      (pkgs.fetchpatch {
-        url = "https://github.com/JakeStanger/ironbar/commit/d0c2fed8e08dab06abac05f96e95fb6c92302db5.patch";
-        hash = "sha256-h1jZPZrOlZkt85ONseWOIPCX8ztBGKbpFzsXYuZ9ouU=";
-      })
-    ];
-  });
+  ironbar = inputs.ironbar.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   temperatureTooltip = pkgs.writeShellScript "ironbar-temperature-tooltip" ''
     readings="$(sensors 2>/dev/null | awk '
