@@ -18,7 +18,10 @@
 
     # Ironbar from upstream master, pinned to a known-good revision containing
     # the volume default-device fix and our former local patches.
-    ironbar.url = "github:JakeStanger/ironbar/5b96bcffac54dd82347badcc07f79d58efa715c7";
+    ironbar = {
+      url = "github:JakeStanger/ironbar/5b96bcffac54dd82347badcc07f79d58efa715c7";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
