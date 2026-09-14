@@ -166,7 +166,7 @@ hl.config({
 -- Workspace and window rules
 
 -- App-specific workspace rules
-hl.window_rule({ match = { class = "Spotify" }, workspace = "8 silent" })
+hl.window_rule({ match = { class = "spotify" }, workspace = "8 silent" })
 hl.window_rule({ match = { class = "slack" }, workspace = "9 silent" })
 hl.window_rule({ match = { class = "signal" }, workspace = "9 silent", no_initial_focus = true })
 hl.window_rule({ match = { class = "org.gnome.Calculator" }, float = true })

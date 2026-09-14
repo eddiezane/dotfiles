@@ -32,7 +32,9 @@
     flake = "/home/eddiezane/Codez/dotfiles";
     clean = {
       enable = true;
-      extraArgs = "--keep-since 14d --keep 5";
+      # nix-direnv no longer refreshes GC-root mtimes; retain the newest root
+      # for each direnv project explicitly, as recommended upstream.
+      extraArgs = "--keep-since 14d --keep 5 --keep-one";
     };
   };
 

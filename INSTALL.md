@@ -296,8 +296,8 @@ sudo tee /etc/hosts >/dev/null <<'EOF'
 ::1         localhost
 127.0.0.2   tehunicorn
 
-# local dev — everything to localhost
-127.0.0.1 uds.dev tactical-app.uds.dev keycloak.uds.dev registry.uds.dev mission.uds.dev keycloak.admin.uds.dev sso.uds.dev runtime.admin.uds.dev fleet-command.uds.dev fleet-command-agent-manager.uds.dev
+# local dev override example
+127.0.0.1 app.example.internal auth.example.internal
 
 # internal clusters — uncomment as needed (mutually exclusive with the local
 # line above for overlapping names; last match wins)
@@ -305,7 +305,47 @@ sudo tee /etc/hosts >/dev/null <<'EOF'
 EOF
 ```
 
-## L. Smoke tests
+## L. Chrome certificate authorities and smartcard
+
+Browser trust is intentionally runtime state. Nix installs the tooling and
+smartcard services, but it never evaluates or copies private/local PKI files
+into the Nix store.
+
+Restore the ignored files into these directories:
+
+```text
+assets/pki/
+├── certificate-authorities/   # PEM/DER CAs trusted for TLS
+└── smartcard/                  # DoD/smartcard PEM, DER, or PKCS#7 bundles
+```
+
+Every certificate in `certificate-authorities/` is treated as an explicit TLS
+trust anchor. Self-signed certificates in `smartcard/` are trusted as roots;
+the remaining certificates are installed as intermediates. Private keys are
+rejected.
+
+Close Chrome/Chromium, preview the reconciliation, and apply it:
+
+```sh
+sync-browser-pki --dry-run
+sync-browser-pki
+```
+
+The command synchronizes both `~/.pki/nssdb` and an existing legacy
+`~/.local/share/pki/nssdb`. Adding a file installs it; removing a file removes
+the corresponding managed NSS entry on the next synchronization. A missing
+source directory aborts without cleanup, while an existing empty directory
+intentionally removes all entries owned by that source.
+
+To remove every certificate owned by this tool while preserving unrelated NSS
+entries:
+
+```sh
+sync-browser-pki --dry-run --purge
+sync-browser-pki --purge
+```
+
+## M. Smoke tests
 
 ```sh
 systemctl status pipewire wireplumber tailscaled

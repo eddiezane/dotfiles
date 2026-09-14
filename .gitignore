@@ -3,3 +3,5 @@ result-*
 .direnv/
 .envrc.local
 /assets/pki/smartcard/
+/assets/pki/certificate-authorities/
+/assets/pki/*.key

@@ -19,7 +19,7 @@
     # Ironbar from upstream master, pinned to a known-good revision containing
     # the volume default-device fix and our former local patches.
     ironbar = {
-      url = "github:JakeStanger/ironbar/5b96bcffac54dd82347badcc07f79d58efa715c7";
+      url = "github:JakeStanger/ironbar/011690a622688f551e14144dea1bc053af31a335";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

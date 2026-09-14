@@ -13,6 +13,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ../../modules/disko/btrfs.nix
     ../../modules/system/k0s.nix
+    ./factorio.nix
     ./hardware.nix
   ];
 

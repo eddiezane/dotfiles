@@ -104,7 +104,23 @@
 
   programs.direnv = {
     enable = true;
-    nix-direnv.enable = true;
+    nix-direnv = {
+      enable = true;
+      # TEMP: Backport nix-community/nix-direnv#790 for the 3.2.0
+      # cross-terminal reload loop. Drop once a fixed release reaches nixpkgs.
+      package = pkgs.nix-direnv.overrideAttrs (oldAttrs: {
+        # nix-direnv is wrapped by resholve; patch its inner, unresholved
+        # derivation so the patched script is what the outer package copies.
+        src = oldAttrs.src.overrideAttrs (oldUnresholvedAttrs: {
+          patches = (oldUnresholvedAttrs.patches or [ ]) ++ [
+            (pkgs.fetchurl {
+              url = "https://github.com/nix-community/nix-direnv/commit/94e4fe0c96eb995cc29725e09cd7168b8e7fe886.patch";
+              hash = "sha256-qkcuqapklRyStW3ColPFgQoDAPsAy9oW5vq75vKJTcU=";
+            })
+          ];
+        });
+      });
+    };
   };
 
   programs.fzf = {

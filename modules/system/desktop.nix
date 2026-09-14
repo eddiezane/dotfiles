@@ -58,6 +58,21 @@ in {
     config.common.default = "*";
   };
 
+  # The share picker comes from Hyprland's pinned flake, while Stylix's
+  # qt6ct/Kvantum plugins come from the system nixpkgs. When their Qt builds
+  # diverge, the picker recurses in QProxyStyle::standardPalette and crashes,
+  # leaving browsers with tab sharing only. Keep the workaround scoped to the
+  # portal so every other Qt application retains its Kvantum theme. Remove
+  # after XDPH ships its non-Qt picker (hyprwm/xdg-desktop-portal-hyprland#405)
+  # or otherwise prevents external, mismatched Qt style plugins from loading.
+  systemd.user.services.xdg-desktop-portal-hyprland = {
+    overrideStrategy = "asDropin";
+    environment = {
+      QT_QPA_PLATFORMTHEME = "";
+      QT_STYLE_OVERRIDE = "Fusion";
+    };
+  };
+
   # dconf for GTK app settings.
   programs.dconf.enable = true;
 

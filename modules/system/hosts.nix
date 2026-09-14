@@ -12,11 +12,8 @@
 #   ::1         localhost
 #   127.0.0.2   tehunicorn
 #
-#   # local dev — everything to localhost
-#   127.0.0.1 uds.dev tactical-app.uds.dev keycloak.uds.dev registry.uds.dev \
-#             mission.uds.dev keycloak.admin.uds.dev sso.uds.dev \
-#             runtime.admin.uds.dev fleet-command.uds.dev \
-#             fleet-command-agent-manager.uds.dev
+#   # local dev override example
+#   127.0.0.1 app.example.internal auth.example.internal
 #
 #   # internal clusters (ngc2 / sat-lab) — add by hand when needed
 { lib, ... }:
