@@ -16,10 +16,10 @@
     # would force a full local rebuild of that dependency tree for no benefit.
     hyprland.url = "github:hyprwm/Hyprland/v0.56.2";
 
-    # Ironbar from upstream master, pinned to a known-good revision containing
-    # the volume default-device fix and our former local patches.
+    # Stable Ironbar release containing the volume default-device fix, our
+    # former local patches, and the network-manager resume recovery fix.
     ironbar = {
-      url = "github:JakeStanger/ironbar/011690a622688f551e14144dea1bc053af31a335";
+      url = "github:JakeStanger/ironbar/v0.19.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

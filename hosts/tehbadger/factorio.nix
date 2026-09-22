@@ -52,11 +52,22 @@ in
     lan = true;
   };
 
-  # nixpkgs#423952 will eventually make the mod list a first-class service
-  # option. Until then, install it before the module creates or loads a save.
-  systemd.services.factorio.preStart = lib.mkBefore ''
-    ${pkgs.coreutils}/bin/install -Dm600 \
-      ${baseGameModList} \
-      /var/lib/factorio/mods/mod-list.json
-  '';
+  systemd.services.factorio = {
+    # Factorio verifies players with factorio.com even when the game is not
+    # publicly listed, so wait until NetworkManager has completed startup.
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+
+    # Avoid systemd's start-rate limit if external DNS or factorio.com is
+    # temporarily unavailable after the local network comes online.
+    serviceConfig.RestartSec = "30s";
+
+    # nixpkgs#423952 will eventually make the mod list a first-class service
+    # option. Until then, install it before the module creates or loads a save.
+    preStart = lib.mkBefore ''
+      ${pkgs.coreutils}/bin/install -Dm600 \
+        ${baseGameModList} \
+        /var/lib/factorio/mods/mod-list.json
+    '';
+  };
 }

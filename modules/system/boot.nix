@@ -44,20 +44,6 @@ in {
     ];
     boot.consoleLogLevel = 3;
 
-    # TEMP: libcap-ng 0.9.5's tests collide with musl's xattr symbols when
-    # built statically, breaking qemu-user-static. Backport nixpkgs#562812
-    # without rolling the rest of nixpkgs back. The version guard makes this
-    # a no-op once nixpkgs moves past the affected release.
-    nixpkgs.overlays = [
-      (final: prev: {
-        libcap_ng =
-          if final.stdenv.hostPlatform.isStatic && prev.libcap_ng.version == "0.9.5" then
-            prev.libcap_ng.overrideAttrs (_: { doCheck = false; })
-          else
-            prev.libcap_ng;
-      })
-    ];
-
     # QEMU binfmt emulation so docker buildx (and nix) can cross-build/run
     # aarch64 binaries on these x86_64 hosts. Persistent across reboots, so
     # `docker buildx inspect` advertises linux/arm64 without the runtime
