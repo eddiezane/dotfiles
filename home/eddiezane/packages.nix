@@ -31,6 +31,7 @@
     gopls
     gotools
     go-containerregistry
+    opencode
     pnpm
     uv
   ];
