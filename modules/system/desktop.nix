@@ -3,6 +3,7 @@
 
 let
   cursor = config.stylix.cursor;
+  hyprlandPkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   # Keep one authoritative Hyprland package across the desktop configuration.
   # The session uses pkgs.hyprland below, and this overlay also makes nixpkgs
@@ -36,6 +37,15 @@ in {
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
   programs.uwsm.enable = true;
+
+  # Hyprland's flake uses its own nixpkgs snapshot. Keep the system graphics
+  # drivers on that snapshot too: newer Mesa from the system nixpkgs can need
+  # glibc symbols absent from the Hyprland process and crash at login.
+  # Revisit when a stable Hyprland release can load the system Mesa again.
+  hardware.graphics = {
+    package = hyprlandPkgs.mesa;
+    package32 = hyprlandPkgs.pkgsi686Linux.mesa;
+  };
 
   # Display manager: greetd + tuigreet (TUI greeter, runs in the TTY).
   services.greetd = {
