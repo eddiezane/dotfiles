@@ -4,14 +4,6 @@
 # the base (home/eddiezane/default.nix) carries the shared shell/CLI environment.
 { pkgs, config, inputs, ... }:
 
-let
-  # The PR input is imported separately so its unfree package policy does not
-  # depend on the main nixpkgs instance. flake.lock pins the exact PR revision.
-  chatgptPkgs = import inputs.chatgpt-nixpkgs {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
 {
   imports = [
     ./hyprland.nix
@@ -24,7 +16,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    chatgptPkgs.chatgpt
+    chatgpt
     firefox
     google-chrome
     signal-desktop
