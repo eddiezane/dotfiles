@@ -32,9 +32,6 @@ in {
 
     environment.systemPackages = with pkgs; [ sbctl ];
 
-    # Systemd-in-initrd: cleaner LUKS prompting, prerequisite for lanzaboote.
-    boot.initrd.systemd.enable = true;
-
     boot.kernelParams = [
       "quiet"
       "loglevel=3"

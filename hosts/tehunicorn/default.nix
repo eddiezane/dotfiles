@@ -34,6 +34,13 @@
   # SMART monitoring on the NVMe.
   services.smartd.enable = true;
 
+  # UDS DHCP/PXE provisioning on the dedicated USB Ethernet adapter only.
+  # The enrollment UI remains loopback-only; do not trust the whole interface.
+  networking.firewall.interfaces.enp195s0f3u1 = {
+    allowedUDPPorts = [ 67 69 ]; # DHCP server and TFTP bootloaders.
+    allowedTCPPorts = [ 8080 ]; # Boot assets and read-only status.
+  };
+
   services.logind.settings.Login = {
     HandlePowerKey = "lock";
     HandleLidSwitch = "suspend";
@@ -65,6 +72,6 @@
   #
   # users.users.tempuser = {
   #   isNormalUser = true;
-  #   hashedPassword = "$6$YOqBXfzKJjUAj..T$VpdzQkuP.2RKiNRfmzmall4MD7xXhhEEdF7BcFB50iXYjEer8NZ4RAKpSoQLV0m9uUuX1Ccu.eu2MwPdWVtro1";
+  #   hashedPassword = "$6$Hr4QHeYEzFO5P2W1$bsmowRS3NIyxrrZpe9St.7D.sfqcvMAHbSi9C6PriDN0.zALojAfIw/LcjbFRJIUw32sPR7JYIAh/VSjWe66R0";
   # };
 }

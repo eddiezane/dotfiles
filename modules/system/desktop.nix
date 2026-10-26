@@ -10,7 +10,11 @@ in {
   # consumers such as grimblast resolve their hyprctl from that same package.
   nixpkgs.overlays = [
     (final: _prev: {
-      hyprland = (inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland).overrideAttrs (old: {
+      hyprland = (inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland.override {
+        # Backport Hyprland 6cc0822 / nixpkgs #573247: capability wrappers
+        # require an ELF executable. Remove when the pinned release has it.
+        makeWrapper = hyprlandPkgs.makeBinaryWrapper;
+      }).overrideAttrs (old: {
         # TEMP 2026-08-05: v0.56.2's pinned nixpkgs provides glaze 8, but
         # the release still restricts CMake discovery to glaze 7.x and
         # falls back to an impossible FetchContent clone in the Nix sandbox.

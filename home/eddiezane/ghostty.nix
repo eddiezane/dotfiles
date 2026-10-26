@@ -20,7 +20,7 @@
       font-size = 15;
       window-padding-y = 0;
 
-      theme = "catppuccin-macchiato.conf";
+      # theme = "catppuccin-macchiato.conf";
 
       # Blinking block cursor. zsh shell integration otherwise switches to a
       # thin bar at the prompt (DECSCUSR); `no-cursor` stops it so the block
