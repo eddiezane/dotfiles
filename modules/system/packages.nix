@@ -25,6 +25,7 @@
     usbutils
     vim
     wget
+    yazi
     zip
 
     # Media

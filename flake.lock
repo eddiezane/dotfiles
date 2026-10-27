@@ -139,11 +139,11 @@
         "uds-image-factory-src": "uds-image-factory-src"
       },
       "locked": {
-        "lastModified": 1792686323,
-        "narHash": "sha256-qcoeKHxVhIy9eXZFqrU56+CHSL9c9aQKO/ojbmV0S3o=",
+        "lastModified": 1793113140,
+        "narHash": "sha256-g7bcoKphd9priwoOf5GLezPHqagtb9D1wKurXwseopU=",
         "ref": "refs/heads/main",
-        "rev": "36b84bc91b35946eebd112174b75aeb15726d9a3",
-        "revCount": 220,
+        "rev": "f46ef1d48f62f9935646585342fef47681ba2faf",
+        "revCount": 230,
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns-labs/nix-packages"
       },
@@ -298,11 +298,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792896866,
-        "narHash": "sha256-/0tELNnhdSnP+bHSdWiEe6KpfSwi6WrTnT9cm/jNkjA=",
+        "lastModified": 1793033486,
+        "narHash": "sha256-fXVURa0+CSCgaxLt8tmPNJq2U+fGYOwbk5j2YUe7kSc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c216bf5a1f173b0481bd5c8c489ebe5595ecc68c",
+        "rev": "7db163b2aee7e410e396b48aed02f646d742b9b8",
         "type": "github"
       },
       "original": {
@@ -724,11 +724,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792697326,
-        "narHash": "sha256-2UBK0jdmPANGaeAIoVOZY+hSPB2Gy13ZuZeSxP3vF8k=",
+        "lastModified": 1793054847,
+        "narHash": "sha256-mhud3nRH8RoP0h9MydfkJ8mISpj+QE/S//wOt9bNgC0=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "1b418b8f203e49a92f250f8babdd19af1b6f7a7f",
+        "rev": "8ba09466dc929acf5c8bb3e0cc40f472a7df3630",
         "type": "github"
       },
       "original": {
@@ -1005,16 +1005,16 @@
     "uds-image-factory-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1791397380,
-        "narHash": "sha256-ovQLRpGQzU2gTBqcX49IVvMCZZz6W31hX7NqvkvBN9A=",
-        "ref": "refs/tags/uds-image-factory/v0.9.0",
-        "rev": "bab047fa0c85b4e5ff075a80dc4b7690616e83fd",
-        "revCount": 358,
+        "lastModified": 1792777677,
+        "narHash": "sha256-kmqd/Z67uNNLGlIADp4D4f9w5KaiTVYu9kgRZLnEXrU=",
+        "ref": "refs/tags/uds-image-factory/v0.9.1",
+        "rev": "e365afc5835ed3eab8d780c9b3c0d5bbea77a493",
+        "revCount": 399,
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns/uds-image-factory"
       },
       "original": {
-        "ref": "refs/tags/uds-image-factory/v0.9.0",
+        "ref": "refs/tags/uds-image-factory/v0.9.1",
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns/uds-image-factory"
       }
