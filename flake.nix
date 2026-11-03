@@ -6,11 +6,11 @@
 
     # Hyprland straight from upstream, pinned to a release tag so we get new
     # versions without waiting on the nixpkgs bump. Deliberately NOT following
-    # our nixpkgs: modules/system/desktop.nix applies release-specific patches
-    # and exposes this package as pkgs.hyprland, while its deps stay on
-    # Hyprland's pinned nixpkgs and come from hyprland.cachix.org. `follows`
+    # our nixpkgs: modules/system/desktop.nix exposes this as pkgs.hyprland,
+    # while its dependencies stay on Hyprland's pinned nixpkgs and come from
+    # hyprland.cachix.org. `follows`
     # would force a full local rebuild of that dependency tree for no benefit.
-    hyprland.url = "github:hyprwm/Hyprland/v0.56.2";
+    hyprland.url = "github:hyprwm/Hyprland/v0.57.1";
 
     # Stable Ironbar release containing the volume default-device fix, our
     # former local patches, and the network-manager resume recovery fix.

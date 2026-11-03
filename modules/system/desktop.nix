@@ -3,28 +3,13 @@
 
 let
   cursor = config.stylix.cursor;
-  hyprlandPkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   # Keep one authoritative Hyprland package across the desktop configuration.
   # The session uses pkgs.hyprland below, and this overlay also makes nixpkgs
   # consumers such as grimblast resolve their hyprctl from that same package.
   nixpkgs.overlays = [
     (final: _prev: {
-      hyprland = (inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland.override {
-        # Backport Hyprland 6cc0822 / nixpkgs #573247: capability wrappers
-        # require an ELF executable. Remove when the pinned release has it.
-        makeWrapper = hyprlandPkgs.makeBinaryWrapper;
-      }).overrideAttrs (old: {
-        # TEMP 2026-08-05: v0.56.2's pinned nixpkgs provides glaze 8, but
-        # the release still restricts CMake discovery to glaze 7.x and
-        # falls back to an impossible FetchContent clone in the Nix sandbox.
-        # Mirrors nixpkgs #549253 / Hyprland 91f29f2; remove once a release
-        # containing the upstream fix is pinned.
-        postPatch = ''
-          substituteInPlace CMakeLists.txt start/CMakeLists.txt hyprpm/CMakeLists.txt \
-            --replace-fail "glaze 7...<8" "glaze"
-        '' + (old.postPatch or "");
-      });
+      hyprland = inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland;
     })
   ];
 
@@ -41,15 +26,6 @@ in {
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
   programs.uwsm.enable = true;
-
-  # Hyprland's flake uses its own nixpkgs snapshot. Keep the system graphics
-  # drivers on that snapshot too: newer Mesa from the system nixpkgs can need
-  # glibc symbols absent from the Hyprland process and crash at login.
-  # Revisit when a stable Hyprland release can load the system Mesa again.
-  hardware.graphics = {
-    package = hyprlandPkgs.mesa;
-    package32 = hyprlandPkgs.pkgsi686Linux.mesa;
-  };
 
   # Display manager: greetd + tuigreet (TUI greeter, runs in the TTY).
   services.greetd = {
@@ -70,21 +46,6 @@ in {
       xdg-desktop-portal-gtk
     ];
     config.common.default = "*";
-  };
-
-  # The share picker comes from Hyprland's pinned flake, while Stylix's
-  # qt6ct/Kvantum plugins come from the system nixpkgs. When their Qt builds
-  # diverge, the picker recurses in QProxyStyle::standardPalette and crashes,
-  # leaving browsers with tab sharing only. Keep the workaround scoped to the
-  # portal so every other Qt application retains its Kvantum theme. Remove
-  # after XDPH ships its non-Qt picker (hyprwm/xdg-desktop-portal-hyprland#405)
-  # or otherwise prevents external, mismatched Qt style plugins from loading.
-  systemd.user.services.xdg-desktop-portal-hyprland = {
-    overrideStrategy = "asDropin";
-    environment = {
-      QT_QPA_PLATFORMTHEME = "";
-      QT_STYLE_OVERRIDE = "Fusion";
-    };
   };
 
   # dconf for GTK app settings.
