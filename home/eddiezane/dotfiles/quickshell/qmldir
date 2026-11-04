@@ -1,0 +1,10 @@
+singleton Theme 1.0 Theme.qml
+Status 1.0 Status.qml
+Bar 1.0 Bar.qml
+Pill 1.0 Pill.qml
+BarPopup 1.0 BarPopup.qml
+AudioControls 1.0 AudioControls.qml
+Tray 1.0 Tray.qml
+HoverTip 1.0 HoverTip.qml
+TrayMenu 1.0 TrayMenu.qml
+TrayMenuItem 1.0 TrayMenuItem.qml

@@ -18,13 +18,6 @@
       flake = false;
     };
 
-    # Stable Ironbar release containing the volume default-device fix, our
-    # former local patches, and the network-manager resume recovery fix.
-    ironbar = {
-      url = "github:JakeStanger/ironbar/v0.19.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,18 +50,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprmod = {
-      url = "github:BlueManCZ/hyprmod";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     defenseunicorns = {
       url = "git+ssh://git@github.com/defenseunicorns-labs/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, lanzaboote, nixos-hardware, stylix, nix-index-database, hyprmod, defenseunicorns, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, disko, lanzaboote, nixos-hardware, stylix, nix-index-database, defenseunicorns, ... }@inputs:
     let
       system = "x86_64-linux";
 

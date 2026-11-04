@@ -3,6 +3,13 @@
 { inputs, pkgs, lib, ... }:
 
 let
+  # Query the compositor, rather than treating a running locker as proof that
+  # the session is locked. Also used immediately before delayed manual DPMS.
+  isHyprLocked = pkgs.writeShellScript "hypr-is-locked" ''
+    set -o pipefail
+    ${pkgs.hyprland}/bin/hyprctl -j locked | ${pkgs.jq}/bin/jq -e '.locked == true' >/dev/null
+  '';
+  cancelManualBlank = "${pkgs.systemd}/bin/systemctl --user stop hypr-manual-lock-blank.timer hypr-manual-lock-blank.service hypr-manual-lock.service";
   # Reuse Tatami's helper and standalone apps without enabling its desktop module.
   tatami = pkgs.callPackage (inputs.sekka + "/desktop/tatami/tool/package.nix") { };
   # Expose the standalone apps in our Hyprland launcher as well as Tatami's.
@@ -42,7 +49,15 @@ in
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock --no-fade-in";
-        before_sleep_cmd = "loginctl lock-session";
+        before_sleep_cmd = "${cancelManualBlank}; loginctl lock-session auto";
+        # The timer's condition only allows manual requests. Start the five
+        # seconds when Hyprland confirms locking, not when hyprlock launches.
+        on_lock_cmd = "${pkgs.systemd}/bin/systemctl --user start hypr-manual-lock-blank.timer";
+        # Wait for the compositor to confirm the lock before allowing suspend.
+        inhibit_sleep = 3;
+        # This is the compositor's unlock notification, including fingerprint
+        # unlocks that need not produce keyboard/mouse activity.
+        on_unlock_cmd = "${cancelManualBlank}; $HOME/.config/hypr/scripts/resume-dpms.sh";
         # A one-shot `hyprctl dispatch 'hl.dsp.dpms("on")'` here races the DRM
         # output re-acquire on resume: hypridle fires it the instant logind
         # sends PrepareForSleep=false, Hyprland accepts it ("ok") before the
@@ -56,15 +71,63 @@ in
       listener = [
         {
           timeout = 300;
-          on-timeout = "loginctl lock-session";
+          on-timeout = "loginctl lock-session auto";
         }
-        # No idle dpms-off listener: on this AMD DCN3.1 box an idle modeset can
-        # trigger the `REG_WAIT timeout dcn31_program_compbuf_size` hang (see
-        # [[dcn31-compbuf-dpms-hang]]). Let monitor power-management / suspend
-        # handle blanking instead. The community-documented mitigation for the
-        # AMD blank-lock-screen / REG_WAIT class is exactly this. after_sleep_cmd
-        # still restores dpms on resume from suspend.
+        {
+          # Restore the original one-minute gap between idle locking and DPMS.
+          # Linux 7.3.1 includes 251a01d34b44 (DCN3.1 compbuf wait fix), the
+          # relevant upstream fix for the timeout that made us disable this.
+          timeout = 360;
+          condition_cmd = "${isHyprLocked}";
+          on-timeout = "hyprctl dispatch 'hl.dsp.dpms({ action = \"off\" })'";
+          # Recovery ignores disabled outputs, including Tatami's closed panel.
+          on-resume = "$HOME/.config/hypr/scripts/resume-dpms.sh";
+        }
       ];
+    };
+  };
+
+  # Manual locks request prompt blanking; idle and suspend locks don't create
+  # this runtime directory. Unlock/suspend stops the request and its timer.
+  systemd.user.services.hypr-manual-lock = {
+    Unit = {
+      Description = "Request a manual Hyprland lock";
+      PartOf = [ "graphical-session.target" ];
+      Requisite = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      RuntimeDirectory = "hypr-manual-lock";
+      RuntimeDirectoryMode = "0700";
+      # A user service lives outside the login session; "auto" selects the
+      # owning user's graphical session rather than the service's caller.
+      ExecStart = "${pkgs.systemd}/bin/loginctl lock-session auto";
+      TimeoutStartSec = "10s";
+    };
+  };
+  systemd.user.timers.hypr-manual-lock-blank = {
+    Unit = {
+      Description = "Blank displays five seconds after a manual lock";
+      PartOf = [ "graphical-session.target" ];
+      ConditionPathIsDirectory = "%t/hypr-manual-lock";
+    };
+    Timer = {
+      OnActiveSec = "5s";
+      AccuracySec = "100ms";
+    };
+  };
+  systemd.user.services.hypr-manual-lock-blank = {
+    Unit = {
+      Description = "Power off displays after a manual lock";
+      PartOf = [ "graphical-session.target" ];
+      ConditionPathIsDirectory = "%t/hypr-manual-lock";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecCondition = "${isHyprLocked}";
+      ExecStart = ''${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = "off" })' '';
     };
   };
 
@@ -131,7 +194,7 @@ in
   #   - hypridle  (services.hypridle.enable)
   #   - hyprlock  (programs.hyprlock.enable)
   #   - wofi      (programs.wofi.enable)
-  #   - ironbar   (systemd user service — ironbar.nix)
+  #   - quickshell (systemd user service — quickshell.nix)
   #   - swaync    (services.swaync.enable — swaync.nix)
   home.packages = with pkgs; [
     tatami
@@ -142,7 +205,6 @@ in
     tatamiNetwork
     hyprpaper
     hyprpicker
-    hyprmod                  # GTK4 settings app (upstream flake)
     hyprpolkitagent          # Hyprland-native polkit agent
     hyprcursor               # native cursor protocol
     wlogout

@@ -12,8 +12,7 @@
   # Power profiles. power-profiles-daemon is Framework's recommended choice for
   # the AMD 7040 (the EC cooperates with PPD; FW explicitly advises against TLP).
   # PPD drives the EPP via the amd-pstate-epp driver — see amd_pstate=active in
-  # boot.nix — and natively provides net.hadess.PowerProfiles for Ironbar's
-  # pp-daemon module + GTK indicators.
+  # boot.nix — and exposes power profiles to Quickshell and GTK settings apps.
   services.power-profiles-daemon.enable = true;
 
   # ACPI events (lid, power button, etc).

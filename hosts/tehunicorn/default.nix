@@ -7,10 +7,6 @@
     ../profiles/desktop.nix
     ../../modules/disko/luks-btrfs.nix
     ./hardware.nix
-    # TEMP disabled 2026-08-11: the local TTM membership patch proved
-    # incomplete after another post-hibernate scanline freeze. Keep the module
-    # out until drm/amd#5387 has an upstream fix we trust.
-    # ./hibernate-debug.nix
   ];
 
   _module.args.diskoArgs = {
@@ -22,8 +18,8 @@
   # LUKS backing device for the root filesystem and retained swapfile.
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/disk-main-luks";
 
-  # TEMP: disable hibernation and image restore in the kernel. Keep the RTC
-  # alarm quirk from hibernate-debug.nix because plain s2idle still uses it.
+  # Disable hibernation and image restore pending resolution of the hibernate
+  # failures. Plain s2idle still needs the RTC alarm quirk.
   boot.kernelParams = [
     "nohibernate"
     "rtc_cmos.use_acpi_alarm=1"
@@ -57,21 +53,6 @@
     SuspendState = "mem";
   };
 
-  # nixos-hardware's framework module enables TLP; we use tuned instead.
+  # nixos-hardware enables TLP; power-profiles-daemon manages power profiles.
   services.tlp.enable = false;
-
-  # services.openssh = {
-  #   enable = true;
-  #   settings = {
-  #     PermitRootLogin = "no";
-  #     PasswordAuthentication = true;
-  #   };
-  # };
-  #
-  # networking.firewall.allowedTCPPorts = [ 22 ];
-  #
-  # users.users.tempuser = {
-  #   isNormalUser = true;
-  #   hashedPassword = "$6$Hr4QHeYEzFO5P2W1$bsmowRS3NIyxrrZpe9St.7D.sfqcvMAHbSi9C6PriDN0.zALojAfIw/LcjbFRJIUw32sPR7JYIAh/VSjWe66R0";
-  # };
 }

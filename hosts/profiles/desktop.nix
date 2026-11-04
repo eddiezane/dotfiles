@@ -1,7 +1,7 @@
 # Desktop/workstation profile: GUI + laptop bundle layered on top of the
 # server-safe base (hosts/common.nix). Imported by interactive hosts only
 # (tehunicorn); headless hosts like tehfox leave it out.
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -19,14 +19,6 @@
     ../../modules/system/dns-local.nix       # loopback dnsmasq for wildcard dev/internal domains
     ../../modules/system/gaming.nix          # Steam, Proton, Gamescope, gaming tools
     # ../../modules/system/snapshots.nix     # snapper — opt in when wanted
-  ];
-
-  # Desktop-only overlays (GUI app patches).
-  #
-  # Hyprland's canonical-package overlay lives in modules/system/desktop.nix so
-  # the session and packages that consume pkgs.hyprland share one derivation.
-  nixpkgs.overlays = [
-    inputs.hyprmod.overlays.default
   ];
 
   programs.nm-applet.enable = true; # NetworkManager tray applet (GUI)

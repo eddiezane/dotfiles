@@ -2,7 +2,7 @@
 # cursors, console, fonts, and any stylix-aware app added later.
 #
 # We intentionally DISABLE stylix's targets for apps where we already maintain
-# explicit dotfiles (hyprland, ironbar, swaync, wofi, ghostty). Stylix would
+# explicit dotfiles (hyprland, quickshell, swaync, wofi, ghostty). Stylix would
 # otherwise fight our `xdg.configFile.<...>.source` symlinks.
 { pkgs, lib, ... }:
 

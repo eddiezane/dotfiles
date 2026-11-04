@@ -1,12 +1,4 @@
--- Hyprland 0.55+ Lua config. Migrated from hyprland.conf on 2026-05-15.
---
--- If something here misbehaves, you can revert to the legacy hyprlang
--- config by removing/renaming this file — Hyprland will fall back to
--- ~/.config/hypr/hyprland.conf when hyprland.lua is absent.
---
--- Spots marked "MIGRATION NOTE" are best-effort translations of
--- directives whose Lua API shape isn't fully documented yet. Verify
--- them on first reload.
+-- Hyprland Lua configuration, managed by Home Manager.
 
 local home = os.getenv("HOME")
 local palette = require("catppuccin")
@@ -73,7 +65,7 @@ hl.env("SSH_AUTH_SOCK", home .. "/.1password/agent.sock")
 -- Autostart
 
 -- UWSM + graphical-session.target start hypridle, hyprpolkitagent, nm-applet,
--- swaync, ironbar, and yubikey-touch-detector via their user units.
+-- swaync, quickshell, and yubikey-touch-detector via their user units.
 -- Only things without a packaged systemd unit need an exec here.
 hl.on("hyprland.start", function()
 	hl.exec_cmd("tailscale systray")
@@ -140,6 +132,9 @@ hl.config({
 	misc = {
 		focus_on_activate = true,
 		force_default_wallpaper = 0,
+		-- Manual-lock blanking can happen before hypridle's display timeout.
+		key_press_enables_dpms = true,
+		mouse_move_enables_dpms = true,
 		disable_splash_rendering = true,
 	},
 
@@ -228,9 +223,7 @@ hl.workspace_rule({ workspace = "special:minus", gaps_out = 10 })
 -- Keybindings
 
 -- Workspace -> monitor moves
--- MIGRATION NOTE: `movecurrentworkspacetomonitor, +1` doesn't have an obvious
--- 1:1 Lua dispatcher. `hl.dsp.workspace.move` is the best guess; if it
--- complains, fall back to an exec of `hyprctl dispatch movecurrentworkspacetomonitor +1`.
+-- Move the current workspace to the next monitor.
 hl.bind(mod .. " + SPACE", hl.dsp.workspace.move({ monitor = "+1" }))
 
 -- Forward lid changes to tatami-display-recovery.service. It also polls
@@ -258,18 +251,17 @@ hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("rofimoji -a clipboard"))
 hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
 -- Groups
--- MIGRATION NOTE: hyprlang `changegroupactive` (no arg = cycle next).
--- Using hl.dsp.group.next(); if you want previous on a separate bind use hl.dsp.group.prev().
+-- Cycle through the current window group and toggle grouping.
 hl.bind(mod .. " + W", hl.dsp.group.next())
 hl.bind(mod .. " + SHIFT + W", hl.dsp.group.toggle())
 
 -- Bar
-hl.bind(mod .. " + M", hl.dsp.exec_cmd("ironbar bar main toggle-visible"))
-hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("systemctl --user restart ironbar.service"))
+hl.bind(mod .. " + M", hl.dsp.exec_cmd("qs -c dotfiles ipc call bar toggle"))
+hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("systemctl --user restart quickshell.service"))
 
 -- Session
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.close())
-hl.bind(mod .. " + CONTROL + L", hl.dsp.exec_cmd("loginctl lock-session"))
+hl.bind(mod .. " + CONTROL + L", hl.dsp.exec_cmd("systemctl --user start hypr-manual-lock.service"))
 hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -t"))
 
 -- Solar scheduling, or an immediate manual override at 2500 K.
@@ -361,5 +353,3 @@ hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 -- Mouse drag move/resize
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-
-require("hyprland-gui")

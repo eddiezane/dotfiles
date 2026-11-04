@@ -15,7 +15,7 @@ For the step-by-step install, see [INSTALL.md](./INSTALL.md).
 | Boot | systemd-boot + lanzaboote (Secure Boot, declaratively signed) |
 | Display manager | greetd + regreet, running inside cage |
 | Compositor | Hyprland under UWSM |
-| Bar / notifications / launcher | ironbar / swaync / wofi |
+| Bar / notifications / launcher | quickshell / swaync / wofi |
 | Theming | stylix (Catppuccin Macchiato) — GTK, Qt, cursors, console, etc. |
 | Terminal | ghostty + tmux |
 | Editor | neovim (AstroNvim, plugin-managed by Lazy) |
@@ -40,13 +40,10 @@ hosts/
 modules/
   disko/luks-btrfs.nix          Declarative disk layout
   system/                       boot, audio, networking, bluetooth, desktop, etc.
-pkgs/
-  hyprland/                     Local Hyprland patch (IPC monitor re-enable backstop)
-  hyprmod/                      Local hyprmod + Python deps (tracks nixpkgs PR #505419)
 home/eddiezane/
   default.nix                   Home-manager entrypoint
-  hyprland.nix ironbar.nix ...  One file per surface
-  dotfiles/                     Hand-tuned configs (hyprland.conf, ironbar, swaync)
+  hyprland.nix quickshell.nix ... One file per surface
+  dotfiles/                      Hand-tuned configs (Hyprland Lua, Quickshell, swaync)
 ```
 
 ## Day-to-day

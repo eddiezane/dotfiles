@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "loginctl lock-session",
+    "action" : "systemctl --user start hypr-manual-lock.service",
     "text" : "Lock",
     "keybind" : "l"
 }
