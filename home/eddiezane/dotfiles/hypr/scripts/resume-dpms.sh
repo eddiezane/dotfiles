@@ -13,7 +13,7 @@
 # takes to come back. dpms-on is idempotent, so re-issuing mid-reconfigure is
 # safe.
 #
-# Disabled monitors (e.g. eDP-1 while docked, see lid.sh) report dpmsStatus
+# Disabled monitors (e.g. eDP-1 while docked, managed by Tatami) report dpmsStatus
 # false and must be ignored, or the loop would spin to its deadline every
 # docked resume.
 

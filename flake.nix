@@ -12,6 +12,12 @@
     # would force a full local rebuild of that dependency tree for no benefit.
     hyprland.url = "github:hyprwm/Hyprland/v0.57.1";
 
+    # Source only: reuse Tatami's helper, standalone apps, and upstream packaging.
+    sekka = {
+      url = "github:bitemyapp/sekka/8847ab25c76e8fb7a2975d8f59c61ccb23cff618";
+      flake = false;
+    };
+
     # Stable Ironbar release containing the volume default-device fix, our
     # former local patches, and the network-manager resume recovery fix.
     ironbar = {

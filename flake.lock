@@ -847,6 +847,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "sekka": "sekka",
         "stylix": "stylix"
       }
     },
@@ -868,6 +869,23 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sekka": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793728386,
+        "narHash": "sha256-eRx46nR7UOJ/FviXBcOAQ1V1CMKHwQ6tc3P+EvdhvsE=",
+        "owner": "bitemyapp",
+        "repo": "sekka",
+        "rev": "8847ab25c76e8fb7a2975d8f59c61ccb23cff618",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bitemyapp",
+        "repo": "sekka",
+        "rev": "8847ab25c76e8fb7a2975d8f59c61ccb23cff618",
         "type": "github"
       }
     },

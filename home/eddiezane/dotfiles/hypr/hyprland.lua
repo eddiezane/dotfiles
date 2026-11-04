@@ -35,6 +35,22 @@ hl.monitor({ output = "eDP-1", mode = "2256x1504", position = "0x0", scale = 1.3
 -- Laptop - centered underneath the Dell
 -- hl.monitor({ output = "desc:BOE 0x0BCA", mode = "2256x1504@60.00Hz", position = "874x1440", scale = 1.333333 })
 
+-- Tatami writes saved display settings and this session's disabled outputs.
+-- Load them after our defaults so a reload preserves the watcher's choices.
+local state_home = os.getenv("XDG_STATE_HOME")
+if not state_home or state_home:sub(1, 1) ~= "/" then
+	state_home = home .. "/.local/state"
+end
+for _, file in ipairs({
+	state_home .. "/tatami/displays.lua",
+	(os.getenv("XDG_RUNTIME_DIR") or "") .. "/tatami/monitors.lua",
+}) do
+	local settings = loadfile(file)
+	if settings then
+		pcall(settings)
+	end
+end
+
 -- Environment variables
 
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
@@ -217,29 +233,26 @@ hl.workspace_rule({ workspace = "special:minus", gaps_out = 10 })
 -- complains, fall back to an exec of `hyprctl dispatch movecurrentworkspacetomonitor +1`.
 hl.bind(mod .. " + SPACE", hl.dsp.workspace.move({ monitor = "+1" }))
 
--- Clamshell mode. The system-level half is handled by systemd-logind:
--- HandleLidSwitchDocked=ignore keeps the machine awake when docked, while
--- HandleLidSwitch/HandleLidSwitchExternalPower=suspend-then-hibernate cover the
--- undocked cases (see hosts/tehunicorn/default.nix). These binds only handle the
--- remaining gap: blanking the internal panel when the lid closes while docked.
---
--- lid.sh gates on dock state — docked closes disable eDP-1 (Hyprland migrates its
--- workspaces onto the externals), undocked closes are a no-op so logind's
--- suspend-then-hibernate runs without a racing monitor teardown. switch:on = lid
--- closed, switch:off = lid open. { locked = true } is the Lua equivalent of the
--- hyprlang `bindl` flag, so these fire even while locked / inhibited.
---
--- MIGRATION NOTE: the "switch:on:Lid Switch" key form mirrors hyprlang's switch
--- syntax; if the Lua bind layer rejects it, fall back to an exec of
--- `hyprctl keyword ...` or check the wiki's switch section.
-hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/lid.sh close"), { locked = true })
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/lid.sh open"), { locked = true })
+-- Forward lid changes to tatami-display-recovery.service. It also polls
+-- logind to recover missed events. Keep these active while locked, in
+-- submaps, under shortcut inhibitors and during input capture.
+-- logind's HandleLidSwitch* settings still decide whether to suspend.
+local lid = { locked = true, dont_inhibit = true, submap_universal = true, allow_input_capture = true }
+hl.bind("switch:on:Lid Switch", hl.dsp.event("tatami-lid-closed"), lid)
+hl.bind("switch:off:Lid Switch", hl.dsp.event("tatami-lid-open"), lid)
 
 -- Launchers / window
+hl.window_rule({ match = { class = "org.tatami.Displays" }, float = true, center = true, size = { 880, 800 } })
+hl.window_rule({ match = { class = "org.tatami.Sound" }, float = true, center = true, size = { 720, 740 } })
+hl.window_rule({ match = { class = "org.tatami.Network" }, float = true, center = true, size = { 720, 760 } })
+hl.window_rule({ match = { class = "org.tatami.Bluetooth" }, float = true, center = true, size = { 720, 760 } })
+hl.window_rule({ match = { class = "org.tatami.Activity" }, float = true, center = true, size = { 1160, 720 } })
 hl.bind(mod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mod .. " + SHIFT + SPACE", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + D", hl.dsp.exec_cmd(menu))
+hl.bind(mod .. " + CONTROL + D", hl.dsp.exec_cmd("tatami display"))
+hl.bind(mod .. " + CONTROL + T", hl.dsp.exec_cmd("tatami launch tatami-activity"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("rofimoji -a clipboard"))
 
 hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
@@ -259,6 +272,7 @@ hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.close())
 hl.bind(mod .. " + CONTROL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -t"))
 
+-- Solar scheduling, or an immediate manual override at 2500 K.
 hl.bind(mod .. " + CONTROL + N", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wlsunset.sh"))
 hl.bind(mod .. " + CONTROL + SHIFT + N", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/wlsunset.sh manual"))
 hl.bind(mod .. " + CONTROL + backspace", hl.dsp.dpms("toggle"))

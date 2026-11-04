@@ -1,7 +1,36 @@
 # Hyprland configs — links the dotfiles verbatim. These can eventually be
 # migrated to home-manager's native `wayland.windowManager.hyprland.settings`.
-{ pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
+let
+  # Reuse Tatami's helper and standalone apps without enabling its desktop module.
+  tatami = pkgs.callPackage (inputs.sekka + "/desktop/tatami/tool/package.nix") { };
+  # Expose the standalone apps in our Hyprland launcher as well as Tatami's.
+  tatamiApp = directory: appId:
+    (pkgs.callPackage (inputs.sekka + "/desktop/tatami/${directory}/package.nix") { }).overrideAttrs (old: {
+      postInstall = old.postInstall + ''
+        substituteInPlace $out/share/applications/${appId}.desktop \
+          --replace-fail 'OnlyShowIn=Tatami;' 'OnlyShowIn=Hyprland;Tatami;'
+      '';
+    });
+  tatamiDisplays =
+    (tatamiApp "displays" "org.tatami.Displays").overrideAttrs (old: {
+      # wlsunset owns solar scheduling and manual overrides. The upstream
+      # Night Shift controls only support Tatami's manual hyprsunset service.
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace src/window.rs \
+          --replace-fail 'ui.content.append(&night_shift_group(ui, state.night));' ""
+      '';
+    });
+  tatamiSound = tatamiApp "sound" "org.tatami.Sound";
+  tatamiActivity = tatamiApp "activity" "org.tatami.Activity";
+  tatamiBluetooth = tatamiApp "bluetooth" "org.tatami.Bluetooth";
+  tatamiNetwork = (tatamiApp "network" "org.tatami.Network").overrideAttrs (old: {
+    preFixup = (old.preFixup or "") + ''
+      gappsWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ pkgs.networkmanager ]})
+    '';
+  });
+in
 {
   xdg.configFile."hypr/hyprland.lua".source   = ./dotfiles/hypr/hyprland.lua;
   xdg.configFile."hypr/catppuccin.lua".source = ./dotfiles/hypr/catppuccin.lua;
@@ -105,6 +134,12 @@
   #   - ironbar   (systemd user service — ironbar.nix)
   #   - swaync    (services.swaync.enable — swaync.nix)
   home.packages = with pkgs; [
+    tatami
+    tatamiDisplays
+    tatamiSound
+    tatamiActivity
+    tatamiBluetooth
+    tatamiNetwork
     hyprpaper
     hyprpicker
     hyprmod                  # GTK4 settings app (upstream flake)
@@ -137,6 +172,34 @@
     (writeShellScriptBin "geoclue-where-am-i"
       ''exec ${geoclue2}/libexec/geoclue-2.0/demos/where-am-i "$@"'')
   ];
+
+  # UWSM exports the compositor's socket environment before this starts.
+  # The upstream watcher handles lid events, hotplug, missed events, window
+  # recovery and XWayland DPI. logind still owns the suspend policy.
+  systemd.user.services.tatami-display-recovery = {
+    Unit = {
+      Description = "Tatami display recovery";
+      PartOf = [ "graphical-session.target" ];
+      After = [
+        "wayland-wm@hyprland.desktop.service"
+        "wayland-session-waitenv.service"
+      ];
+      StartLimitIntervalSec = 0;
+    };
+    Service = {
+      ExecStart = "${tatami}/bin/tatami displays watch";
+      Environment = "PATH=${lib.makeBinPath [ pkgs.systemd pkgs.xrdb ]}";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = "5s";
+      # Tatami's launcher normally clears its session state. Let systemd
+      # remove it at logout, while preserving it across watcher restarts.
+      RuntimeDirectory = "tatami";
+      RuntimeDirectoryMode = "0700";
+      RuntimeDirectoryPreserve = "restart";
+    };
+    Install.WantedBy = [ "wayland-session@hyprland.desktop.target" ];
+  };
 
   # hyprpolkitagent ships its own systemd user service; just enable it.
   # UWSM picks it up as part of the session.
