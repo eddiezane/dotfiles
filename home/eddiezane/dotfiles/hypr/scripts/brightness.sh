@@ -2,7 +2,7 @@
 
 # Usage: brightness-control.sh [up|down|max|min]
 
-STEP="10%"
+STEP="5%"
 
 case $1 in
     up)

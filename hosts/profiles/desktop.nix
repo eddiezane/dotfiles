@@ -21,6 +21,16 @@
     # ../../modules/system/snapshots.nix     # snapper — opt in when wanted
   ];
 
+  # Backport https://github.com/NixOS/nixpkgs/pull/584783 until it reaches
+  # our nixos-unstable pin. ChatGPT's Tectonic dependency needs system AWS-LC.
+  nixpkgs.overlays = [
+    (final: prev: {
+      tectonic-unwrapped = prev.tectonic-unwrapped.overrideAttrs (old: {
+        buildInputs = [ final.aws-lc ] ++ old.buildInputs;
+      });
+    })
+  ];
+
   programs.nm-applet.enable = true; # NetworkManager tray applet (GUI)
 
   # Framework laptop CLI. Useless off a Framework.

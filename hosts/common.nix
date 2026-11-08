@@ -16,6 +16,12 @@
   nixpkgs.overlays = [
     (final: prev: {
       k0s = inputs.defenseunicorns.packages.${final.stdenv.hostPlatform.system}.k0s;
+
+      # Backport https://github.com/NixOS/nixpkgs/pull/584667 until it reaches
+      # our nixos-unstable pin. Codex needs these system libraries to build.
+      codex = prev.codex.overrideAttrs (old: {
+        buildInputs = old.buildInputs ++ (with final; [ aws-lc oniguruma sqlite zstd ]);
+      });
     })
   ];
 
