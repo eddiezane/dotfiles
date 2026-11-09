@@ -10,7 +10,7 @@
     # while its dependencies stay on Hyprland's pinned nixpkgs and come from
     # hyprland.cachix.org. `follows`
     # would force a full local rebuild of that dependency tree for no benefit.
-    hyprland.url = "github:hyprwm/Hyprland/v0.57.1";
+    hyprland.url = "github:hyprwm/Hyprland/v0.57.2";
 
     # Source only: reuse Tatami's helper, standalone apps, and upstream packaging.
     sekka = {
