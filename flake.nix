@@ -14,7 +14,7 @@
 
     # Source only: reuse Tatami's helper, standalone apps, and upstream packaging.
     sekka = {
-      url = "github:bitemyapp/sekka/8847ab25c76e8fb7a2975d8f59c61ccb23cff618";
+      url = "github:bitemyapp/sekka/feb6ef1a8698e9f433cdb2f86ae2b70a878986a2";
       flake = false;
     };
 

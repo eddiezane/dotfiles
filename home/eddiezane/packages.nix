@@ -27,6 +27,7 @@
     codex
     docker-compose
     gh
+    glow
     go
     gopls
     gotools
