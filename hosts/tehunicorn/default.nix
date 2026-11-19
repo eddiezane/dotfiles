@@ -32,7 +32,7 @@
 
   # UDS DHCP/PXE provisioning on the dedicated USB Ethernet adapter only.
   # The enrollment UI remains loopback-only; do not trust the whole interface.
-  networking.firewall.interfaces.enp195s0f3u1 = {
+  networking.firewall.interfaces.enp195s0f4u1 = {
     allowedUDPPorts = [ 67 69 ]; # DHCP server and TFTP bootloaders.
     allowedTCPPorts = [ 8080 ]; # Boot assets and read-only status.
   };
@@ -55,4 +55,19 @@
 
   # nixos-hardware enables TLP; power-profiles-daemon manages power profiles.
   services.tlp.enable = false;
+
+  # services.openssh = {
+  #   enable = true;
+  #   settings = {
+  #     PermitRootLogin = "no";
+  #     PasswordAuthentication = true;
+  #   };
+  # };
+  #
+  # networking.firewall.allowedTCPPorts = [ 22 ];
+  #
+  # users.users.tempuser = {
+  #   isNormalUser = true;
+  #   hashedPassword = "$6$Hr4QHeYEzFO5P2W1$bsmowRS3NIyxrrZpe9St.7D.sfqcvMAHbSi9C6PriDN0.zALojAfIw/LcjbFRJIUw32sPR7JYIAh/VSjWe66R0";
+  # };
 }

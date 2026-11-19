@@ -61,6 +61,15 @@
 
       unsetopt auto_name_dirs
 
+      # `nix shell` doesn't set the marker Starship uses for its ❄ indicator.
+      nix() {
+        if [[ "''${1-}" == shell ]]; then
+          IN_NIX_SHELL=impure command nix "$@"
+        else
+          command nix "$@"
+        fi
+      }
+
       bindkey -v
       bindkey '^P' up-history
       bindkey '^N' down-history
