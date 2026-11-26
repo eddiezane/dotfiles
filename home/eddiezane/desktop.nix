@@ -18,6 +18,7 @@
     chatgpt
     firefox
     google-chrome
+    ladybird
     signal-desktop
     slack
     # Electron's safe-storage auto-detection picks `basic` on Hyprland, which

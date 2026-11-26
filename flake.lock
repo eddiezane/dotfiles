@@ -124,11 +124,11 @@
         "uds-image-factory-src": "uds-image-factory-src"
       },
       "locked": {
-        "lastModified": 1795618002,
-        "narHash": "sha256-S6vaMyK6AVUqZUSMSGThIdAD1PkaaOVGf1EBn/eIS9k=",
+        "lastModified": 1795630275,
+        "narHash": "sha256-Tedc5Y4D498/zc9cNPl63/SBCvo+DGYVCuRZJnj8lDA=",
         "ref": "refs/heads/main",
-        "rev": "c7f8c5dff4f038d71de14560a8d78de6616aa4b9",
-        "revCount": 266,
+        "rev": "05fdedcf253786263ad006ba5108a76b8fb5095b",
+        "revCount": 270,
         "type": "git",
         "url": "ssh://git@github.com/defenseunicorns-labs/nix-packages"
       },
@@ -268,11 +268,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795534022,
-        "narHash": "sha256-xkRZ+PcPWaAyf9YrEBszYD5w2S6/Ac2tIfsufzd4dEQ=",
+        "lastModified": 1795706770,
+        "narHash": "sha256-C1x4TKbpiWX5lRsTQFwok5te55luUM76u1d8CjplXgI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b56bcd042b5e69ad188eca20d9bec1bfbf3dd453",
+        "rev": "5ef710576b9282ff6ae21b86b9316df393592cce",
         "type": "github"
       },
       "original": {
@@ -648,11 +648,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795549782,
-        "narHash": "sha256-0mlYwyAv7lUDD6HBgPMqBXjMcIfIZBsLryNnkspeIGs=",
+        "lastModified": 1795690694,
+        "narHash": "sha256-9QjYnidlKg7EtcPkr07D3epP7I1WuVBfA5nk47+I5dc=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "97a30ee0974b815496bec7b136af6b945bd65aef",
+        "rev": "ec39df522f291a1da3bee80d3ff67d99c57a17b0",
         "type": "github"
       },
       "original": {
